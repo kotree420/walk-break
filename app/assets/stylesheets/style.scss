@@ -10,6 +10,11 @@ body {
   user-select: none;
 }
 
+#map {
+  width:620px;
+  height:400px;
+}
+
 @media (min-width: 768px) {
   .bd-placeholder-img-lg {
     font-size: 3.5rem;

@@ -1,0 +1,159 @@
+var directionsService;
+var directionsRenderer;
+var geocoder;
+
+function initMap() {
+  const map = new google.maps.Map(document.getElementById('map'), {
+    zoom: 14,
+    center: { lat: 35.681862, lng: 139.767174 }, //初期表示位置は東京駅
+  });
+
+  directionsService = new google.maps.DirectionsService();
+  directionsRenderer = new google.maps.DirectionsRenderer({
+    draggable: true,
+    map
+  });
+  directionsRenderer.setMap(map);
+  geocoder = new google.maps.Geocoder();
+
+  document.getElementById("add-waypoint").addEventListener("click", () => {
+    const form_count = document.querySelectorAll(".waypoint").length + 1;
+    // 経由地点が10を越えると課金レートが高くなるため
+    if (form_count <= 10) {
+      const new_div = document.createElement("div");
+      new_div.className = "waypoint-wrapper";
+
+      const new_label = document.createElement("label");
+      new_label.className ="waypoint-label";
+      new_label.textContent = "経由地(" + form_count + "):";
+
+      const new_form = document.createElement("input");
+      new_form.className = "waypoint";
+      new_form.type = "text";
+
+      new_label.appendChild(new_form)
+      new_div.appendChild(new_label)
+      document.getElementById("waypoints").appendChild(new_div);
+    }
+  });
+
+  document.getElementById("remove-waypoint").addEventListener("click", () => {
+    const delete_label = document.getElementById("waypoints").lastChild;
+    delete_label.remove();
+    const directions_removed_waypoint = directionsRenderer.getDirections();
+    if (directions_removed_waypoint) {
+      displayRoute(directionsService, directionsRenderer);
+      computeRouteInformation(directions_removed_waypoint);
+    }
+  });
+
+  document.getElementById("display-route").addEventListener("click", () => {
+    displayRoute(directionsService, directionsRenderer);
+  });
+
+  directionsRenderer.addListener("directions_changed", () => {
+    const directions = directionsRenderer.getDirections();
+    if (directions) {
+      computeRouteInformation(directions);
+    }
+  });
+}
+
+function displayRoute(directionsService, directionsRenderer) {
+  var start = document.getElementById('start').value;
+  var end = document.getElementById('end').value;
+  const waypoints = [];
+  const inputArray = document.getElementsByClassName("waypoint");
+
+  for (let i = 0; i < inputArray.length; i++) {
+    if (inputArray.item(i).value){
+      waypoints.push({
+        location: inputArray[i].value,
+        stopover: true
+      });
+    }
+  }
+
+  var request = {
+    origin: start,
+    destination: end,
+    waypoints: waypoints,
+    travelMode: 'WALKING',
+  };
+
+  directionsService.route(request)
+    .then((result) => {
+      directionsRenderer.setDirections(result);
+      computeRouteInformation(result)
+    })
+    .catch((e) => {
+      alert("Could not display directions due to: " + e);
+    });
+}
+
+function computeRouteInformation(result) {
+  const route = result.routes[0];
+  let total_distance = 0
+  let total_duration = 0
+
+  if (!route) {
+    return;
+  }
+
+  const geocoded_waypoints = result.geocoded_waypoints;
+  const start_form = document.getElementById('start')
+  const end_form = document.getElementById('end')
+  const waypoint_forms = document.getElementsByClassName("waypoint");
+
+  const summaryPanel = document.getElementById("directions-panel");
+  summaryPanel.innerHTML = "";
+
+  for (let i = 0; i < route.legs.length; i++) {
+    const routeSegment = i + 1;
+    total_distance += route.legs[i].distance.value;
+    total_duration += route.legs[i].duration.value;
+
+    summaryPanel.innerHTML +=
+      "<b>Route Segment: " + routeSegment + "</b><br>";
+    summaryPanel.innerHTML += route.legs[i].start_address + " to ";
+    summaryPanel.innerHTML += route.legs[i].end_address + "<br>";
+    summaryPanel.innerHTML += route.legs[i].distance.text + "<br>";
+    summaryPanel.innerHTML += route.legs[i].duration.text + "<br><br>";
+
+    // 出発地、到着地の入力フォームへ正式住所を反映
+    if (routeSegment == 1) {
+      start_form.value = route.legs[i].start_address;
+      end_form.value = route.legs[i].end_address;
+    } else {
+      if (i == 0) {
+        start_form.value = route.legs[i].start_address;
+      } else if (i == (route.legs.length - 1)){
+        end_form.value = route.legs[i].end_address;
+      }
+    }
+  }
+
+  // 経由地の入力フォームへ正式住所を反映
+  // geocoded_waypoints配列では最初の要素が出発地点のplaceId、最後の要素が到着地点のplaceIdとなっている
+  for (let i = 0, j = 1; i < waypoint_forms.length, j < (geocoded_waypoints.length - 1); i++, j++) {
+    if (waypoint_forms.item(i).value){
+      let waypoint_place_id = geocoded_waypoints[j].place_id
+      geocoder.geocode({ placeId: waypoint_place_id })
+        .then( ({results}) => {
+          if (results[0]) {
+            waypoint_forms.item(i).value = results[0].formatted_address;
+          } else {
+            window.alert("No waypoint results found");
+          }
+        })
+        .catch((e) => window.alert("Geocoder failed due to: " + e));
+    }
+  }
+
+  total_distance = total_distance / 1000;
+  total_duration = Math.round(total_duration / 60);
+  document.getElementById("total-distance").innerHTML = total_distance + " km";
+  document.getElementById("total-duration").innerHTML = "約 " + total_duration + " 分";
+};
+
+window.initMap = initMap;
