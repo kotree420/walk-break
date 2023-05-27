@@ -2,6 +2,13 @@ body {
   padding-top: 70px;
 }
 
+/* common */
+.annotation{
+  color: $gray-700;
+  font-size: 0.9rem;
+}
+
+/* walking_routes#index */
 .bd-placeholder-img {
   font-size: 1.125rem;
   text-anchor: middle;
@@ -10,9 +17,23 @@ body {
   user-select: none;
 }
 
+/* walking_routes#new */
 #map {
-  width:620px;
-  height:400px;
+  width:700px;
+  height:500px;
+}
+
+#walking-route-name {
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+
+#total-duration {
+  margin-bottom: 1rem;
+}
+
+#display-route,#add-waypoint, #remove-waypoint {
+  font-size: 1rem;
 }
 
 @media (min-width: 768px) {

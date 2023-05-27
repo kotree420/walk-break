@@ -21,17 +21,18 @@ function initMap() {
     // 経由地点が10を越えると課金レートが高くなるため
     if (form_count <= 10) {
       const new_div = document.createElement("div");
-      new_div.className = "waypoint-wrapper";
+      new_div.className = "waypoint-wrapper form-floating mb-3";
 
       const new_label = document.createElement("label");
       new_label.className ="waypoint-label";
       new_label.textContent = "経由地(" + form_count + "):";
 
       const new_form = document.createElement("input");
-      new_form.className = "waypoint";
+      new_form.className = "waypoint form-control";
       new_form.type = "text";
+      new_form.placeholder = "有楽町駅";
 
-      new_label.appendChild(new_form)
+      new_div.appendChild(new_form)
       new_div.appendChild(new_label)
       document.getElementById("waypoints").appendChild(new_div);
     }
@@ -105,20 +106,10 @@ function computeRouteInformation(result) {
   const end_form = document.getElementById('end')
   const waypoint_forms = document.getElementsByClassName("waypoint");
 
-  const summaryPanel = document.getElementById("directions-panel");
-  summaryPanel.innerHTML = "";
-
   for (let i = 0; i < route.legs.length; i++) {
     const routeSegment = i + 1;
     total_distance += route.legs[i].distance.value;
     total_duration += route.legs[i].duration.value;
-
-    summaryPanel.innerHTML +=
-      "<b>Route Segment: " + routeSegment + "</b><br>";
-    summaryPanel.innerHTML += route.legs[i].start_address + " to ";
-    summaryPanel.innerHTML += route.legs[i].end_address + "<br>";
-    summaryPanel.innerHTML += route.legs[i].distance.text + "<br>";
-    summaryPanel.innerHTML += route.legs[i].duration.text + "<br><br>";
 
     // 出発地、到着地の入力フォームへ正式住所を反映
     if (routeSegment == 1) {
@@ -132,6 +123,10 @@ function computeRouteInformation(result) {
       }
     }
   }
+  total_distance = total_distance / 1000;
+  total_duration = Math.round(total_duration / 60);
+  document.getElementById("total-distance").innerHTML = "距離: " + total_distance + " km";
+  document.getElementById("total-duration").innerHTML = "時間: 約" + total_duration + " 分";
 
   // 経由地の入力フォームへ正式住所を反映
   // geocoded_waypoints配列では最初の要素が出発地点のplaceId、最後の要素が到着地点のplaceIdとなっている
@@ -149,11 +144,6 @@ function computeRouteInformation(result) {
         .catch((e) => window.alert("Geocoder failed due to: " + e));
     }
   }
-
-  total_distance = total_distance / 1000;
-  total_duration = Math.round(total_duration / 60);
-  document.getElementById("total-distance").innerHTML = total_distance + " km";
-  document.getElementById("total-duration").innerHTML = "約 " + total_duration + " 分";
 };
 
 window.initMap = initMap;

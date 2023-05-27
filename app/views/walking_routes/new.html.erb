@@ -1,28 +1,46 @@
-<div id="map"></div>
-
-<div>
-  <label>出発地:<input id="start" type="text"></label>
+<div class="container col-xxl-8 px-4 py-3">
+  <%= render "shared/breadcrumb", page_name: "散歩ルート作成" %>
+  <div class="row flex-lg-row-reverse align-items-center g-5 py-3">
+    <div class="col-10 col-sm-8 col-lg-6">
+      <div id="map" class="d-block mx-lg-auto img-fluid"></div>
+    </div>
+    <div class="col-lg-6">
+      <div class="form-floating mb-3">
+        <input type="text" class="form-control" id="walking-route-name" placeholder="散歩ルート">
+        <label for="walking-route-name">散歩ルート名:</label>
+      </div>
+      <div class="form-floating mb-4">
+        <textarea class="form-control" placeholder="Leave a comment here" id="comments-area" style="height: 150px"></textarea>
+        <label for="comments-area">ひとことコメント:</label>
+      </div>
+      <div id="total-distance">
+        距離: (ルート出力後に自動計算)
+      </div>
+      <div id="total-duration">
+        時間: (ルート出力後に自動計算)
+      </div>
+      <div class="form-floating mb-3">
+        <input type="text" class="form-control" id="start" placeholder="東京駅">
+        <label for="start">出発地:</label>
+      </div>
+      <div id="waypoints"></div>
+      <div class="form-floating">
+        <input type="text" class="form-control" id="end" placeholder="銀座駅">
+        <label for="end">到着地:</label>
+      </div>
+      <p class="annotation">
+        ※住所、駅名などを入力してください。（駅名などは住所に自動変換されます。）<br>
+      </p>
+      <div class="d-grid gap-2 d-md-flex justify-content-md-start">
+        <button type="button" id="display-route" class="btn btn-primary btn-lg px-4 me-md-2">ルート出力</button>
+        <button type="button" id="add-waypoint" class="btn btn-outline-secondary btn-lg px-4">経由地を追加</button>
+        <button type="button" id="remove-waypoint" class="btn btn-outline-secondary btn-lg px-4">経由地を削除</button>
+      </div>
+      <p class="annotation">
+        ※経由地の追加は10までです。<br>
+        ※地図上のマーカーをドラッグして調節することも可能です。
+      </p>
+    </div>
+  </div>
 </div>
-<div id="waypoints"></div>
-<div>
-  <button id="add-waypoint">経由地を追加</button>
-</div>
-<div>
-  <button id="remove-waypoint">経由地を削除</button>
-</div>
-<div>
-  <label>到着地:<input id="end" type="text"></label>
-</div>
-
-<button id="display-route">ルート出力</button>
-<p>
-  ※住所、駅名などを入力してください。（駅名や建物名などは自動的に住所に変換されます。）<br>
-  ※経由地の追加は10までです。<br>
-  ※地図上のマーカーをドラッグして調節することも可能です。
-</p>
-
-<div id="directions-panel"></div>
-<div id="total-distance"></div>
-<div id="total-duration"></div>
-
 <%= render "shared/google_maps_api" %>
