@@ -8,6 +8,11 @@ body {
   font-size: 0.9rem;
 }
 
+/* footer */
+.footer-link {
+  color: $light;
+}
+
 /* walking_routes#index */
 .bd-placeholder-img {
   font-size: 1.125rem;
@@ -33,7 +38,7 @@ body {
 }
 
 #display-route,#add-waypoint, #remove-waypoint {
-  font-size: 1rem;
+  font-size: 0.9rem;
 }
 
 @media (min-width: 768px) {
