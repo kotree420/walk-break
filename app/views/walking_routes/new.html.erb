@@ -5,41 +5,55 @@
       <div id="map" class="d-block mx-lg-auto img-fluid"></div>
     </div>
     <div class="col-lg-6">
-      <div class="form-floating mb-3">
-        <input type="text" class="form-control" id="walking-route-name" placeholder="散歩ルート">
-        <label for="walking-route-name">散歩ルート名:</label>
-      </div>
-      <div class="form-floating mb-4">
-        <textarea class="form-control" placeholder="Leave a comment here" id="comments-area" style="height: 150px"></textarea>
-        <label for="comments-area">ひとことコメント:</label>
-      </div>
-      <div id="total-distance">
-        距離: (ルート出力後に自動計算)
-      </div>
-      <div id="total-duration">
-        時間: (ルート出力後に自動計算)
-      </div>
-      <div class="form-floating mb-3">
-        <input type="text" class="form-control" id="start" placeholder="東京駅">
-        <label for="start">出発地:</label>
-      </div>
-      <div id="waypoints"></div>
-      <div class="form-floating">
-        <input type="text" class="form-control" id="end" placeholder="銀座駅">
-        <label for="end">到着地:</label>
-      </div>
-      <p class="annotation">
-        ※住所、駅名などを入力してください。（駅名などは住所に自動変換されます。）<br>
-      </p>
-      <div class="d-grid gap-2 d-md-flex justify-content-md-start">
-        <button type="button" id="display-route" class="btn btn-primary btn-lg px-4 me-md-2">ルート出力</button>
-        <button type="button" id="add-waypoint" class="btn btn-outline-secondary btn-lg px-4">経由地を追加</button>
-        <button type="button" id="remove-waypoint" class="btn btn-outline-secondary btn-lg px-4">経由地を削除</button>
-      </div>
-      <p class="annotation">
-        ※経由地の追加は10までです。<br>
-        ※地図上のマーカーをドラッグして調節することも可能です。
-      </p>
+      <%= form_with model: @walking_route do |f| %>
+        <div class="form-floating mb-3">
+          <%= f.text_field :name, id: "walking-route-name", class: "form-control", placeholder: "散歩ルート" %>
+          <%= f.label :name, "散歩ルート名:" %>
+        </div>
+        <div class="form-floating mb-4">
+          <%= f.text_area :comment, id: "comments-area", class: "form-control", placeholder: "Leave a comment here" %>
+          <%= f.label :comment, "ひとことコメント:" %>
+        </div>
+        <div class="mb-3 row">
+          <%= f.label :distance, "距離/km", class: "col-sm-3 col-form-label" %>
+          <div class="col-sm-9">
+            <%= f.number_field :distance, id: "total-distance", class: "form-control-plaintext", placeholder: 0, readonly: true %>
+          </div>
+        </div>
+        <div class="row">
+          <%= f.label :duration, "時間/分", class: "col-sm-3 col-form-label" %>
+          <div class="col-sm-9">
+            <%= f.number_field :duration, id: "total-duration", class: "form-control-plaintext", placeholder: 0, readonly: true %>
+          </div>
+        </div>
+        <p class="annotation">
+          ※距離と時間はルート出力後に自動計算されます。<br>
+        </p>
+        <div class="form-floating mb-3">
+          <%= f.text_field :start_address, id: "start", class: "form-control", placeholder: "東京駅" %>
+          <%= f.label :start_address, "出発地:" %>
+        </div>
+        <div id="waypoints"></div>
+        <div class="form-floating">
+          <%= f.text_field :end_address, id: "end", class: "form-control", placeholder: "銀座駅" %>
+          <%= f.label :end_address, "到着地:" %>
+        </div>
+        <p class="annotation">
+          ※住所、駅名などを入力してください。（駅名などは住所に自動変換されます。）<br>
+        </p>
+        <div class="d-grid gap-2 d-md-flex justify-content-md-start">
+          <button type="button" id="display-route" class="btn btn-primary btn-lg px-4 me-md-2">ルート出力</button>
+          <button type="button" id="add-waypoint" class="btn btn-outline-secondary btn-lg px-4">経由地を追加</button>
+          <button type="button" id="remove-waypoint" class="btn btn-outline-secondary btn-lg px-4">経由地を削除</button>
+        </div>
+        <p class="annotation">
+          ※経由地の追加は10までです。<br>
+          ※地図上のマーカーをドラッグして調節することも可能です。
+        </p>
+        <div class="d-grid gap-2 col-6">
+          <%= f.submit "ルート作成", class: "btn btn-primary" %>
+        </div>
+      <% end %>
     </div>
   </div>
 </div>

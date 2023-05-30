@@ -25,12 +25,16 @@ body {
 /* walking_routes#new */
 #map {
   width:700px;
-  height:500px;
+  height:600px;
 }
 
 #walking-route-name {
   font-size: 1.2rem;
   font-weight: bold;
+}
+
+#comments-area {
+  height: 150px;
 }
 
 #total-duration {

@@ -1,0 +1,2 @@
+class WalkingRoute < ApplicationRecord
+end

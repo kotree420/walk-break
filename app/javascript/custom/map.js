@@ -125,8 +125,8 @@ function computeRouteInformation(result) {
   }
   total_distance = total_distance / 1000;
   total_duration = Math.round(total_duration / 60);
-  document.getElementById("total-distance").innerHTML = "距離: " + total_distance + " km";
-  document.getElementById("total-duration").innerHTML = "時間: 約" + total_duration + " 分";
+  document.getElementById("total-distance").value = total_distance;
+  document.getElementById("total-duration").value = total_duration;
 
   // 経由地の入力フォームへ正式住所を反映
   // geocoded_waypoints配列では最初の要素が出発地点のplaceId、最後の要素が到着地点のplaceIdとなっている
