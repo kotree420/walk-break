@@ -22,6 +22,12 @@ body {
   user-select: none;
 }
 
+/* walking_routes#show */
+.created_at {
+  color: $gray-700;
+  font-size: 0.9rem;
+}
+
 /* walking_routes#new */
 #map {
   width:700px;

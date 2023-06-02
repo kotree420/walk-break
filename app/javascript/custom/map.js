@@ -1,9 +1,12 @@
+var map
 var directionsService;
 var directionsRenderer;
 var geocoder;
+var poly;
+var polyline;
 
 function initMap() {
-  const map = new google.maps.Map(document.getElementById('map'), {
+  map = new google.maps.Map(document.getElementById('map'), {
     zoom: 14,
     center: { lat: 35.681862, lng: 139.767174 }, //初期表示位置は東京駅
   });
@@ -16,41 +19,44 @@ function initMap() {
   directionsRenderer.setMap(map);
   geocoder = new google.maps.Geocoder();
 
-  document.getElementById("add-waypoint").addEventListener("click", () => {
-    const form_count = document.querySelectorAll(".waypoint").length + 1;
-    // 経由地点が10を越えると課金レートが高くなるため
-    if (form_count <= 10) {
-      const new_div = document.createElement("div");
-      new_div.className = "waypoint-wrapper form-floating mb-3";
+  // walking_routes#new
+  if (document.getElementById("add-waypoint")) {
+    document.getElementById("add-waypoint").addEventListener("click", () => {
+      const form_count = document.querySelectorAll(".waypoint").length + 1;
+      // 経由地点が10を越えると課金レートが高くなるため
+      if (form_count <= 10) {
+        const new_div = document.createElement("div");
+        new_div.className = "waypoint-wrapper form-floating mb-3";
 
-      const new_label = document.createElement("label");
-      new_label.className ="waypoint-label";
-      new_label.textContent = "経由地(" + form_count + "):";
+        const new_label = document.createElement("label");
+        new_label.className ="waypoint-label";
+        new_label.textContent = "経由地(" + form_count + "):";
 
-      const new_form = document.createElement("input");
-      new_form.className = "waypoint form-control";
-      new_form.type = "text";
-      new_form.placeholder = "有楽町駅";
+        const new_form = document.createElement("input");
+        new_form.className = "waypoint form-control";
+        new_form.type = "text";
+        new_form.placeholder = "有楽町駅";
 
-      new_div.appendChild(new_form)
-      new_div.appendChild(new_label)
-      document.getElementById("waypoints").appendChild(new_div);
-    }
-  });
+        new_div.appendChild(new_form)
+        new_div.appendChild(new_label)
+        document.getElementById("waypoints").appendChild(new_div);
+      }
+    });
 
-  document.getElementById("remove-waypoint").addEventListener("click", () => {
-    const delete_label = document.getElementById("waypoints").lastChild;
-    delete_label.remove();
-    const directions_removed_waypoint = directionsRenderer.getDirections();
-    if (directions_removed_waypoint) {
+    document.getElementById("remove-waypoint").addEventListener("click", () => {
+      const delete_label = document.getElementById("waypoints").lastChild;
+      delete_label.remove();
+      const directions_removed_waypoint = directionsRenderer.getDirections();
+      if (directions_removed_waypoint) {
+        displayRoute(directionsService, directionsRenderer);
+        computeRouteInformation(directions_removed_waypoint);
+      }
+    });
+
+    document.getElementById("display-route").addEventListener("click", () => {
       displayRoute(directionsService, directionsRenderer);
-      computeRouteInformation(directions_removed_waypoint);
-    }
-  });
-
-  document.getElementById("display-route").addEventListener("click", () => {
-    displayRoute(directionsService, directionsRenderer);
-  });
+    });
+  }
 
   directionsRenderer.addListener("directions_changed", () => {
     const directions = directionsRenderer.getDirections();
@@ -58,6 +64,14 @@ function initMap() {
       computeRouteInformation(directions);
     }
   });
+
+  // walking_routes#show
+  if (document.getElementById("show-start-address-label") && document.getElementById("show-end-address-label")) {
+    window.addEventListener("load", () => {
+      show_polyline = document.getElementById("encorded-path").value;
+      displayPolyline(show_polyline)
+    });
+  }
 }
 
 function displayRoute(directionsService, directionsRenderer) {
@@ -90,6 +104,19 @@ function displayRoute(directionsService, directionsRenderer) {
     .catch((e) => {
       alert("Could not display directions due to: " + e);
     });
+}
+
+function displayPolyline(polyline) {
+  var encorded_path = google.maps.geometry.encoding.decodePath(polyline)
+
+  poly = new google.maps.Polyline({
+    path: encorded_path,
+    geodesic: true,
+    strokeWeight: 5,
+    strokeColor: "#f01010",
+    strokeOpacity: 0.5
+  });
+  poly.setMap(map)
 }
 
 function computeRouteInformation(result) {
@@ -144,6 +171,10 @@ function computeRouteInformation(result) {
         .catch((e) => window.alert("Geocoder failed due to: " + e));
     }
   }
+
+  // 作成したルートのポリラインを保存
+  polyline = result.routes[0].overview_polyline;
+  document.getElementById("encorded-path").value = polyline;
 };
 
 window.initMap = initMap;

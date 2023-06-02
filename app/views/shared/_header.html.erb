@@ -19,7 +19,7 @@
             <ul class="dropdown-menu" aria-labelledby="dropdown">
               <li><a class="dropdown-item" href="#">プロフィール</a></li>
               <li>
-                <%= link_to "散歩ルート作成", new_walking_route_path, class: "dropdown-item" %>
+                <%= link_to "散歩ルート作成", new_walking_route_path, class: "dropdown-item", data: { turbo: false } %>
               </li>
             </ul>
           </li>

@@ -50,8 +50,9 @@
           ※経由地の追加は10までです。<br>
           ※地図上のマーカーをドラッグして調節することも可能です。
         </p>
+        <%= f.hidden_field :encorded_path, id: "encorded-path" %>
         <div class="d-grid gap-2 col-6">
-          <%= f.submit "ルート作成", class: "btn btn-primary" %>
+          <%= f.submit "ルート作成", class: "btn btn-primary", data: { turbo: false }%>
         </div>
       <% end %>
     </div>
