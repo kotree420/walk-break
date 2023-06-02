@@ -14,6 +14,7 @@ class WalkingRoutesController < ApplicationController
   def create
     @walking_route = WalkingRoute.new(walking_route_params)
     if @walking_route.save
+      flash[:secondary] = "ルート作成が完了しました"
       redirect_to action: :show, id: @walking_route.id
     else
       render :new
