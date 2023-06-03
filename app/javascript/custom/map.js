@@ -1,4 +1,4 @@
-var map
+var map;
 var directionsService;
 var directionsRenderer;
 var geocoder;
@@ -37,10 +37,10 @@ function initMap() {
         new_form.type = "text";
         new_form.placeholder = "有楽町駅";
 
-        new_div.appendChild(new_form)
-        new_div.appendChild(new_label)
+        new_div.appendChild(new_form);
+        new_div.appendChild(new_label);
         document.getElementById("waypoints").appendChild(new_div);
-      }
+      };
     });
 
     document.getElementById("remove-waypoint").addEventListener("click", () => {
@@ -50,7 +50,7 @@ function initMap() {
       if (directions_removed_waypoint) {
         displayRoute(directionsService, directionsRenderer);
         computeRouteInformation(directions_removed_waypoint);
-      }
+      };
     });
 
     document.getElementById("display-route").addEventListener("click", () => {
@@ -62,14 +62,26 @@ function initMap() {
     const directions = directionsRenderer.getDirections();
     if (directions) {
       computeRouteInformation(directions);
-    }
+    };
   });
 
   // walking_routes#show
   if (document.getElementById("show-start-address-label") && document.getElementById("show-end-address-label")) {
     window.addEventListener("load", () => {
+      var show_start_address = document.getElementById("show-start-address").value;
+      geocoder.geocode({ 'address': show_start_address })
+        .then( ({results}) => {
+          if (results[0]) {
+            // show-start-addressをセンターにする
+            map.setCenter(results[0].geometry.location);
+          } else {
+            window.alert("No waypoint results found");
+          };
+        })
+        .catch((e) => window.alert("Geocoder failed due to: " + e));
+
       show_polyline = document.getElementById("encorded-path").value;
-      displayPolyline(show_polyline)
+      displayPolyline(show_polyline);
     });
   }
 }
@@ -86,8 +98,8 @@ function displayRoute(directionsService, directionsRenderer) {
         location: inputArray[i].value,
         stopover: true
       });
-    }
-  }
+    };
+  };
 
   var request = {
     origin: start,
@@ -99,38 +111,25 @@ function displayRoute(directionsService, directionsRenderer) {
   directionsService.route(request)
     .then((result) => {
       directionsRenderer.setDirections(result);
-      computeRouteInformation(result)
+      computeRouteInformation(result);
     })
     .catch((e) => {
       alert("Could not display directions due to: " + e);
     });
 }
 
-function displayPolyline(polyline) {
-  var encorded_path = google.maps.geometry.encoding.decodePath(polyline)
-
-  poly = new google.maps.Polyline({
-    path: encorded_path,
-    geodesic: true,
-    strokeWeight: 5,
-    strokeColor: "#f01010",
-    strokeOpacity: 0.5
-  });
-  poly.setMap(map)
-}
-
 function computeRouteInformation(result) {
   const route = result.routes[0];
-  let total_distance = 0
-  let total_duration = 0
+  let total_distance = 0;
+  let total_duration = 0;
 
   if (!route) {
     return;
   }
 
   const geocoded_waypoints = result.geocoded_waypoints;
-  const start_form = document.getElementById('start')
-  const end_form = document.getElementById('end')
+  const start_form = document.getElementById('start');
+  const end_form = document.getElementById('end');
   const waypoint_forms = document.getElementsByClassName("waypoint");
 
   for (let i = 0; i < route.legs.length; i++) {
@@ -147,9 +146,9 @@ function computeRouteInformation(result) {
         start_form.value = route.legs[i].start_address;
       } else if (i == (route.legs.length - 1)){
         end_form.value = route.legs[i].end_address;
-      }
-    }
-  }
+      };
+    };
+  };
   total_distance = total_distance / 1000;
   total_duration = Math.round(total_duration / 60);
   document.getElementById("total-distance").value = total_distance;
@@ -159,22 +158,35 @@ function computeRouteInformation(result) {
   // geocoded_waypoints配列では最初の要素が出発地点のplaceId、最後の要素が到着地点のplaceIdとなっている
   for (let i = 0, j = 1; i < waypoint_forms.length, j < (geocoded_waypoints.length - 1); i++, j++) {
     if (waypoint_forms.item(i).value){
-      let waypoint_place_id = geocoded_waypoints[j].place_id
+      let waypoint_place_id = geocoded_waypoints[j].place_id;
       geocoder.geocode({ placeId: waypoint_place_id })
         .then( ({results}) => {
           if (results[0]) {
             waypoint_forms.item(i).value = results[0].formatted_address;
           } else {
             window.alert("No waypoint results found");
-          }
+          };
         })
         .catch((e) => window.alert("Geocoder failed due to: " + e));
-    }
-  }
+    };
+  };
 
   // 作成したルートのポリラインを保存
   polyline = result.routes[0].overview_polyline;
   document.getElementById("encorded-path").value = polyline;
 };
+
+function displayPolyline(polyline) {
+  var encorded_path = google.maps.geometry.encoding.decodePath(polyline);
+
+  poly = new google.maps.Polyline({
+    path: encorded_path,
+    geodesic: true,
+    strokeWeight: 5,
+    strokeColor: "#f01010",
+    strokeOpacity: 0.5
+  });
+  poly.setMap(map);
+}
 
 window.initMap = initMap;
