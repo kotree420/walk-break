@@ -184,7 +184,7 @@ function displayPolyline(polyline) {
     geodesic: true,
     strokeWeight: 5,
     strokeColor: "#f01010",
-    strokeOpacity: 0.5
+    strokeOpacity: 0.6
   });
   poly.setMap(map);
 }
