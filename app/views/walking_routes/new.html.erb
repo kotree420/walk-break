@@ -42,9 +42,9 @@
           ※住所、駅名などを入力してください。（駅名などは住所に自動変換されます。）<br>
         </p>
         <div class="d-grid gap-2 d-md-flex justify-content-md-start">
-          <button type="button" id="display-route" class="btn btn-primary btn-lg px-4 me-md-2">ルート出力</button>
-          <button type="button" id="add-waypoint" class="btn btn-outline-secondary btn-lg px-4">経由地を追加</button>
-          <button type="button" id="remove-waypoint" class="btn btn-outline-secondary btn-lg px-4">経由地を削除</button>
+          <button type="button" id="display-route" class="btn btn-primary btn-lg px-4 me-md-2 btn-lg--extend">ルート出力</button>
+          <button type="button" id="add-waypoint" class="btn btn-outline-secondary btn-lg px-4 btn-lg--extend">経由地を追加</button>
+          <button type="button" id="remove-waypoint" class="btn btn-outline-secondary btn-lg px-4 btn-lg--extend">経由地を削除</button>
         </div>
         <p class="annotation">
           ※経由地の追加は10までです。<br>
@@ -52,7 +52,7 @@
         </p>
         <%= f.hidden_field :encorded_path, id: "encorded-path" %>
         <div class="d-grid gap-2 col-6">
-          <%= f.submit "ルート作成", class: "btn btn-primary", data: { turbo: false }%>
+          <%= f.submit "ルート作成", class: "btn btn-primary btn--extend", data: { turbo: false }%>
         </div>
       <% end %>
     </div>

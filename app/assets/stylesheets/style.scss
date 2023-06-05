@@ -12,6 +12,14 @@ body {
   text-align: center;
 }
 
+.btn-lg--extend {
+  border-radius: 0.25rem;
+}
+
+.btn--extend {
+  border-radius: 0.19rem;
+}
+
 /* footer */
 .footer-link {
   color: $light;
@@ -24,6 +32,14 @@ body {
   -webkit-user-select: none;
   -moz-user-select: none;
   user-select: none;
+}
+
+.index-btn {
+  width: 12rem;
+}
+
+.index-search-form {
+  width: 24rem;
 }
 
 /* walking_routes#show */
