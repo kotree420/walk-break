@@ -1,5 +1,5 @@
 <% breadcrumb :new_walking_route %>
-<div class="container col-xxl-8 px-4 py-3">
+<div class="container col-xxl-10 px-4 py-3">
   <div class="row flex-lg-row-reverse align-items-center g-5 py-3">
     <div class="col-10 col-sm-8 col-lg-6">
       <div id="map" class="d-block mx-lg-auto img-fluid"></div>
@@ -8,11 +8,11 @@
       <%= form_with model: @walking_route do |f| %>
         <div class="form-floating mb-3">
           <%= f.text_field :name, id: "walking-route-name", class: "form-control", placeholder: "散歩ルート" %>
-          <%= f.label :name, "散歩ルート名:" %>
+          <%= f.label :name, "散歩ルート名:", id: "walking-route-name-label" %>
         </div>
         <div class="form-floating mb-4">
           <%= f.text_area :comment, id: "comments-area", class: "form-control", placeholder: "Leave a comment here" %>
-          <%= f.label :comment, "ひとことコメント:" %>
+          <%= f.label :comment, "ひとことコメント:", id: "comments-area-label" %>
         </div>
         <div class="mb-3 row">
           <%= f.label :distance, "距離/km", class: "col-sm-3 col-form-label" %>
@@ -31,12 +31,12 @@
         </p>
         <div class="form-floating mb-3">
           <%= f.text_field :start_address, id: "start", class: "form-control", placeholder: "東京駅" %>
-          <%= f.label :start_address, "出発地:" %>
+          <%= f.label :start_address, "出発地:", id: "start-label" %>
         </div>
         <div id="waypoints"></div>
         <div class="form-floating">
           <%= f.text_field :end_address, id: "end", class: "form-control", placeholder: "銀座駅" %>
-          <%= f.label :end_address, "到着地:" %>
+          <%= f.label :end_address, "到着地:", id: "end-label" %>
         </div>
         <p class="annotation">
           ※住所、駅名などを入力してください。（駅名などは住所に自動変換されます。）<br>
