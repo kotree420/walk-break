@@ -8,16 +8,19 @@ class WalkingRoutesController < ApplicationController
   end
 
   def new
-    @walking_route = WalkingRoute.new
+    @walking_route = WalkingRoute.new(session[:walking_route] || {})
   end
 
   def create
     @walking_route = WalkingRoute.new(walking_route_params)
     if @walking_route.save
-      flash[:secondary] = "ルート作成が完了しました"
+      session[:walking_route].clear
+      flash[:success] = ["ルート作成が完了しました"]
       redirect_to action: :show, id: @walking_route.id
     else
-      render :new
+      session[:walking_route] = @walking_route
+      flash[:secondary] = @walking_route.errors.full_messages
+      redirect_to action: :new
     end
   end
 

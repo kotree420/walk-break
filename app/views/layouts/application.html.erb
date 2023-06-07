@@ -12,8 +12,8 @@
 
   <body>
       <%= render "shared/header" %>
-      <%= render "shared/flash" %>
       <div class="container col-xxl-8 px-4 py-3">
+        <%= render "shared/flash" %>
         <%= breadcrumbs separator: " &rsaquo; " %>
       </div>
       <%= yield %>

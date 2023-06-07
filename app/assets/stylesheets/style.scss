@@ -1,16 +1,24 @@
+/* common */
 body {
   padding-top: 70px;
 }
 
-/* common */
+ul{
+  padding-left:0;
+}
+
+li{
+  list-style:none;
+}
+
 .annotation{
   color: $gray-700;
   font-size: 0.9rem;
 }
 
-.alert {
-  text-align: center;
-}
+// .alert-flash {
+//   text-align: center;
+// }
 
 .btn-lg--extend {
   border-radius: 0.25rem;
