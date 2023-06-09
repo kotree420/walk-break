@@ -36,3 +36,6 @@ ja:
             encorded_path:
               format: "%{attribute}: %{message}"
               blank: ルート未出力
+  time:
+    formats:
+      default: "%Y/%m/%d %H:%M:%S"

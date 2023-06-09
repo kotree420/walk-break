@@ -9,9 +9,11 @@
         <%= f.hidden_field :encorded_path, id: "encorded-path", value: @walking_route.encorded_path %>
         <!-- ログイン機能作成後：作成者表示フォームを追加する-->
         <div class="mb-3 row">
-          <%= f.label :created_at, "作成日時", class: "col-sm-3 col-form-label created_at" %>
-          <div class="col-sm-9">
-            <%= f.text_field :created_at, class: "form-control-plaintext created_at", value: @walking_route.created_at, readonly: true %>
+          <div class="col-sm-2 created_at">
+            作成日時:
+          </div>
+          <div class="col-sm-10 created_at">
+            <%= l @walking_route.created_at %>
           </div>
         </div>
         <div class="mb-1">
