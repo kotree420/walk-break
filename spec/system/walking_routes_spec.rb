@@ -31,7 +31,7 @@ describe "散歩ルート作成機能", js: true do
       expect(find("img[src='https://maps.gstatic.com/mapfiles/undo_poly.png']", visible: false)).to be_truthy
     end
 
-    # 経由地を削除するとマーカーが一つ消え、class名に番号が振りなおされる
+    # 経由地を削除するとマーカーが一つ消え、id名が振り直される
     click_button '経由地を削除'
     expect(page).to_not have_css "#gmimap0"
     expect(page).to_not have_css "#gmimap1"
@@ -49,12 +49,23 @@ describe "散歩ルート作成機能", js: true do
 
     click_button 'ルート作成'
 
-    # showビューに情報が表示されていることを確認する
+    # リダイレクト後のshowビューに情報が表示されていることを確認する
+    expect(current_path).to eq walking_route_path(WalkingRoute.first.id)
+
     expect(page).to have_content 'ルート作成が完了しました'
 
     within ".gm-style" do
       expect(find("img[src='https://maps.gstatic.com/mapfiles/undo_poly.png']", visible: false)).to be_truthy
     end
+
+    expect(page).to have_selector '#created-at-value', text: WalkingRoute.first.created_at.strftime("%Y/%m/%d %H:%M:%S")
+    expect(page).to have_field 'walking-route-name', with: WalkingRoute.first.name
+    expect(page).to have_field 'comments-area', with: WalkingRoute.first.comment
+    expect(page).to have_field '距離', with: "#{WalkingRoute.first.distance}km"
+    expect(page).to have_field '時間', with: "#{WalkingRoute.first.duration}分"
+    expect(page).to have_field '出発地:', with: WalkingRoute.first.start_address
+    expect(page).to have_field '到着地:', with: WalkingRoute.first.end_address
+
   end
 end
 end
