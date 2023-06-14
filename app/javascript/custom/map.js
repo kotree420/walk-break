@@ -34,6 +34,7 @@ function initMap() {
 
         const new_form = document.createElement("input");
         new_form.className = "waypoint form-control";
+        new_form.id = "waypoint" + form_count;
         new_form.type = "text";
         new_form.placeholder = "有楽町駅";
 

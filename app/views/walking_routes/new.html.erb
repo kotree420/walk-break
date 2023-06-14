@@ -8,20 +8,20 @@
       <%= form_with model: @walking_route do |f| %>
         <div class="form-floating mb-3">
           <%= f.text_field :name, id: "walking-route-name", class: "form-control", placeholder: "散歩ルート" %>
-          <%= f.label :name, "散歩ルート名:", id: "walking-route-name-label" %>
+          <%= f.label :name, "散歩ルート名:", id: "walking-route-name-label", for: "walking-route-name" %>
         </div>
         <div class="form-floating mb-4">
           <%= f.text_area :comment, id: "comments-area", class: "form-control", placeholder: "Leave a comment here" %>
-          <%= f.label :comment, "ひとことコメント:", id: "comments-area-label" %>
+          <%= f.label :comment, "ひとことコメント:", id: "comments-area-label", for: "comments-area" %>
         </div>
         <div class="mb-3 row">
-          <%= f.label :distance, "距離/km", class: "col-sm-3 col-form-label" %>
+          <%= f.label :distance, "距離/km", class: "col-sm-3 col-form-label", for: "total-distance" %>
           <div class="col-sm-9">
             <%= f.number_field :distance, id: "total-distance", class: "form-control-plaintext", placeholder: 0, readonly: true %>
           </div>
         </div>
         <div class="row">
-          <%= f.label :duration, "時間/分", class: "col-sm-3 col-form-label" %>
+          <%= f.label :duration, "時間/分", class: "col-sm-3 col-form-label", for: "total-duration" %>
           <div class="col-sm-9">
             <%= f.number_field :duration, id: "total-duration", class: "form-control-plaintext", placeholder: 0, readonly: true %>
           </div>
@@ -31,12 +31,12 @@
         </p>
         <div class="form-floating mb-3">
           <%= f.text_field :start_address, id: "start", class: "form-control", placeholder: "東京駅" %>
-          <%= f.label :start_address, "出発地:", id: "start-label" %>
+          <%= f.label :start_address, "出発地:", id: "start-label", for: "start" %>
         </div>
         <div id="waypoints"></div>
         <div class="form-floating">
           <%= f.text_field :end_address, id: "end", class: "form-control", placeholder: "銀座駅" %>
-          <%= f.label :end_address, "到着地:", id: "end-label" %>
+          <%= f.label :end_address, "到着地:", id: "end-label", for: "end" %>
         </div>
         <p class="annotation">
           ※住所、駅名などを入力してください。（駅名などは住所に自動変換されます。）<br>
