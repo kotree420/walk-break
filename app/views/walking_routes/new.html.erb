@@ -1,0 +1,62 @@
+<% provide(:title, '散歩ルート作成') %>
+<% breadcrumb :new_walking_route %>
+<div class="container col-xxl-10 px-4 py-3">
+  <div class="row flex-lg-row-reverse align-items-center g-5 py-3">
+    <div class="col-10 col-sm-8 col-lg-6">
+      <div id="map" class="d-block mx-lg-auto img-fluid"></div>
+    </div>
+    <div class="col-lg-6">
+      <%= form_with model: @walking_route do |f| %>
+        <div class="form-floating mb-3">
+          <%= f.text_field :name, id: "walking-route-name", class: "form-control walking-route-name-style", placeholder: "散歩ルート" %>
+          <%= f.label :name, "散歩ルート名:", id: "walking-route-name-label", for: "walking-route-name" %>
+        </div>
+        <div class="form-floating mb-4">
+          <%= f.text_area :comment, id: "comment-area", class: "form-control", placeholder: "Leave a comment here" %>
+          <%= f.label :comment, "ひとことコメント:", id: "comment-area-label", for: "comment-area" %>
+        </div>
+        <div class="mb-3 row">
+          <%= f.label :distance, "距離/km", class: "col-sm-3 col-form-label", for: "total-distance" %>
+          <div class="col-sm-9">
+            <%= f.number_field :distance, id: "total-distance", class: "form-control-plaintext", placeholder: 0, readonly: true %>
+          </div>
+        </div>
+        <div class="row">
+          <%= f.label :duration, "時間/分", class: "col-sm-3 col-form-label", for: "total-duration" %>
+          <div class="col-sm-9">
+            <%= f.number_field :duration, id: "total-duration", class: "form-control-plaintext total-duration-style", placeholder: 0, readonly: true %>
+          </div>
+        </div>
+        <p class="annotation">
+          ※距離と時間はルート出力後に自動計算されます。<br>
+        </p>
+        <div class="form-floating mb-3">
+          <%= f.text_field :start_address, id: "start", class: "form-control", placeholder: "東京駅" %>
+          <%= f.label :start_address, "出発地:", id: "start-label", for: "start" %>
+        </div>
+        <div id="waypoints"></div>
+        <div class="form-floating">
+          <%= f.text_field :end_address, id: "end", class: "form-control", placeholder: "銀座駅" %>
+          <%= f.label :end_address, "到着地:", id: "end-label", for: "end" %>
+        </div>
+        <p class="annotation">
+          ※住所、駅名などを入力してください。（駅名などは住所に自動変換されます。）<br>
+        </p>
+        <div class="d-grid gap-2 d-md-flex justify-content-md-start">
+          <button type="button" id="display-route" class="btn btn-primary btn-lg px-4 me-md-2 btn-lg--extend">ルート出力</button>
+          <button type="button" id="add-waypoint" class="btn btn-outline-secondary btn-lg px-4 btn-lg--extend">経由地を追加</button>
+          <button type="button" id="remove-waypoint" class="btn btn-outline-secondary btn-lg px-4 btn-lg--extend">経由地を削除</button>
+        </div>
+        <p class="annotation">
+          ※経由地の追加は10までです。<br>
+          ※地図上のマーカーをドラッグして調節することも可能です。
+        </p>
+        <%= f.hidden_field :encorded_path, id: "new-encorded-path" %>
+        <div class="d-grid gap-2 col-6">
+          <%= f.submit "ルート作成", class: "btn btn-primary btn--extend", data: { turbo: false }%>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>
+<%= render "shared/google_maps_api" %>

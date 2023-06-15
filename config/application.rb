@@ -10,13 +10,15 @@ module WalkBreak
   class Application < Rails::Application
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 7.0
+    config.i18n.default_locale = :ja
+    config.active_model.i18n_customize_full_message = true
 
     # Configuration for the application, engines, and railties goes here.
     #
     # These settings can be overridden in specific environments using the files
     # in config/environments, which are processed later.
     #
-    # config.time_zone = "Central Time (US & Canada)"
+    config.time_zone = 'Asia/Tokyo'
     # config.eager_load_paths << Rails.root.join("extras")
   end
 end

@@ -1,0 +1,58 @@
+<% provide(:title, @walking_route.name) %>
+<div class="container col-xxl-10 px-4 py-3">
+  <% breadcrumb :walking_route_show, @walking_route %>
+  <div class="row flex-lg-row-reverse align-items-center g-5 py-3">
+    <div class="col-10 col-sm-8 col-lg-6">
+      <div id="map" class="d-block mx-lg-auto img-fluid"></div>
+    </div>
+    <div class="col-lg-6">
+      <%= form_with model: @walking_route do |f| %>
+        <%= f.hidden_field :encorded_path, id: "show-encorded-path", value: @walking_route.encorded_path %>
+        <!-- ログイン機能作成後：作成者表示フォームを追加する-->
+        <div class="mb-3 row created-at">
+          <div class="col-sm-2">
+            作成日時:
+          </div>
+          <div class="col-sm-10" id="created-at-value">
+            <%= l @walking_route.created_at %>
+          </div>
+        </div>
+        <div class="mb-1">
+          <%= f.text_field :name, id: "show-walking-route-name", class: "form-control-plaintext walking-route-name-style", value: @walking_route.name, readonly: true %>
+        </div>
+        <div class="mb-3">
+          <%= f.text_area :comment, id: "show-comment-area", class: "form-control-plaintext comment-area-style", value: @walking_route.comment, readonly: true %>
+        </div>
+        <div class="mb-1 row">
+          <%= f.label :distance, "距離", class: "col-sm-3 col-form-label", for: "show-total-distance" %>
+          <div class="col-sm-9">
+            <%= f.text_field :distance, id: "show-total-distance", class: "form-control-plaintext", value: "#{@walking_route.distance.to_s}km", readonly: true %>
+          </div>
+        </div>
+        <div class="row">
+          <%= f.label :duration, "時間", class: "col-sm-3 col-form-label", for: "show-total-duration" %>
+          <div class="col-sm-9">
+            <%= f.text_field :duration, id: "show-total-duration", class: "form-control-plaintext total-duration-style", value: "#{@walking_route.duration.to_s}分", readonly: true %>
+          </div>
+        </div>
+        <div class="mb-1 row">
+          <%= f.label :start_address, "出発地:", id: "show-start-address-label" , class: "col-sm-3 col-form-label", for: "show-start-address" %>
+          <div class="col-sm-9">
+            <%= f.text_field :start_address, id: "show-start-address", class: "form-control-plaintext", value: @walking_route.start_address, readonly: true %>
+          </div>
+        </div>
+        <div class="mb-3 row">
+          <%= f.label :end_address, "到着地:", id: "show-end-address-label", class: "col-sm-3 col-form-label", for: "show-end-address" %>
+          <div class="col-sm-9">
+            <%= f.text_field :end_address, id: "show-end-address", class: "form-control-plaintext", value: @walking_route.end_address, readonly: true %>
+          </div>
+        </div>
+        <!-- ログイン機能作成後：ログイン中かつ自分が作成したルートの場合、編集ボタンを表示するように修正する。 -->
+        <div class="d-grid gap-2 col-6">
+          <%= f.submit "編集する", class: "btn btn-primary btn--extend" %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>
+<%= render "shared/google_maps_api" %>

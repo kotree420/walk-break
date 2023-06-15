@@ -1,0 +1,90 @@
+/* common */
+body {
+  padding-top: 70px;
+}
+
+ul{
+  padding-left:0;
+}
+
+li{
+  list-style:none;
+}
+
+.annotation{
+  color: $gray-700;
+  font-size: 0.9rem;
+}
+
+.btn-lg--extend {
+  border-radius: 0.25rem;
+}
+
+.btn--extend {
+  border-radius: 0.19rem;
+}
+
+/* footer */
+.footer-link {
+  color: $light;
+}
+
+/* walking_routes#index */
+.bd-placeholder-img {
+  font-size: 1.125rem;
+  text-anchor: middle;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  user-select: none;
+}
+
+.index-btn {
+  width: 12rem;
+}
+
+.index-search-form {
+  width: 24rem;
+}
+
+/* walking_routes#show */
+.created-at {
+  color: $gray-700;
+  font-size: 0.9rem;
+}
+
+/* walking_routes#new */
+#map {
+  width:700px;
+  height:600px;
+}
+
+.walking-route-name-style {
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+
+#walking-route-name-label, #comment-area-label, #start-label, #end-label {
+  font-size: 0.9rem;
+}
+
+.comment-area-style {
+  height: 150px;
+}
+
+#comment-area {
+  height: 150px;
+}
+
+.total-duration-style {
+  margin-bottom: 1rem;
+}
+
+#display-route,#add-waypoint, #remove-waypoint {
+  font-size: 0.9rem;
+}
+
+@media (min-width: 768px) {
+  .bd-placeholder-img-lg {
+    font-size: 3.5rem;
+  }
+}
