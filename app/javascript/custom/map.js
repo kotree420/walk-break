@@ -82,7 +82,7 @@ function initMap() {
         })
         .catch((e) => window.alert("Geocoder failed due to: " + e));
 
-      show_polyline = document.getElementById("encorded-path").value;
+      show_polyline = document.getElementById("show-encorded-path").value;
       displayPolyline(show_polyline);
     });
   }
@@ -175,7 +175,7 @@ function computeRouteInformation(result) {
 
   // 作成したルートのポリラインを保存
   polyline = result.routes[0].overview_polyline;
-  document.getElementById("encorded-path").value = polyline;
+  document.getElementById("new-encorded-path").value = polyline;
 };
 
 function displayPolyline(polyline) {

@@ -61,8 +61,8 @@ RSpec.describe "WalkingRoutes", type: :system do
 
       expect(page).to have_selector '#created-at-value', text: WalkingRoute.first.created_at.
         strftime("%Y/%m/%d %H:%M:%S")
-      expect(page).to have_field 'walking-route-name', with: WalkingRoute.first.name
-      expect(page).to have_field 'comments-area', with: WalkingRoute.first.comment
+      expect(page).to have_field 'show-walking-route-name', with: WalkingRoute.first.name
+      expect(page).to have_field 'show-comment-area', with: WalkingRoute.first.comment
       expect(page).to have_field '距離', with: "#{WalkingRoute.first.distance}km"
       expect(page).to have_field '時間', with: "#{WalkingRoute.first.duration}分"
       expect(page).to have_field '出発地:', with: WalkingRoute.first.start_address

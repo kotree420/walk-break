@@ -7,7 +7,7 @@
     </div>
     <div class="col-lg-6">
       <%= form_with model: @walking_route do |f| %>
-        <%= f.hidden_field :encorded_path, id: "encorded-path", value: @walking_route.encorded_path %>
+        <%= f.hidden_field :encorded_path, id: "show-encorded-path", value: @walking_route.encorded_path %>
         <!-- ログイン機能作成後：作成者表示フォームを追加する-->
         <div class="mb-3 row created-at">
           <div class="col-sm-2">
@@ -18,21 +18,21 @@
           </div>
         </div>
         <div class="mb-1">
-          <%= f.text_field :name, id: "walking-route-name", class: "form-control-plaintext", value: @walking_route.name, readonly: true %>
+          <%= f.text_field :name, id: "show-walking-route-name", class: "form-control-plaintext walking-route-name-style", value: @walking_route.name, readonly: true %>
         </div>
         <div class="mb-3">
-          <%= f.text_area :comment, id: "comments-area", class: "form-control-plaintext", value: @walking_route.comment, readonly: true %>
+          <%= f.text_area :comment, id: "show-comment-area", class: "form-control-plaintext comment-area-style", value: @walking_route.comment, readonly: true %>
         </div>
         <div class="mb-1 row">
-          <%= f.label :distance, "距離", class: "col-sm-3 col-form-label", for: "total-distance" %>
+          <%= f.label :distance, "距離", class: "col-sm-3 col-form-label", for: "show-total-distance" %>
           <div class="col-sm-9">
-            <%= f.text_field :distance, id: "total-distance", class: "form-control-plaintext", value: "#{@walking_route.distance.to_s}km", readonly: true %>
+            <%= f.text_field :distance, id: "show-total-distance", class: "form-control-plaintext", value: "#{@walking_route.distance.to_s}km", readonly: true %>
           </div>
         </div>
         <div class="row">
-          <%= f.label :duration, "時間", class: "col-sm-3 col-form-label", for: "total-duration" %>
+          <%= f.label :duration, "時間", class: "col-sm-3 col-form-label", for: "show-total-duration" %>
           <div class="col-sm-9">
-            <%= f.text_field :duration, id: "total-duration", class: "form-control-plaintext", value: "#{@walking_route.duration.to_s}分", readonly: true %>
+            <%= f.text_field :duration, id: "show-total-duration", class: "form-control-plaintext total-duration-style", value: "#{@walking_route.duration.to_s}分", readonly: true %>
           </div>
         </div>
         <div class="mb-1 row">
@@ -41,7 +41,6 @@
             <%= f.text_field :start_address, id: "show-start-address", class: "form-control-plaintext", value: @walking_route.start_address, readonly: true %>
           </div>
         </div>
-        <div id="waypoints"></div>
         <div class="mb-3 row">
           <%= f.label :end_address, "到着地:", id: "show-end-address-label", class: "col-sm-3 col-form-label", for: "show-end-address" %>
           <div class="col-sm-9">

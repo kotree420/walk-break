@@ -58,20 +58,24 @@ li{
   height:600px;
 }
 
-#walking-route-name {
+.walking-route-name-style {
   font-size: 1.2rem;
   font-weight: bold;
 }
 
-#walking-route-name-label, #comments-area-label, #start-label, #end-label {
+#walking-route-name-label, #comment-area-label, #start-label, #end-label {
   font-size: 0.9rem;
 }
 
-#comments-area {
+.comment-area-style {
   height: 150px;
 }
 
-#total-duration {
+#comment-area {
+  height: 150px;
+}
+
+.total-duration-style {
   margin-bottom: 1rem;
 }
 

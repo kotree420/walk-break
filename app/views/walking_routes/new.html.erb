@@ -8,12 +8,12 @@
     <div class="col-lg-6">
       <%= form_with model: @walking_route do |f| %>
         <div class="form-floating mb-3">
-          <%= f.text_field :name, id: "walking-route-name", class: "form-control", placeholder: "散歩ルート" %>
+          <%= f.text_field :name, id: "walking-route-name", class: "form-control walking-route-name-style", placeholder: "散歩ルート" %>
           <%= f.label :name, "散歩ルート名:", id: "walking-route-name-label", for: "walking-route-name" %>
         </div>
         <div class="form-floating mb-4">
-          <%= f.text_area :comment, id: "comments-area", class: "form-control", placeholder: "Leave a comment here" %>
-          <%= f.label :comment, "ひとことコメント:", id: "comments-area-label", for: "comments-area" %>
+          <%= f.text_area :comment, id: "comment-area", class: "form-control", placeholder: "Leave a comment here" %>
+          <%= f.label :comment, "ひとことコメント:", id: "comment-area-label", for: "comment-area" %>
         </div>
         <div class="mb-3 row">
           <%= f.label :distance, "距離/km", class: "col-sm-3 col-form-label", for: "total-distance" %>
@@ -24,7 +24,7 @@
         <div class="row">
           <%= f.label :duration, "時間/分", class: "col-sm-3 col-form-label", for: "total-duration" %>
           <div class="col-sm-9">
-            <%= f.number_field :duration, id: "total-duration", class: "form-control-plaintext", placeholder: 0, readonly: true %>
+            <%= f.number_field :duration, id: "total-duration", class: "form-control-plaintext total-duration-style", placeholder: 0, readonly: true %>
           </div>
         </div>
         <p class="annotation">
@@ -51,7 +51,7 @@
           ※経由地の追加は10までです。<br>
           ※地図上のマーカーをドラッグして調節することも可能です。
         </p>
-        <%= f.hidden_field :encorded_path, id: "encorded-path" %>
+        <%= f.hidden_field :encorded_path, id: "new-encorded-path" %>
         <div class="d-grid gap-2 col-6">
           <%= f.submit "ルート作成", class: "btn btn-primary btn--extend", data: { turbo: false }%>
         </div>

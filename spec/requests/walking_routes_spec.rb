@@ -59,27 +59,27 @@ RSpec.describe "WalkingRoutes", type: :request do
 
   describe "POST /walking_routes" do
     context "全てのカラムが埋められていてリクエストが成功する場合" do
-      let(:request_true) do
+      let(:request) do
         post walking_routes_path, params: { walking_route: attributes_for(:walking_route) }
       end
 
       it "showアクションにリダイレクトされること" do
-        request_true
+        request
         expect(response).to redirect_to(walking_route_path(WalkingRoute.first.id))
       end
 
       it "送信した散歩ルートが保存されていること" do
-        expect { request_true }.to change(WalkingRoute, :count).by(1)
+        expect { request }.to change(WalkingRoute, :count).by(1)
       end
     end
 
     context "カラムに不足がありリクエストが失敗する場合" do
-      let(:request_false) do
+      let(:request) do
         post walking_routes_path, params: { walking_route: { name: "散歩ルート1" } }
       end
 
       before do
-        request_false
+        request
       end
 
       it "newアクションにリダイレクトされること" do
