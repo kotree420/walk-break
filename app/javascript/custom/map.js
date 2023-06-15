@@ -1,9 +1,9 @@
-var map;
-var directionsService;
-var directionsRenderer;
-var geocoder;
-var poly;
-var polyline;
+let map;
+let directionsService;
+let directionsRenderer;
+let geocoder;
+let poly;
+let polyline;
 
 function initMap() {
   map = new google.maps.Map(document.getElementById('map'), {
@@ -23,8 +23,9 @@ function initMap() {
   if (document.getElementById("add-waypoint")) {
     document.getElementById("add-waypoint").addEventListener("click", () => {
       const form_count = document.querySelectorAll(".waypoint").length + 1;
-      // 経由地点が10を越えると課金レートが高くなるため
-      if (form_count <= 10) {
+      const max_waypoint_count = 10; // 経由地点が10を越えると課金レートが高くなるため
+
+      if (form_count <= max_waypoint_count) {
         const new_div = document.createElement("div");
         new_div.className = "waypoint-wrapper form-floating mb-3";
 
@@ -69,7 +70,7 @@ function initMap() {
   // walking_routes#show
   if (document.getElementById("show-start-address-label") && document.getElementById("show-end-address-label")) {
     window.addEventListener("load", () => {
-      var show_start_address = document.getElementById("show-start-address").value;
+      let show_start_address = document.getElementById("show-start-address").value;
       geocoder.geocode({ 'address': show_start_address })
         .then( ({results}) => {
           if (results[0]) {
@@ -88,8 +89,8 @@ function initMap() {
 }
 
 function displayRoute(directionsService, directionsRenderer) {
-  var start = document.getElementById('start').value;
-  var end = document.getElementById('end').value;
+  const start = document.getElementById('start').value;
+  const end = document.getElementById('end').value;
   const waypoints = [];
   const inputArray = document.getElementsByClassName("waypoint");
 
@@ -102,7 +103,7 @@ function displayRoute(directionsService, directionsRenderer) {
     };
   };
 
-  var request = {
+  const request = {
     origin: start,
     destination: end,
     waypoints: waypoints,
@@ -159,7 +160,7 @@ function computeRouteInformation(result) {
   // geocoded_waypoints配列では最初の要素が出発地点のplaceId、最後の要素が到着地点のplaceIdとなっている
   for (let i = 0, j = 1; i < waypoint_forms.length, j < (geocoded_waypoints.length - 1); i++, j++) {
     if (waypoint_forms.item(i).value){
-      let waypoint_place_id = geocoded_waypoints[j].place_id;
+      const waypoint_place_id = geocoded_waypoints[j].place_id;
       geocoder.geocode({ placeId: waypoint_place_id })
         .then( ({results}) => {
           if (results[0]) {
@@ -178,7 +179,7 @@ function computeRouteInformation(result) {
 };
 
 function displayPolyline(polyline) {
-  var encorded_path = google.maps.geometry.encoding.decodePath(polyline);
+  const encorded_path = google.maps.geometry.encoding.decodePath(polyline);
 
   poly = new google.maps.Polyline({
     path: encorded_path,
