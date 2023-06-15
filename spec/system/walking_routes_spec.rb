@@ -65,7 +65,16 @@ describe "散歩ルート作成機能", js: true do
     expect(page).to have_field '時間', with: "#{WalkingRoute.first.duration}分"
     expect(page).to have_field '出発地:', with: WalkingRoute.first.start_address
     expect(page).to have_field '到着地:', with: WalkingRoute.first.end_address
+  end
 
+  it "経由地は10を越える数を追加できないこと", js: true do
+    visit new_walking_route_path
+
+    11.times do
+      click_button '経由地を追加'
+    end
+
+    expect(all('.waypoint').count).to eq 10
   end
 end
 end
