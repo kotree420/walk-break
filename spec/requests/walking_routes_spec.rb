@@ -59,21 +59,27 @@ RSpec.describe "WalkingRoutes", type: :request do
 
   describe "POST /walking_routes" do
     context "全てのカラムが埋められていてリクエストが成功する場合" do
-      it "showアクションにリダイレクトされること" do
+      let(:request_true) do
         post walking_routes_path, params: { walking_route: attributes_for(:walking_route) }
+      end
+
+      it "showアクションにリダイレクトされること" do
+        request_true
         expect(response).to redirect_to(walking_route_path(WalkingRoute.first.id))
       end
 
       it "送信した散歩ルートが保存されていること" do
-        expect {
-          post walking_routes_path, params: { walking_route: attributes_for(:walking_route) }
-        }.to change(WalkingRoute, :count).by(1)
+        expect { request_true }.to change(WalkingRoute, :count).by(1)
       end
     end
 
     context "カラムに不足がありリクエストが失敗する場合" do
-      before do
+      let(:request_false) do
         post walking_routes_path, params: { walking_route: { name: "散歩ルート1" } }
+      end
+
+      before do
+        request_false
       end
 
       it "newアクションにリダイレクトされること" do
@@ -90,7 +96,7 @@ RSpec.describe "WalkingRoutes", type: :request do
       it "リダイレクト後も元々入力されていたパラメータ値は保持されていること" do
         get new_walking_route_path
         session[:walking_route].each_value do |value|
-          if value != nil && value != ""
+          if value.present?
             expect(response.body).to include(value)
           end
         end

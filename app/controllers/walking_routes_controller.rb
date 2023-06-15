@@ -1,6 +1,5 @@
 class WalkingRoutesController < ApplicationController
   def index
-
   end
 
   def show
@@ -25,7 +24,9 @@ class WalkingRoutesController < ApplicationController
   end
 
   private
+
   def walking_route_params
-    params.require(:walking_route).permit(:name, :comment, :distance, :duration, :start_address, :end_address, :encorded_path)
+    params.require(:walking_route).
+      permit(:name, :comment, :distance, :duration, :start_address, :end_address, :encorded_path)
   end
 end
