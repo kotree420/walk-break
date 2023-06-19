@@ -13,15 +13,26 @@
           <li class="nav-item">
             <a class="nav-link" href="#" tabindex="-1" aria-disabled="true">about</a>
           </li>
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="dropdown" data-bs-toggle="dropdown" aria-expanded="false">アカウント</a>
-            <ul class="dropdown-menu" aria-labelledby="dropdown">
-              <li><a class="dropdown-item" href="#">プロフィール</a></li>
-              <li>
-                <%= link_to "散歩ルート作成", new_walking_route_path, class: "dropdown-item", data: { turbo: false } %>
-              </li>
-            </ul>
-          </li>
+          <% if user_signed_in? %>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="dropdown" data-bs-toggle="dropdown" aria-expanded="false">アカウント</a>
+              <ul class="dropdown-menu" aria-labelledby="dropdown">
+                <li><a class="dropdown-item" href="#">プロフィール</a></li>
+                <li>
+                  <%= link_to "散歩ルート作成", new_walking_route_path, class: "dropdown-item", data: { turbo: false } %>
+                </li>
+                <li><%= link_to "ログアウト", destroy_user_session_path, class: "dropdown-item", method: :delete %></li>
+                <li><a class="dropdown-item" href="#">退会</a></li>
+              </ul>
+            </li>
+          <% else %>
+            <li class="nav-item">
+              <%= link_to "ログイン", new_user_session_path, class: "nav-link", tabindex: "-1", 'aria-disabled': :true %>
+            </li>
+            <li class="nav-item">
+              <%= link_to "新規登録", new_user_registration_path, class: "nav-link", tabindex: "-1", 'aria-disabled': :true %>
+            </li>
+          <% end %>
         </ul>
         <form>
           <input class="form-control index-search-form" type="text" placeholder="キーワードで探す" aria-label="キーワードで探す">

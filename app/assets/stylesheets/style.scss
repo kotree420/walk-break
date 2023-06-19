@@ -24,6 +24,18 @@ li{
   border-radius: 0.19rem;
 }
 
+.alert-notice {
+  color: #254613;
+  background-color: #97B487;
+  border-color: #254613;
+}
+
+.alert-alert {
+  color: #46292f;
+  background-color: #e3dadc;
+  border-color: #d6c7ca;
+}
+
 /* footer */
 .footer-link {
   color: $light;
