@@ -5,4 +5,5 @@ Rails.application.routes.draw do
   end
   root "walking_routes#index"
   resources :walking_routes, only: [:index, :show, :new, :create]
+  patch '/users/withdrawal' => 'users#withdrawal'
 end
