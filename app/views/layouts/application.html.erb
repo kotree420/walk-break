@@ -9,12 +9,12 @@
     <%= javascript_include_tag "application", "data-turbo-track": "reload", defer: true %>
   </head>
   <body>
-      <%= render "shared/header" %>
-      <div class="container col-xxl-10 px-4 py-3">
-        <%= render "shared/flash" %>
-        <%= breadcrumbs separator: " &rsaquo; " %>
-      </div>
-      <%= yield %>
-      <%= render "shared/footer" %>
+    <%= render "shared/header" %>
+    <div class="container col-xxl-10 px-4 py-3">
+      <%= render "shared/flash" %>
+      <%= breadcrumbs separator: " &rsaquo; " %>
+    </div>
+    <%= yield %>
+    <%= render "shared/footer" %>
   </body>
 </html>
