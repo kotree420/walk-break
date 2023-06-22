@@ -21,6 +21,7 @@
                 <li>
                   <%= link_to "散歩ルート作成", new_walking_route_path, class: "dropdown-item", data: { turbo: false } %>
                 </li>
+                <a class="dropdown-item" aria-current="page" href="#">設定</a>
                 <li><%= link_to "ログアウト", destroy_user_session_path, class: "dropdown-item", method: :delete %></li>
                 <li><%= link_to "退会", users_withdrawal_path, class: "dropdown-item", method: :patch, data: { "turbo-method": :patch, turbo_confirm: "本当に退会しますか？" } %></li>
               </ul>

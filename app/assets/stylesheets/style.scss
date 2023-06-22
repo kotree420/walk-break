@@ -53,6 +53,15 @@ footer {
   color: $light;
 }
 
+/* user */
+.user-link {
+  text-decoration: none;
+}
+
+.login-btn, .signup-btn, .new-password-btn, .reset-password-btn, .edit-registration-btn {
+  width: 100%;
+}
+
 /* walking_routes#index */
 .bd-placeholder-img {
   font-size: 1.125rem;
