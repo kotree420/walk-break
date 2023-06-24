@@ -40,6 +40,32 @@ li{
   border-color: #d6c7ca;
 }
 
+/* header */
+header .nav-link {
+  font-size: 1.1rem;
+}
+
+.header-profile-wrapper {
+  display: flex;
+  justify-content: start;
+  align-items: center;
+}
+
+.header-profile-wrapper:hover{
+  cursor: pointer;
+}
+
+.header-profile-image {
+  border-radius: 50%;
+  width: 25px;
+  height: 25px;
+  object-fit: cover;
+}
+
+.header-profile-name {
+  padding-left: 0.2rem;
+}
+
 /* footer */
 footer {
   position: absolute;
@@ -54,12 +80,23 @@ footer {
 }
 
 /* user */
-.user-link {
+.user-link, .back-link {
   text-decoration: none;
 }
 
 .login-btn, .signup-btn, .new-password-btn, .reset-password-btn, .edit-registration-btn {
   width: 100%;
+}
+
+.show-profile-image {
+  border-radius: 50%;
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+}
+
+.show-profile-image-wrapper {
+  text-align: center;
 }
 
 /* walking_routes#index */

@@ -7,4 +7,8 @@ class User < ApplicationRecord
   def active_for_authentication?
     super && (is_deleted == false)
   end
+
+  mount_uploader :profile_image, AvatarUploader
+
+  validates :name, :email, presence: true
 end

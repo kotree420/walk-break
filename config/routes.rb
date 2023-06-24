@@ -1,9 +1,11 @@
 Rails.application.routes.draw do
-  devise_for :users
-  devise_scope :user do
-    get '/users/sign_out' => 'devise/sessions#destroy'
-  end
   root "walking_routes#index"
+  devise_for :users
+
+  resources :profiles, only: [:show, :edit, :update] do
+    collection do
+      patch 'withdrawal'
+    end
+  end
   resources :walking_routes, only: [:index, :show, :new, :create]
-  patch '/users/withdrawal' => 'users#withdrawal'
 end
