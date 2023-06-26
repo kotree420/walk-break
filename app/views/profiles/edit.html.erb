@@ -5,11 +5,17 @@
     <main>
       <%= form_with url: profile_path, method: :patch do |f| %>
         <div class="row flex-lg-row align-items-center g-5 py-3">
-          <div class="col-lg-6 show-profile-image-wrapper">
-            <%= image_tag @user.profile_image.url, class: 'show-profile-image' %>
+          <div class="col-lg-6">
+            <div class="show-profile-image-wrapper">
+              <%= image_tag @user.profile_image.url, class: 'show-profile-image' %>
+            </div>
             <div>
               <%= f.label :profile_image, "プロフィール画像" %>
               <%= f.file_field :profile_image %>
+            </div>
+            <div>
+              画像を削除する
+              <%= f.check_box :remove_profile_image %>
             </div>
           </div>
           <div class="col-lg-6">
@@ -21,10 +27,10 @@
               <%= f.label :comment %>
               <%= f.text_area :comment, value: @user.comment %>
             </div>
-            <div>
-              <%= f.submit "更新する" %>
-            </div>
           </div>
+        </div>
+        <div>
+          <%= f.submit "更新する" %>
         </div>
       <% end %>
     </main>

@@ -34,6 +34,6 @@ class ProfilesController < ApplicationController
 
   def user_params
     # form_withのurlオプションを使うため、requireは設定なし
-    params.permit(:name, :comment, :profile_image)
+    params.permit(:name, :comment, :profile_image, :remove_profile_image)
   end
 end
