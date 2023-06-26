@@ -1,6 +1,7 @@
 <% provide(:title, 'ログイン') %>
 <% breadcrumb :new_user_session %>
 <div class="container col-xxl-10 px-4 py-3">
+  <main>
   <h2 class="mb-3 text-center">WalkBreakにログイン</h2>
   <div class="col-lg-6 mx-auto">
     <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
@@ -28,3 +29,5 @@
     <% end %>
     <%= render "devise/shared/links" %>
   </div>
+  </main>
+</div>

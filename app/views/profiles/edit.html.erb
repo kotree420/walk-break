@@ -1,29 +1,32 @@
+<% provide(:title, 'プロフィール編集') %>
+<% breadcrumb :edit_profile, @user %>
 <div class="container col-xxl-10 px-4 py-3">
   <div class="mx-auto">
-    <%= link_to "戻る", :back, class: "back-link" %>
-    <%= form_with url: profile_path, method: :patch do |f| %>
-      <div class="row flex-lg-row align-items-center g-5 py-3">
-        <div class="col-lg-6 show-profile-image-wrapper">
-          <%= image_tag @user.profile_image.url, class: 'show-profile-image' %>
-          <div>
-            <%= f.label :profile_image, "プロフィール画像" %>
-            <%= f.file_field :profile_image %>
+    <main>
+      <%= form_with url: profile_path, method: :patch do |f| %>
+        <div class="row flex-lg-row align-items-center g-5 py-3">
+          <div class="col-lg-6 show-profile-image-wrapper">
+            <%= image_tag @user.profile_image.url, class: 'show-profile-image' %>
+            <div>
+              <%= f.label :profile_image, "プロフィール画像" %>
+              <%= f.file_field :profile_image %>
+            </div>
+          </div>
+          <div class="col-lg-6">
+            <div class="mb-3">
+              <%= f.label :name %>
+              <%= f.text_field :name, value: @user.name %>
+            </div>
+            <div>
+              <%= f.label :comment %>
+              <%= f.text_area :comment, value: @user.comment %>
+            </div>
+            <div>
+              <%= f.submit "更新する" %>
+            </div>
           </div>
         </div>
-        <div class="col-lg-6">
-          <div class="mb-3">
-            <%= f.label :name %>
-            <%= f.text_field :name, value: @user.name %>
-          </div>
-          <div>
-            <%= f.label :comment %>
-            <%= f.text_area :comment, value: @user.comment %>
-          </div>
-          <div>
-            <%= f.submit "更新する" %>
-          </div>
-        </div>
-      </div>
-    <% end %>
+      <% end %>
+    </main>
   </div>
 </div>
