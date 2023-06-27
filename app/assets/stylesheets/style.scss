@@ -79,7 +79,7 @@ footer {
   color: $light;
 }
 
-/* user */
+/* user-registration */
 .user-link, .back-link {
   text-decoration: none;
 }
@@ -88,15 +88,44 @@ footer {
   width: 100%;
 }
 
-.show-profile-image {
+/* profile */
+.profile-image {
   border-radius: 50%;
-  width: 100px;
-  height: 100px;
+  width: 150px;
+  height: 150px;
   object-fit: cover;
 }
 
 .show-profile-image-wrapper {
   text-align: center;
+}
+
+.show-profile-name-wrapper {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.show-profile-name {
+  font-size: 1.5rem;
+  margin-right: 2rem;
+}
+
+.show-edit-profile-btn, .show-edit-registration-btn {
+  font-size: 0.9rem;
+}
+
+.show-edit-profile-btn {
+  margin-right: 0.5rem;
+}
+
+.show-profile-comment {
+  white-space: pre-wrap;
+}
+
+.edit-profile-image:hover {
+  filter: brightness(70%);
+  cursor: pointer;
 }
 
 /* walking_routes#index */
