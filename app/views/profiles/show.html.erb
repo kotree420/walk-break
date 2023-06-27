@@ -8,10 +8,14 @@
           <%= image_tag @user.profile_image.url, class: 'profile-image' %>
         </div>
         <div class="col-lg-10">
-          <div class="show-profile-name-wrapper">
-            <span class="show-profile-name" ><%= @user.name %></span>
-            <span><%= link_to "プロフィール編集", edit_profile_path, class: "btn btn-primary btn--extend show-edit-profile-btn", data: { turbo: false } %></span>
-            <span><%= link_to "設定", edit_user_registration_path, class: "btn btn-primary btn--extend show-edit-registration-btn" %></span>
+          <div class="show-profile-name-wrapper row">
+            <div class="col-sm-6">
+              <span class="show-profile-name" ><%= @user.name %></span>
+            </div>
+            <div class="col-sm-6">
+              <span><%= link_to "プロフィール編集", edit_profile_path, class: "btn btn-primary btn--extend show-edit-profile-btn", data: { turbo: false } %></span>
+              <span><%= link_to "設定", edit_user_registration_path, class: "btn btn-primary btn--extend show-edit-registration-btn" %></span>
+            </div>
           </div>
           <p class="show-profile-comment"><%= @user.comment %></p>
         </div>

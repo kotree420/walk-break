@@ -40,6 +40,10 @@ li{
   border-color: #d6c7ca;
 }
 
+.breadcrumbs a {
+  text-decoration: none;
+}
+
 /* header */
 header .nav-link {
   font-size: 1.1rem;
@@ -80,7 +84,7 @@ footer {
 }
 
 /* user-registration */
-.user-link, .back-link {
+.user-link {
   text-decoration: none;
 }
 
@@ -107,12 +111,13 @@ footer {
 }
 
 .show-profile-name {
-  font-size: 1.5rem;
+  font-size: 1.8rem;
   margin-right: 2rem;
 }
 
 .show-edit-profile-btn, .show-edit-registration-btn {
   font-size: 0.9rem;
+  padding: 0.2rem 0.4rem;
 }
 
 .show-edit-profile-btn {
@@ -128,6 +133,10 @@ footer {
   cursor: pointer;
 }
 
+.edit-profile-btn {
+  width: 25%;
+}
+
 /* walking_routes#index */
 .bd-placeholder-img {
   font-size: 1.125rem;
@@ -139,10 +148,6 @@ footer {
 
 .index-btn {
   width: 12rem;
-}
-
-.index-search-form {
-  width: 24rem;
 }
 
 /* walking_routes#show */
