@@ -11,8 +11,6 @@ class User < ApplicationRecord
   mount_uploader :profile_image, AvatarUploader
 
   with_options presence: true do
-    # emailのformatはdevise.rbに記載、uniquenessはdeviseのデフォルトで付加済みのため設定なし
-    validates :email
     with_options uniqueness: true do
       validates :name, length: { maximum: 20 }
     end
