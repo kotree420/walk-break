@@ -6,6 +6,17 @@
       <div id="map" class="d-block mx-lg-auto img-fluid"></div>
     </div>
     <div class="col-lg-6">
+    <% if @walking_route.bookmarked?(current_user) %>
+      <%= button_to walking_route_bookmarks_path(@walking_route), class: "btn bookmarked-btn-wrapper", method: :delete, data: { turbo: false } do %>
+        <i class="fa-solid fa-heart already-bookmarked-btn"></i>
+        <%= @walking_route.bookmarks.count %>
+      <% end %>
+    <% else %>
+      <%= button_to  walking_route_bookmarks_path(@walking_route), class: "btn bookmarked-btn-wrapper", method: :post, data: { turbo: false } do %>
+        <i class="fa-regular fa-heart"></i>
+        <%= @walking_route.bookmarks.count %>
+      <% end %>
+    <% end %>
       <%= form_with model: @walking_route do |f| %>
         <%= f.hidden_field :encorded_path, id: "show-encorded-path", value: @walking_route.encorded_path %>
         <!-- ログイン機能作成後：作成者表示フォームを追加する-->

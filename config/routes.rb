@@ -7,5 +7,7 @@ Rails.application.routes.draw do
       patch 'withdrawal'
     end
   end
-  resources :walking_routes, only: [:index, :show, :new, :create]
+  resources :walking_routes, only: [:index, :show, :new, :create] do
+    resource :bookmarks, only: [:create, :destroy]
+  end
 end
