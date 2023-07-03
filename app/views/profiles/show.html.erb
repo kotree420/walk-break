@@ -20,6 +20,16 @@
           <p class="show-profile-comment"><%= @user.comment %></p>
         </div>
       </div>
+      <div>
+        <p>ブックマーク一覧</p>
+        <% @bookmarks.each do |bookmark| %>
+          <div>
+            <%= link_to walking_route_path(bookmark.walking_route), data: { turbo: false } do %>
+              <%= bookmark.walking_route.name %>
+            <% end %>
+          </div>
+        <% end %>
+      </div>
     </main>
   </div>
 </div>
