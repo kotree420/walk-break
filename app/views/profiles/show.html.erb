@@ -12,10 +12,12 @@
             <div class="col-sm-4">
               <span class="show-profile-name"><%= @user.name %></span>
             </div>
-            <div class="col-sm-8">
-              <span><%= link_to "プロフィール編集", edit_profile_path, class: "btn btn-primary btn--extend show-edit-profile-btn", data: { turbo: false } %></span>
-              <span><%= link_to "設定", edit_user_registration_path, class: "btn btn-primary btn--extend show-edit-registration-btn" %></span>
-            </div>
+            <% if @user == current_user %>
+              <div class="col-sm-8">
+                <span><%= link_to "プロフィール編集", edit_profile_path, class: "btn btn-primary btn--extend show-edit-profile-btn", data: { turbo: false } %></span>
+                <span><%= link_to "設定", edit_user_registration_path, class: "btn btn-primary btn--extend show-edit-registration-btn" %></span>
+              </div>
+            <% end %>
           </div>
           <p class="show-profile-comment"><%= @user.comment %></p>
         </div>

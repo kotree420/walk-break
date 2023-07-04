@@ -20,8 +20,10 @@
       <%= form_with model: @walking_route do |f| %>
         <%= f.hidden_field :encorded_path, id: "show-encorded-path", value: @walking_route.encorded_path %>
         <div class="mb-3">
-          <%= image_tag @user.profile_image.url, class: 'walking-route-profile-image' %>
-          <span class="walking-route-profile-name"><%= @user.name %></span>
+          <%= link_to profile_path(@user), class: "walking-route-profile-link" do %>
+            <%= image_tag @user.profile_image.url, class: 'walking-route-profile-image' %>
+            <span class="walking-route-profile-name"><%= @user.name %></span>
+          <% end %>
         </div>
         <div class="mb-3 row created-at">
           <div class="col-sm-2">
