@@ -6,10 +6,12 @@ class WalkingRoutesController < ApplicationController
 
   def show
     @walking_route = WalkingRoute.find(params[:id])
+    @user = @walking_route.user
   end
 
   def new
     @walking_route = WalkingRoute.new(session[:walking_route] || {})
+    @user = current_user
   end
 
   def create
@@ -29,6 +31,6 @@ class WalkingRoutesController < ApplicationController
 
   def walking_route_params
     params.require(:walking_route).
-      permit(:name, :comment, :distance, :duration, :start_address, :end_address, :encorded_path)
+      permit(:name, :comment, :distance, :duration, :start_address, :end_address, :encorded_path, :user_id)
   end
 end

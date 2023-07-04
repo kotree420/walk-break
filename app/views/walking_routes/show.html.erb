@@ -19,7 +19,10 @@
     <% end %>
       <%= form_with model: @walking_route do |f| %>
         <%= f.hidden_field :encorded_path, id: "show-encorded-path", value: @walking_route.encorded_path %>
-        <!-- ログイン機能作成後：作成者表示フォームを追加する-->
+        <div class="mb-3">
+          <%= image_tag @user.profile_image.url, class: 'walking-route-profile-image' %>
+          <span class="walking-route-profile-name"><%= @user.name %></span>
+        </div>
         <div class="mb-3 row created-at">
           <div class="col-sm-2">
             作成日時:
@@ -58,10 +61,11 @@
             <%= f.text_field :end_address, id: "show-end-address", class: "form-control-plaintext", value: @walking_route.end_address, readonly: true %>
           </div>
         </div>
-        <!-- ログイン機能作成後：ログイン中かつ自分が作成したルートの場合、編集ボタンを表示するように修正する。 -->
-        <div class="d-grid gap-2 col-6">
-          <%= f.submit "編集する", class: "btn btn-primary btn--extend" %>
-        </div>
+        <% if @user == current_user %>
+          <div class="d-grid gap-2 col-6">
+            <%= f.submit "編集する", class: "btn btn-primary btn--extend" %>
+          </div>
+        <% end %>
       <% end %>
     </div>
   </div>

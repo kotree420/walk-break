@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_06_30_160652) do
+ActiveRecord::Schema[7.0].define(version: 2023_07_04_053115) do
   create_table "bookmarks", force: :cascade do |t|
     t.integer "user_id", null: false
     t.integer "walking_route_id", null: false
@@ -46,8 +46,11 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_30_160652) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "encorded_path", null: false
+    t.integer "user_id", null: false
+    t.index ["user_id"], name: "index_walking_routes_on_user_id"
   end
 
   add_foreign_key "bookmarks", "users"
   add_foreign_key "bookmarks", "walking_routes"
+  add_foreign_key "walking_routes", "users"
 end

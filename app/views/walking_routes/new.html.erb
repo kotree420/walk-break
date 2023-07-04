@@ -7,6 +7,11 @@
     </div>
     <div class="col-lg-6">
       <%= form_with model: @walking_route do |f| %>
+        <div class="mb-3">
+          <%= image_tag @user.profile_image.url, class: 'walking-route-profile-image' %>
+          <span class="walking-route-profile-name"><%= @user.name %></span>
+          <%= f.hidden_field :user_id, value: current_user.id %>
+        </div>
         <div class="form-floating mb-3">
           <%= f.text_field :name, id: "walking-route-name", class: "form-control walking-route-name-style", placeholder: "散歩ルート" %>
           <%= f.label :name, "散歩ルート名:", id: "walking-route-name-label", for: "walking-route-name" %>
