@@ -31,6 +31,7 @@ class WalkingRoutesController < ApplicationController
 
   def walking_route_params
     params.require(:walking_route).
-      permit(:name, :comment, :distance, :duration, :start_address, :end_address, :encorded_path, :user_id)
+      permit(:name, :comment, :distance, :duration,
+        :start_address, :end_address, :encorded_path, :user_id)
   end
 end
