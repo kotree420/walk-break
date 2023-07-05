@@ -1,8 +1,8 @@
 <% provide(:title, 'プロフィール編集') %>
 <% breadcrumb :edit_profile, @user %>
-<div class="container col-xxl-10 px-4 py-3">
-  <div class="mx-auto">
-    <main>
+<main>
+  <div class="container col-xxl-10 px-4 py-3">
+    <div class="mx-auto">
       <%= form_with url: profile_path, method: :patch do |f| %>
         <div class="row align-items-center g-5 py-3 mb-3">
           <div class="col-lg-2 edit-profile-image-wrapper">
@@ -42,6 +42,6 @@
           <%= f.submit "更新する", class: "btn btn-primary btn--extend edit-profile-btn" %>
         </div>
       <% end %>
-    </main>
+    </div>
   </div>
-</div>
+</main>

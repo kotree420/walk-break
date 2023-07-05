@@ -22,7 +22,7 @@
               <ul class="dropdown-menu" aria-labelledby="dropdown">
                 <li><%= link_to "プロフィール", profile_path(current_user.id), class: "dropdown-item" %></li>
                 <li><%= link_to "散歩ルート作成", new_walking_route_path, class: "dropdown-item", data: { turbo: false } %></li>
-                <li><%= link_to "ログアウト", destroy_user_session_path, class: "dropdown-item", data: { "turbo-method": :delete }  %></li>
+                <li><%= link_to "ログアウト", destroy_user_session_path, class: "dropdown-item", data: { "turbo-method": :delete } %></li>
                 <li><%= link_to "退会", withdrawal_profiles_path, class: "dropdown-item", method: :patch, data: { "turbo-method": :patch, turbo_confirm: "本当に退会しますか？" } %></li>
               </ul>
             </li>
