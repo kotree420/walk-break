@@ -1,9 +1,9 @@
 <% provide(:title, @user.name) %>
 <% breadcrumb :profile_show, @user %>
-<div class="container col-xxl-10 px-4 py-3">
-  <div class="mx-auto">
-    <main>
-      <div class="row align-items-center g-5 py-3">
+<main>
+  <div class="container col-xxl-10 px-4 py-3">
+    <div class="mx-auto">
+      <div class="row g-5 py-3 mb-5">
         <div class="col-lg-2 show-profile-image-wrapper">
           <%= image_tag @user.profile_image.url, class: 'profile-image' %>
         </div>
@@ -22,16 +22,28 @@
           <p class="show-profile-comment"><%= @user.comment %></p>
         </div>
       </div>
-      <div>
-        <p>ブックマーク一覧</p>
-        <% @bookmarks.each do |bookmark| %>
-          <div>
-            <%= link_to walking_route_path(bookmark.walking_route), data: { turbo: false } do %>
-              <%= bookmark.walking_route.name %>
-            <% end %>
-          </div>
-        <% end %>
+      <div class="row g-5 py-3">
+        <div class="col-lg-6">
+          <p>ブックマーク一覧</p>
+          <% @bookmarks.each do |bookmark| %>
+            <div>
+              <%= link_to walking_route_path(bookmark.walking_route), data: { turbo: false } do %>
+                <%= bookmark.walking_route.name %>
+              <% end %>
+            </div>
+          <% end %>
+        </div>
+        <div class="col-lg-6">
+          <p>作成した散歩ルート一覧</p>
+          <% @walking_routes.each do |walking_route| %>
+            <div>
+              <%= link_to walking_route_path(walking_route), data: { turbo: false } do %>
+                <%= walking_route.name %>
+              <% end %>
+            </div>
+          <% end %>
+        </div>
       </div>
-    </main>
+    </div>
   </div>
-</div>
+</main>

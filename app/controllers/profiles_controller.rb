@@ -3,7 +3,8 @@ class ProfilesController < ApplicationController
 
   def show
     @user = User.find(params[:id])
-    @bookmarks = Bookmark.where(user_id: @user.id)
+    @bookmarks = @user.bookmarks
+    @walking_routes = @user.walking_routes
   end
 
   def edit
