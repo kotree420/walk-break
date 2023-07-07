@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :bookmark do
-    user { nil }
-    walking_route { nil }
+    user_id { nil }
+    walking_route_id { nil }
   end
 end
