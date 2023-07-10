@@ -25,9 +25,9 @@
       <div class="row g-5 py-3">
         <div class="col-lg-6">
           <p>ブックマーク一覧</p>
-          <% @bookmarks.each do |bookmark| %>
+          <% @bookmarks.each_with_index do |bookmark, i| %>
             <div>
-              <%= link_to walking_route_path(bookmark.walking_route), data: { turbo: false } do %>
+              <%= link_to walking_route_path(bookmark.walking_route), data: { turbo: false }, class: "bookmarked-walking-route-name-#{i}" do %>
                 <%= bookmark.walking_route.name %>
               <% end %>
             </div>
@@ -35,9 +35,9 @@
         </div>
         <div class="col-lg-6">
           <p>作成した散歩ルート一覧</p>
-          <% @walking_routes.each do |walking_route| %>
+          <% @walking_routes.each_with_index do |walking_route, i| %>
             <div>
-              <%= link_to walking_route_path(walking_route), data: { turbo: false } do %>
+              <%= link_to walking_route_path(walking_route), data: { turbo: false }, class: "created-walking-route-name-#{i}" do %>
                 <%= walking_route.name %>
               <% end %>
             </div>

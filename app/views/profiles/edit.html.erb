@@ -20,20 +20,20 @@
           <div class="col-lg-10">
             <div class="row mb-4">
               <div class="col-md-3">
-                <%= f.label :name, "ユーザー名" %><br>
+                <%= f.label :name, "ユーザー名", for: "edit-profile-name" %><br>
                 <span>（20文字以内）</span>
               </div>
               <div class="col-md-9">
-                <%= f.text_field :name, value: @user.name, class: "edit-profile-input", maxlength: "20", required: "true" %>
+                <%= f.text_field :name, value: @user.name, id: "edit-profile-name", class: "edit-profile-input", maxlength: "20", required: "true" %>
               </div>
             </div>
             <div class="row">
               <div class="col-md-3">
-                <%= f.label :comment, "自己紹介" %><br>
+                <%= f.label :comment, "自己紹介", for: "edit-profile-comment" %><br>
                 <span>（140文字以内）</span>
               </div>
               <div class="col-md-9">
-                <%= f.text_area :comment, value: @user.comment, class: "edit-profile-input edit-profile-textarea", maxlength: "140" %>
+                <%= f.text_area :comment, value: @user.comment, id: "edit-profile-comment", class: "edit-profile-input edit-profile-textarea", maxlength: "140" %>
               </div>
             </div>
           </div>
