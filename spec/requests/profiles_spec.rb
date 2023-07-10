@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe "Users", type: :request do
   let(:user) { create(:user) }
   let(:other_user) { create(:user) }
-  let(:walking_route) { create(:walking_route, user: user) }
+  let(:walking_route_created) { create(:walking_route, user: user) }
   let(:walking_route_bookmarked) { create(:walking_route, user: other_user) }
   let(:bookmark) do
     create(:bookmark, user_id: user.id, walking_route_id: walking_route_bookmarked.id)
@@ -15,7 +15,7 @@ RSpec.describe "Users", type: :request do
 
   describe "GET /profiles/:id" do
     before do
-      walking_route
+      walking_route_created
       bookmark
       get profile_path(user.id)
     end
@@ -37,7 +37,7 @@ RSpec.describe "Users", type: :request do
     end
 
     it "作成した散歩ルート名が表示されていること" do
-      expect(response.body).to include(walking_route.name)
+      expect(response.body).to include(walking_route_created.name)
     end
   end
 
