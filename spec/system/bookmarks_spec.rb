@@ -11,12 +11,12 @@ RSpec.describe "Bookmarks", type: :system do
       visit walking_route_path(walking_route.id)
 
       expect(page).to have_css "#not-yet-bookmarked-icon"
-      expect(page).to have_selector '.bookmark-count', text: Bookmark.count
+      expect(page).to have_selector ".bookmark-count", text: Bookmark.count
 
-      find('.not-yet-bookmark-btn').click
+      find(".not-yet-bookmark-btn").click
 
       expect(page).to have_css "#already-bookmarked-icon"
-      expect(page).to have_selector '.bookmark-count', text: Bookmark.count
+      expect(page).to have_selector ".bookmark-count", text: Bookmark.count
     end
   end
 end

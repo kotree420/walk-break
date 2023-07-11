@@ -18,24 +18,24 @@ RSpec.describe "Profiles", type: :system do
       it "プロフィール編集機能でユーザー名と自己紹介を編集できること" do
         visit profile_path(user.id)
 
-        expect(page).to have_selector '.show-profile-name', text: user.name
-        expect(page).to have_selector '.show-profile-comment', text: user.comment
-        expect(page).to have_link 'プロフィール編集'
-        expect(page).to have_link '設定'
+        expect(page).to have_selector ".show-profile-name", text: user.name
+        expect(page).to have_selector ".show-profile-comment", text: user.comment
+        expect(page).to have_link "プロフィール編集"
+        expect(page).to have_link "設定"
 
-        expect(page).to have_selector '.bookmarked-walking-route-name-0',
+        expect(page).to have_selector ".bookmarked-walking-route-name-0",
           text: walking_route_bookmarked.name
-        expect(page).to have_selector '.created-walking-route-name-0',
+        expect(page).to have_selector ".created-walking-route-name-0",
           text: walking_route_created.name
 
-        click_link 'プロフィール編集'
+        click_link "プロフィール編集"
 
-        fill_in 'ユーザー名', with: 'new_name'
-        fill_in '自己紹介', with: 'new_comment'
-        click_button '更新する'
+        fill_in "ユーザー名", with: "new_name"
+        fill_in "自己紹介", with: "new_comment"
+        click_button "更新する"
 
-        expect(page).to have_selector '.show-profile-name', text: 'new_name'
-        expect(page).to have_selector '.show-profile-comment', text: 'new_comment'
+        expect(page).to have_selector ".show-profile-name", text: "new_name"
+        expect(page).to have_selector ".show-profile-comment", text: "new_comment"
       end
     end
 
@@ -43,8 +43,8 @@ RSpec.describe "Profiles", type: :system do
       it "プロフィール編集、設定ボタンが表示されていないこと" do
         visit profile_path(other_user.id)
 
-        expect(page).to_not have_link 'プロフィール編集'
-        expect(page).to_not have_link '設定'
+        expect(page).to_not have_link "プロフィール編集"
+        expect(page).to_not have_link "設定"
       end
     end
   end

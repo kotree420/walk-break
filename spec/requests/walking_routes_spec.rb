@@ -32,7 +32,7 @@ RSpec.describe "WalkingRoutes", type: :request do
       expect(response.body).to include(user.name)
     end
     it "作成日時が表示されていること" do
-      expect(response.body).to include(walking_route.created_at.strftime('%Y/%m/%d %H:%M:%S'))
+      expect(response.body).to include(walking_route.created_at.strftime("%Y/%m/%d %H:%M:%S"))
     end
     it "散歩ルート名が表示されていること" do
       expect(response.body).to include(walking_route.name)

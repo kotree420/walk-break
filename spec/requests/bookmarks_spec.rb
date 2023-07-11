@@ -4,7 +4,7 @@ RSpec.describe "Bookmarks", type: :request do
   let(:user) { create(:user) }
   let(:walking_route) { create(:walking_route, user: user) }
   let(:bookmark) { create(:bookmark, user_id: user.id, walking_route_id: walking_route.id) }
-  let!(:headers) { { HTTP_REFERER: 'http://www.example.com/walking_routes/1' } }
+  let!(:headers) { { HTTP_REFERER: "http://www.example.com/walking_routes/1" } }
 
   before do
     sign_in user
