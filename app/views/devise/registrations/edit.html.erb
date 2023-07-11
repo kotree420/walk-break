@@ -27,7 +27,7 @@
           <%= f.label :password_confirmation, for: "edit-registration-confirm-password" %>
         </div>
         <div class="field form-floating mb-3">
-          <%= f.password_field :current_password, autocomplete: "current-password", id: "edit-current-password", class: "form-control", placeholder: "password" %>
+          <%= f.password_field :current_password, autocomplete: "current-password", id: "edit-current-password", class: "form-control", placeholder: "password", required: "true" %>
           <%= f.label :current_password, for: "edit-current-password" %>
         </div>
         <div class="actions">

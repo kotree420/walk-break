@@ -13,11 +13,11 @@
           <%= f.hidden_field :user_id, value: current_user.id %>
         </div>
         <div class="form-floating mb-3">
-          <%= f.text_field :name, id: "walking-route-name", class: "form-control walking-route-name-style", placeholder: "散歩ルート" %>
+          <%= f.text_field :name, id: "walking-route-name", class: "form-control walking-route-name-style", placeholder: "散歩ルート", required: "true" %>
           <%= f.label :name, "散歩ルート名:", id: "walking-route-name-label", for: "walking-route-name" %>
         </div>
         <div class="form-floating mb-4">
-          <%= f.text_area :comment, id: "comment-area", class: "form-control", placeholder: "Leave a comment here" %>
+          <%= f.text_area :comment, id: "comment-area", class: "form-control", placeholder: "Leave a comment here", required: "true" %>
           <%= f.label :comment, "ひとことコメント:", id: "comment-area-label", for: "comment-area" %>
         </div>
         <div class="mb-3 row">
@@ -36,12 +36,12 @@
           ※距離と時間はルート出力後に自動計算されます。<br>
         </p>
         <div class="form-floating mb-3">
-          <%= f.text_field :start_address, id: "start", class: "form-control", placeholder: "東京駅" %>
+          <%= f.text_field :start_address, id: "start", class: "form-control", placeholder: "東京駅", required: "true" %>
           <%= f.label :start_address, "出発地:", id: "start-label", for: "start" %>
         </div>
         <div id="waypoints"></div>
         <div class="form-floating">
-          <%= f.text_field :end_address, id: "end", class: "form-control", placeholder: "銀座駅" %>
+          <%= f.text_field :end_address, id: "end", class: "form-control", placeholder: "銀座駅", required: "true" %>
           <%= f.label :end_address, "到着地:", id: "end-label", for: "end" %>
         </div>
         <p class="annotation">

@@ -6,11 +6,11 @@
     <div class="col-lg-6 mx-auto">
       <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
         <div class="field form-floating mb-3">
-          <%= f.text_field :name, autofocus: true, autocomplete: "name", id: "new-session-name", class: "form-control", placeholder: "name" %>
+          <%= f.text_field :name, autofocus: true, autocomplete: "name", id: "new-session-name", class: "form-control", placeholder: "name", required: "true" %>
           <%= f.label :name, for: "new-session-name" %>
         </div>
         <div class="field form-floating mb-3">
-          <%= f.password_field :password, autocomplete: "current-password", id: "new-session-password", class: "form-control", placeholder: "password" %>
+          <%= f.password_field :password, autocomplete: "current-password", id: "new-session-password", class: "form-control", placeholder: "password", required: "true" %>
           <%= f.label :password, for: "new-session-password" %>
         </div>
         <% if devise_mapping.rememberable? %>

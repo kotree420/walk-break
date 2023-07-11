@@ -7,11 +7,11 @@
       <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
         <%= render "devise/shared/error_messages", resource: resource %>
         <div class="field form-floating mb-3">
-          <%= f.text_field :name, autofocus: true, autocomplete: "name", id: "new-registration-name", class: "form-control", placeholder: "name" %>
-          <%= f.label :name, for: "new-registration-name" %>
+          <%= f.text_field :name, autofocus: true, autocomplete: "name", id: "new-registration-name", class: "form-control", placeholder: "name", maxlength: "20", required: "true" %>
+          <%= f.label :name, "ユーザー名（20文字以内）", for: "new-registration-name" %>
         </div>
         <div class="field form-floating mb-3">
-          <%= f.email_field :email, autofocus: true, autocomplete: "email", id: "new-registration-email", class: "form-control", placeholder: "email" %>
+          <%= f.email_field :email, autofocus: true, autocomplete: "email", id: "new-registration-email", class: "form-control", placeholder: "email", required: "true" %>
           <%= f.label :email, for: "new-registration-email" %>
         </div>
         <div class="field">
@@ -19,12 +19,12 @@
           <span>(<%= @minimum_password_length %> 文字以上)</span>
           <% end %>
           <div class="form-floating mb-3">
-            <%= f.password_field :password, autocomplete: "new-password", id: "new-registration-password", class: "form-control", placeholder: "password" %>
+            <%= f.password_field :password, autocomplete: "new-password", id: "new-registration-password", class: "form-control", placeholder: "password", required: "true" %>
             <%= f.label :password, for: "new-registration-password" %>
           </div>
         </div>
         <div class="field form-floating mb-3">
-          <%= f.password_field :password_confirmation, autocomplete: "new-password", id: "new-registration-confirm-password", class: "form-control", placeholder: "password" %>
+          <%= f.password_field :password_confirmation, autocomplete: "new-password", id: "new-registration-confirm-password", class: "form-control", placeholder: "password", required: "true" %>
           <%= f.label :password_confirmation, for: "new-registration-confirm-password" %>
         </div>
         <div class="actions">
