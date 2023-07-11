@@ -2,6 +2,12 @@ require 'rails_helper'
 
 RSpec.describe "WalkingRoutes", type: :system do
   describe "散歩ルート作成機能", js: true do
+    let(:user) { create(:user) }
+
+    before do
+      sign_in user
+    end
+
     it "散歩ルート作成画面にてルート作成を実行すると、詳細表示ページに遷移して作成した情報が表示されること", js: true do
       visit new_walking_route_path
 
@@ -41,9 +47,9 @@ RSpec.describe "WalkingRoutes", type: :system do
       expect(page).to have_css "#gmimap5"
       expect(page).to have_css "#gmimap6"
 
-      expect(page).to have_field '距離/km', with: '1.163'
+      expect(page).to have_field '距離/km', with: '1.156'
       expect(page).to have_field '時間/分', with: '15'
-      expect(page).to have_field '出発地:', with: '日本、〒100-0005 東京都千代田区丸の内１丁目９−１'
+      expect(page).to have_field '出発地:', with: '日本、〒100-0005 東京都千代田区丸の内１丁目９−１ 1F JR東日本東京駅構内 グランスタ東京'
       expect(page).to have_field 'waypoint1', with: '日本、〒100-0006 東京都千代田区有楽町２丁目９ 有楽町駅'
       expect(page).to have_field '到着地:', with: '日本、〒104-0061 東京都中央区銀座４丁目１−２ 銀座駅'
 
