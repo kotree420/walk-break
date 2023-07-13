@@ -3,7 +3,7 @@ class ProfilesController < ApplicationController
 
   def show
     @user = User.find(params[:id])
-    @bookmarks = @user.bookmarks
+    @bookmarks = @user.bookmarks.includes([:user, :walking_route])
     @walking_routes = @user.walking_routes
   end
 
