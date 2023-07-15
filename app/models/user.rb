@@ -3,6 +3,8 @@ class User < ApplicationRecord
   has_many :walking_routes, dependent: :destroy
 
   default_scope { where(is_deleted: false) }
+
+  # ユーザー管理機能を追加する場合は以下のscopeを使う
   # scope :with_deleted, -> { unscope(where: :is_deleted) }
 
   # Include default devise modules. Others available are:

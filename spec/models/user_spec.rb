@@ -5,6 +5,15 @@ RSpec.describe User, type: :model do
   let(:user) { build(:user) }
   let(:withdrawal_user) { create(:user, :withdrawal) }
 
+  describe "scopeテスト" do
+    it "未退会ユーザーのみがUserモデルのレコードに含まれること" do
+      withdrawal_user
+      expect(User.all).to eq []
+      first_user = create(:user)
+      expect(User.all).to include(first_user)
+    end
+  end
+
   describe "退会機能テスト" do
     it "is_deletedがtrueの場合、無効なユーザーとなること" do
       expect(withdrawal_user.active_for_authentication?).to be_falsey
