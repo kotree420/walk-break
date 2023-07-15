@@ -14,7 +14,6 @@ class WalkingRoute < ApplicationRecord
       end
     end
     count = count.length
-    return count
   end
 
   def bookmarked?(user)

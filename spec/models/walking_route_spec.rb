@@ -5,7 +5,9 @@ RSpec.describe WalkingRoute, type: :model do
   let!(:withdrawal_user) { create(:user) }
   let(:walking_route) { create(:walking_route, user: user) }
   let!(:bookmark) { create(:bookmark, user_id: user.id, walking_route_id: walking_route.id) }
-  let!(:bookmark_not_eligible) { create(:bookmark, user_id: withdrawal_user.id, walking_route_id: walking_route.id) }
+  let!(:bookmark_not_eligible) do
+    create(:bookmark, user_id: withdrawal_user.id, walking_route_id: walking_route.id)
+  end
 
   before do
     sign_in user
