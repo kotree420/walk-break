@@ -3,6 +3,7 @@ require 'rails_helper'
 RSpec.describe "Users", type: :request do
   let(:user) { create(:user) }
   let(:other_user) { create(:user) }
+  let(:withdrawal_user) { create(:user, :withdrawal) }
   let(:walking_route_created) { create(:walking_route, user: user) }
   let(:walking_route_bookmarked) { create(:walking_route, user: other_user) }
   let(:bookmark) do
@@ -14,30 +15,40 @@ RSpec.describe "Users", type: :request do
   end
 
   describe "GET /profiles/:id" do
-    before do
-      walking_route_created
-      bookmark
-      get profile_path(user.id)
+    context "退会していないユーザーのプロフィールを開く場合" do
+      before do
+        walking_route_created
+        bookmark
+        get profile_path(user.id)
+      end
+
+      it "ステータスコードに 200: OK が返されること" do
+        expect(response).to have_http_status(200)
+      end
+
+      it "ユーザー名が表示されていること" do
+        expect(response.body).to include(user.name)
+      end
+
+      it "自己紹介が表示されていること" do
+        expect(response.body).to include(user.comment)
+      end
+
+      it "ブックマーク登録した散歩ルート名が表示されていること" do
+        expect(response.body).to include(walking_route_bookmarked.name)
+      end
+
+      it "作成した散歩ルート名が表示されていること" do
+        expect(response.body).to include(walking_route_created.name)
+      end
     end
 
-    it "ステータスコードに 200: OK が返されること" do
-      expect(response).to have_http_status(200)
-    end
-
-    it "ユーザー名が表示されていること" do
-      expect(response.body).to include(user.name)
-    end
-
-    it "自己紹介が表示されていること" do
-      expect(response.body).to include(user.comment)
-    end
-
-    it "ブックマーク登録した散歩ルート名が表示されていること" do
-      expect(response.body).to include(walking_route_bookmarked.name)
-    end
-
-    it "作成した散歩ルート名が表示されていること" do
-      expect(response.body).to include(walking_route_created.name)
+    context "退会済みのユーザーのプロフィールを開く場合" do
+      it "ルートにリダイレクトされること" do
+        get profile_path(withdrawal_user.id)
+        expect(flash[:info]).to include("退会済みのユーザーです")
+        expect(response).to redirect_to(root_path)
+      end
     end
   end
 

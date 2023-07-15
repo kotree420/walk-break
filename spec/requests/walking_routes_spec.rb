@@ -3,7 +3,9 @@ require 'rails_helper'
 RSpec.describe "WalkingRoutes", type: :request do
   let(:user) { create(:user) }
   let(:other_user) { create(:user) }
+  let!(:withdrawal_user) { create(:user, :withdrawal) }
   let(:walking_route) { create(:walking_route, user: user) }
+  let!(:walking_route_by_withdrawal_user) { create(:walking_route, user: withdrawal_user) }
   let(:bookmark) { create(:bookmark, user_id: user.id, walking_route_id: walking_route.id) }
 
   before do
@@ -56,7 +58,7 @@ RSpec.describe "WalkingRoutes", type: :request do
       expect(response.body).to include(walking_route.encorded_path)
     end
 
-    context "ログイン中かつ自ユーザーが作成した散歩ルートの場合" do
+    context "自ユーザーが作成した散歩ルートの場合" do
       it "編集ボタンが表示されていること" do
         expect(response.body).to include("編集する")
       end
@@ -70,6 +72,14 @@ RSpec.describe "WalkingRoutes", type: :request do
 
       it "編集ボタンが表示されていないこと" do
         expect(response.body).to_not include("編集する")
+      end
+    end
+
+    context "退会済みのユーザーが作成した散歩ルートの場合" do
+      it "ルートにリダイレクトされること" do
+        get walking_route_path(walking_route_by_withdrawal_user.id)
+        expect(flash[:info]).to include("退会済みのユーザーです")
+        expect(response).to redirect_to(root_path)
       end
     end
   end
@@ -94,7 +104,7 @@ RSpec.describe "WalkingRoutes", type: :request do
 
       it "showアクションにリダイレクトされること" do
         request
-        expect(response).to redirect_to(walking_route_path(WalkingRoute.first.id))
+        expect(response).to redirect_to(walking_route_path(WalkingRoute.second.id))
       end
 
       it "送信した散歩ルートが保存されていること" do
