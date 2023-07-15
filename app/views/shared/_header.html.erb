@@ -13,18 +13,30 @@
           <li class="nav-item">
             <a class="nav-link" href="#" tabindex="-1" aria-disabled="true">about</a>
           </li>
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="dropdown" data-bs-toggle="dropdown" aria-expanded="false">アカウント</a>
-            <ul class="dropdown-menu" aria-labelledby="dropdown">
-              <li><a class="dropdown-item" href="#">プロフィール</a></li>
-              <li>
-                <%= link_to "散歩ルート作成", new_walking_route_path, class: "dropdown-item", data: { turbo: false } %>
-              </li>
-            </ul>
-          </li>
+          <% if user_signed_in? %>
+            <li class="nav-item dropdown">
+              <span class="nav-link dropdown-toggle header-profile-wrapper", id="dropdown", data-bs-toggle="dropdown", aria-expanded="false" >
+                <%= image_tag current_user.profile_image.url, class: 'header-profile-image' %>
+                <span class="header-profile-name"><%= current_user.name %></span>
+              </span>
+              <ul class="dropdown-menu" aria-labelledby="dropdown">
+                <li><%= link_to "プロフィール", profile_path(current_user.id), class: "dropdown-item" %></li>
+                <li><%= link_to "散歩ルート作成", new_walking_route_path, class: "dropdown-item", data: { turbo: false } %></li>
+                <li><%= link_to "ログアウト", destroy_user_session_path, class: "dropdown-item", data: { "turbo-method": :delete } %></li>
+                <li><%= link_to "退会", withdrawal_profiles_path, class: "dropdown-item", method: :patch, data: { "turbo-method": :patch, turbo_confirm: "本当に退会しますか？" } %></li>
+              </ul>
+            </li>
+          <% else %>
+            <li class="nav-item">
+              <%= link_to "ログイン", new_user_session_path, class: "nav-link", tabindex: "-1", 'aria-disabled': :true %>
+            </li>
+            <li class="nav-item">
+              <%= link_to "新規登録", new_user_registration_path, class: "nav-link", tabindex: "-1", 'aria-disabled': :true %>
+            </li>
+          <% end %>
         </ul>
         <form>
-          <input class="form-control index-search-form" type="text" placeholder="キーワードで探す" aria-label="キーワードで探す">
+          <input class="form-control" type="text" placeholder="キーワードで探す" aria-label="キーワードで探す">
         </form>
       </div>
     </div>

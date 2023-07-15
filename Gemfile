@@ -1,7 +1,7 @@
 source "https://rubygems.org"
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby "2.7.6"
+# ruby "2.7.6"
 
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
 gem "rails", "~> 7.0.4", ">= 7.0.4.3"
@@ -10,7 +10,7 @@ gem "rails", "~> 7.0.4", ">= 7.0.4.3"
 gem "sprockets-rails"
 
 # Use sqlite3 as the database for Active Record
-gem "sqlite3", "~> 1.4"
+# gem "sqlite3", "~> 1.4"
 
 # Use the Puma web server [https://github.com/puma/puma]
 gem "puma", "~> 5.0"
@@ -54,6 +54,11 @@ gem "bootsnap", require: false
 gem 'gretel'
 gem 'rails-i18n'
 gem 'pry-rails'
+gem "devise"
+gem 'devise-i18n'
+gem 'carrierwave', '~> 2.0'
+gem "font-awesome-sass", "~> 6.4.0"
+gem 'fog-aws'
 
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
@@ -62,6 +67,7 @@ group :development, :test do
   gem "factory_bot_rails"
   gem 'faker'
   gem 'rubocop-airbnb'
+  gem "sqlite3", "~> 1.4"
 end
 
 group :development do
@@ -80,4 +86,8 @@ group :test do
   gem "capybara"
   gem "selenium-webdriver"
   gem "webdrivers"
+end
+
+group :production do
+  gem 'pg'
 end

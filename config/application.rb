@@ -20,5 +20,7 @@ module WalkBreak
     #
     config.time_zone = 'Asia/Tokyo'
     # config.eager_load_paths << Rails.root.join("extras")
+
+    config.action_view.field_error_proc = Proc.new { |html_tag, instance| html_tag }
   end
 end
