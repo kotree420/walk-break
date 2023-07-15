@@ -4,10 +4,15 @@ RSpec.describe "Profiles", type: :system do
   describe "プロフィール機能" do
     let(:user) { create(:user) }
     let!(:other_user) { create(:user) }
+    let!(:withdrawal_user) { create(:user, :withdrawal) }
     let!(:walking_route_created) { create(:walking_route, user: user) }
     let!(:walking_route_bookmarked) { create(:walking_route, user: other_user) }
+    let!(:walking_route_created_by_withdrawal) { create(:walking_route, user: withdrawal_user) }
     let!(:bookmark) do
       create(:bookmark, user_id: user.id, walking_route_id: walking_route_bookmarked.id)
+    end
+    let!(:bookmark_created_by_withdrawal) do
+      create(:bookmark, user_id: user.id, walking_route_id: walking_route_created_by_withdrawal.id)
     end
 
     before do
@@ -25,6 +30,9 @@ RSpec.describe "Profiles", type: :system do
 
         expect(page).to have_selector ".bookmarked-walking-route-name-0",
           text: walking_route_bookmarked.name
+        # ブックマーク済みの散歩ルートの作成者が退会済みの場合、対象の散歩ルートはブックマーク一覧で非表示になる
+        expect(page).to_not have_content walking_route_created_by_withdrawal.name
+
         expect(page).to have_selector ".created-walking-route-name-0",
           text: walking_route_created.name
 
