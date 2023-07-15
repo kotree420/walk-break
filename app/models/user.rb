@@ -4,8 +4,8 @@ class User < ApplicationRecord
 
   default_scope { where(is_deleted: false) }
 
-  # ユーザー管理機能を追加する場合は以下のscopeを使う
-  # scope :with_deleted, -> { unscope(where: :is_deleted) }
+  # ユーザー管理機能で全てのユーザーを取得する場合は以下のunscopeを使う
+  scope :with_deleted, -> { unscope(where: :is_deleted) }
 
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
