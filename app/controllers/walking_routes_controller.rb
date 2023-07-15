@@ -5,8 +5,8 @@ class WalkingRoutesController < ApplicationController
   end
 
   def show
-    if @user = User.find_by(id: params[:id])
-      @walking_route = WalkingRoute.find(params[:id])
+    @walking_route = WalkingRoute.find(params[:id])
+    if @user = @walking_route.user
       @bookmarks_count = @walking_route.bookmarks_count
     else
       flash[:info] = ["退会済みのユーザーです"]
