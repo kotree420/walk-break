@@ -26,11 +26,14 @@
         <div class="col-lg-6">
           <p>ブックマーク一覧</p>
           <% @bookmarks.each_with_index do |bookmark, i| %>
-            <div>
-              <%= link_to walking_route_path(bookmark.walking_route), data: { turbo: false }, class: "bookmarked-walking-route-name-#{i}" do %>
-                <%= bookmark.walking_route.name %>
-              <% end %>
-            </div>
+            <% if bookmark.walking_route.user %>
+              <div>
+                <%= link_to walking_route_path(bookmark.walking_route), data: { turbo: false }, class: "bookmarked-walking-route-name-#{i}" do %>
+                  <%= bookmark.walking_route.user.name %>
+                  <%= bookmark.walking_route.name %>
+                <% end %>
+              </div>
+            <% end %>
           <% end %>
         </div>
         <div class="col-lg-6">

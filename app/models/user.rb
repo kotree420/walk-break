@@ -2,6 +2,9 @@ class User < ApplicationRecord
   has_many :bookmarks, dependent: :destroy
   has_many :walking_routes, dependent: :destroy
 
+  default_scope { where(is_deleted: false) }
+  # scope :with_deleted, -> { unscope(where: :is_deleted) }
+
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,

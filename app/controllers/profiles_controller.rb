@@ -2,9 +2,13 @@ class ProfilesController < ApplicationController
   before_action :authenticate_user!, only: [:edit, :update, :withdrawal]
 
   def show
-    @user = User.find(params[:id])
-    @bookmarks = @user.bookmarks.includes([:user, :walking_route])
-    @walking_routes = @user.walking_routes
+    if @user = User.find_by(id: params[:id])
+      @bookmarks = @user.bookmarks.includes([:user, walking_route: :user])
+      @walking_routes = @user.walking_routes
+    else
+      flash[:info] = ["退会済みのユーザーです"]
+      redirect_to root_path
+    end
   end
 
   def edit
@@ -16,7 +20,7 @@ class ProfilesController < ApplicationController
     if @user.update(user_params)
       session[:user].clear if session[:user]
       flash[:info] = ["プロフィール情報の更新が完了しました"]
-      redirect_to  action: :show
+      redirect_to action: :show
     else
       session[:user] = @user
       flash[:warning] = @user.errors.full_messages

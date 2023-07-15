@@ -12,11 +12,11 @@
             <i id="already-bookmarked-icon" class="fa-solid fa-heart"></i>
           <% end %>
         <% else %>
-          <%= button_to  walking_route_bookmarks_path(@walking_route), class: "btn bookmark-btn not-yet-bookmark-btn", method: :post, data: { turbo: false } do %>
+          <%= button_to walking_route_bookmarks_path(@walking_route), class: "btn bookmark-btn not-yet-bookmark-btn", method: :post, data: { turbo: false } do %>
             <i id="not-yet-bookmarked-icon" class="fa-regular fa-heart"></i>
           <% end %>
         <% end %>
-        <span class="bookmark-btn bookmark-count"><%= @walking_route.bookmarks.count %></span>
+        <span class="bookmark-btn bookmark-count"><%= @bookmarks_count %></span>
       </div>
       <%= form_with model: @walking_route do |f| %>
         <%= f.hidden_field :encorded_path, id: "show-encorded-path", value: @walking_route.encorded_path %>
