@@ -70,7 +70,7 @@ function initMap() {
   // walking_routes#show
   if (document.getElementById("show-start-address-label") && document.getElementById("show-end-address-label")) {
     window.addEventListener("load", () => {
-      let show_start_address = document.getElementById("show-start-address").value;
+      let show_start_address = document.getElementById("show-start-address").innerText;
       geocoder.geocode({ 'address': show_start_address })
         .then( ({results}) => {
           if (results[0]) {

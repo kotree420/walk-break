@@ -67,12 +67,12 @@ RSpec.describe "WalkingRoutes", type: :system do
 
       expect(page).to have_selector "#created-at-value", text: WalkingRoute.first.created_at.
         strftime("%Y/%m/%d %H:%M:%S")
-      expect(page).to have_field "show-walking-route-name", with: WalkingRoute.first.name
-      expect(page).to have_field "show-comment-area", with: WalkingRoute.first.comment
-      expect(page).to have_field "距離", with: "#{WalkingRoute.first.distance}km"
-      expect(page).to have_field "時間", with: "#{WalkingRoute.first.duration}分"
-      expect(page).to have_field "出発地:", with: WalkingRoute.first.start_address
-      expect(page).to have_field "到着地:", with: WalkingRoute.first.end_address
+      expect(page).to have_selector "#show-walking-route-name", text: WalkingRoute.first.name
+      expect(page).to have_selector "#show-walking-route-comment", text: WalkingRoute.first.comment
+      expect(page).to have_selector "#show-total-distance", text: "#{WalkingRoute.first.distance}km"
+      expect(page).to have_selector "#show-total-duration", text: "#{WalkingRoute.first.duration}分"
+      expect(page).to have_selector "#show-start-address", text: WalkingRoute.first.start_address
+      expect(page).to have_selector "#show-end-address", text: WalkingRoute.first.end_address
     end
 
     it "経由地は10を越える数を追加できないこと", js: true do
