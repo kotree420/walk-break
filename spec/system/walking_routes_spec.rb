@@ -16,12 +16,12 @@ RSpec.describe "WalkingRoutes", type: :system do
 
       fill_in "散歩ルート名:", with: "散歩ルート1"
       fill_in "ひとことコメント:", with: "散歩コメント1"
-      fill_in "出発地:", with: "東京駅"
+      fill_in "出発地:", with: "日本、〒100-0005 東京都千代田区丸の内１丁目９ JR 東京駅"
       click_button "経由地を追加"
       click_button "経由地を追加"
-      fill_in "waypoint1", with: "有楽町駅"
-      fill_in "waypoint2", with: "日比谷駅"
-      fill_in "到着地:", with: "銀座駅"
+      fill_in "waypoint1", with: "日本、〒100-0006 東京都千代田区有楽町２丁目９ 有楽町駅"
+      fill_in "waypoint2", with: "日本、〒100-0006 東京都千代田区有楽町１丁目 日比谷駅"
+      fill_in "到着地:", with: "日本、〒104-0061 東京都中央区銀座４丁目１−２ 銀座駅"
 
       click_button "ルート出力"
 
@@ -47,9 +47,9 @@ RSpec.describe "WalkingRoutes", type: :system do
       expect(page).to have_css "#gmimap5"
       expect(page).to have_css "#gmimap6"
 
-      expect(page).to have_field "距離/km", with: "1.156"
-      expect(page).to have_field "時間/分", with: "15"
-      expect(page).to have_field "出発地:", with: "日本、〒100-0005 東京都千代田区丸の内１丁目９−１ 1F JR東日本東京駅構内 グランスタ東京"
+      expect(page).to have_field "距離/km", with: "1.113"
+      expect(page).to have_field "時間/分", with: "14"
+      expect(page).to have_field "出発地:", with: "日本、〒100-0005 東京都千代田区丸の内１丁目９ JR 東京駅"
       expect(page).to have_field "waypoint1", with: "日本、〒100-0006 東京都千代田区有楽町２丁目９ 有楽町駅"
       expect(page).to have_field "到着地:", with: "日本、〒104-0061 東京都中央区銀座４丁目１−２ 銀座駅"
 
