@@ -34,20 +34,20 @@
         <span id="show-walking-route-comment"><%= @walking_route.comment %></span>
       </div>
       <div class="mb-1 row">
-        <span class="show-total-distance-label col-sm-3">距離</span>
-        <span id="show-total-distance" class="col-sm-9"><%= "#{@walking_route.distance.to_s}km" %></span>
-      </div>
-      <div class="mb-3 row">
-        <span class="show-total-duration-label col-sm-3">時間</span>
-        <span id="show-total-duration" class="col-sm-9 total-duration-style"><%= "#{@walking_route.duration.to_s}分" %></span>
-      </div>
-      <div class="mb-1 row">
         <span id="show-start-address-label" class="col-sm-3">出発地</span>
         <span id="show-start-address" class="col-sm-9"><%= @walking_route.start_address %></span>
       </div>
       <div class="mb-3 row">
         <span id="show-end-address-label" class="col-sm-3">到着地</span>
         <span id="show-end-address" class="col-sm-9"><%= @walking_route.end_address %></span>
+      </div>
+      <div class="mb-1 row">
+        <span class="show-total-distance-label col-sm-3">距離</span>
+        <span id="show-total-distance" class="col-sm-9"><%= "#{@walking_route.distance.to_s}km" %></span>
+      </div>
+      <div class="mb-3 row">
+        <span class="show-total-duration-label col-sm-3">時間</span>
+        <span id="show-total-duration" class="col-sm-9 total-duration-style"><%= "#{@walking_route.duration.to_s}分" %></span>
       </div>
       <% if @user == current_user %>
         <div class="d-grid gap-2 col-6 mx-auto">
