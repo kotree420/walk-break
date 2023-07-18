@@ -65,8 +65,8 @@ RSpec.describe "WalkingRoutes", type: :system do
           to be_truthy
       end
 
-      expect(page).to have_selector "#created-at-value", text: WalkingRoute.first.created_at.
-        strftime("%Y/%m/%d %H:%M:%S")
+      expect(page).to have_selector "#created-at-value", text: "作成日時 #{WalkingRoute.first.created_at.
+        strftime("%Y/%m/%d %H:%M:%S")}"
       expect(page).to have_selector "#show-walking-route-name", text: WalkingRoute.first.name
       expect(page).to have_selector "#show-walking-route-comment", text: WalkingRoute.first.comment
       expect(page).to have_selector "#show-total-distance", text: "#{WalkingRoute.first.distance}km"
