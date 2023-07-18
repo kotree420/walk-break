@@ -40,7 +40,7 @@ li{
   border-color: #d6c7ca;
 }
 
-.breadcrumbs a {
+.breadcrumbs a, .back-link {
   text-decoration: none;
 }
 
@@ -232,7 +232,7 @@ footer {
 }
 
 /* walking_routes#new */
-#walking-route-name-label, #comment-area-label, #start-label, #end-label {
+#walking-route-name-label, #edit-walking-route-name-label, #walking-route-new-comment-area-label, #walking-route-edit-comment-area-label, #start-label, #end-label {
   font-size: 0.9rem;
 }
 
@@ -240,7 +240,7 @@ footer {
   height: 150px;
 }
 
-#comment-area {
+#walking-route-new-comment-area, #walking-route-edit-comment-area {
   height: 150px;
 }
 

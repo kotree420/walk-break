@@ -1,6 +1,6 @@
 <% provide(:title, @walking_route.name) %>
+<% breadcrumb :walking_route_show, @walking_route %>
 <div class="container col-xxl-10 px-4 py-3">
-  <% breadcrumb :walking_route_show, @walking_route %>
   <div class="row flex-lg-row align-items-center g-5 py-3">
     <div class="col-lg-6">
       <input type="hidden" id="show-encorded-path" name="encorded-path" value=<%= @walking_route.encorded_path %>>
@@ -51,7 +51,7 @@
       </div>
       <% if @user == current_user %>
         <div class="d-grid gap-2 col-6 mx-auto">
-          <%= link_to "編集する", "#", class: "btn btn-primary btn--extend" %>
+          <%= link_to "編集する", edit_walking_route_path(@walking_route), class: "btn btn-primary btn--extend", data: { turbo: false } %>
         </div>
       <% end %>
     </div>
