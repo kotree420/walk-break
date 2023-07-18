@@ -1,5 +1,5 @@
 class WalkingRoutesController < ApplicationController
-  before_action :authenticate_user!, only: [:new]
+  before_action :authenticate_user!, only: [:new, :edit, :update, :destroy]
 
   def index
   end
@@ -30,6 +30,15 @@ class WalkingRoutesController < ApplicationController
       flash[:warning] = @walking_route.errors.full_messages
       redirect_to action: :new
     end
+  end
+
+  def edit
+  end
+
+  def update
+  end
+
+  def destroy
   end
 
   private
