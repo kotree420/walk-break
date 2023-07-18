@@ -1,6 +1,6 @@
 <% provide(:title, '散歩ルート編集') %>
 <div class="container col-xxl-10 px-4 py-3">
-  <%= link_to "戻る", :back, class: "back-link", data: { turbo: false } %>
+  <%= link_to "戻る", walking_route_path(@walking_route), class: "back-link", data: { turbo: false } %>
   <div class="row flex-lg-row align-items-center g-5 py-3">
     <div class="col-lg-6">
       <%= form_with url: walking_route_path, method: :patch do |f| %>
