@@ -2,8 +2,15 @@ class WalkingRoute < ApplicationRecord
   has_many :bookmarks, dependent: :destroy
   belongs_to :user
 
-  validates :name, :comment, :distance, :duration, :start_address, :end_address, :encorded_path,
-    presence: true
+  with_options presence: true do
+    validates :name, length: { maximum: 20 }
+    validates :comment, length: { maximum: 140 }
+    validates :distance, numericality: true
+    validates :duration, numericality: true
+    validates :start_address
+    validates :end_address
+    validates :encorded_path
+  end
 
   def bookmarks_count
     count = []
