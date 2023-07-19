@@ -9,6 +9,14 @@ class ApplicationController < ActionController::Base
     devise_parameter_sanitizer.permit(:account_update, keys: [:email])
   end
 
+  def edit_user_session_clear
+    session[:edit_user].clear if session[:edit_user]
+  end
+
+  def new_walking_route_session_clear
+    session[:new_walking_route].clear if session[:new_walking_route]
+  end
+
   def edit_walking_route_session_clear
     session[:walking_route_edit].clear if session[:walking_route_edit]
   end
