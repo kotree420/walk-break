@@ -41,7 +41,7 @@
                 <%= link_to "編集", edit_walking_route_path(@walking_route), class: "dropdown-item", data: { turbo: false } %>
               </li>
               <li>
-                <%= link_to "削除", "#", class: "dropdown-item", data: { turbo: false } %>
+                <%= button_to "削除", walking_route_path(@walking_route), id: "delete-walking-route-btn", class: "dropdown-item", method: :delete, data: { turbo: false }, onclick: "return walking_route_delete_check_form()" %>
               </li>
             </ul>
           </div>

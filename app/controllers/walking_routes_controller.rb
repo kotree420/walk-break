@@ -52,6 +52,14 @@ class WalkingRoutesController < ApplicationController
   end
 
   def destroy
+    @walking_route = WalkingRoute.find(params[:id])
+    if @walking_route.destroy
+      flash[:info] = ["散歩ルートの削除が完了しました"]
+      redirect_to root_path, status: :see_other
+    else
+      flash[:warning] = @walking_route.errors.full_messages
+      redirect_to action: :show, id: @walking_route.id
+    end
   end
 
   private

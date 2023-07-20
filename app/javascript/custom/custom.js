@@ -12,3 +12,13 @@ if (document.querySelector(".image-uploader")) {
     });
   });
 };
+
+function walking_route_delete_check_form() {
+  if(window.confirm('このルートを削除しますか？')){
+    return true;
+  } else {
+    return false;
+  };
+};
+
+window.walking_route_delete_check_form = walking_route_delete_check_form;
