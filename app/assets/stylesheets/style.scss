@@ -169,12 +169,8 @@ footer {
   font-size: 0.8rem;
 }
 
-#show-walking-route-name {
-  padding-right: 0.5rem;
-}
-
 .bookmark-btn {
-  font-size: 1.5rem;
+  font-size: 1.2rem;
 }
 
 .already-bookmark-btn, .not-yet-bookmark-btn {
@@ -195,6 +191,11 @@ footer {
 
 .bookmark-count {
   padding-right: 1rem;
+}
+
+.edit-dropdown-btn {
+  font-size: 1rem;
+  padding: 0.15rem 0.3rem;
 }
 
 .walking-route-profile-link {

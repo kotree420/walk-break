@@ -17,35 +17,37 @@
       <div class="mb-4 row created-at">
         <div id="created-at-value">作成日時 <%= l @walking_route.created_at %></div>
       </div>
-      <div class="walking-route-name-bookmark-wrapper d-flex flex-sm-row align-items-center mb-1">
-        <span id="show-walking-route-name" class="walking-route-name-style"><%= @walking_route.name %></span>
-        <div class="d-flex flex-row align-items-center">
-          <% if @walking_route.bookmarked?(current_user) %>
-            <%= button_to walking_route_bookmarks_path(@walking_route), class: "btn bookmark-btn already-bookmark-btn", method: :delete, data: { turbo: false } do %>
-              <i id="already-bookmarked-icon" class="fa-solid fa-heart"></i>
+      <div class="walking-route-name-wrapper row align-items-center mb-1">
+        <div id="show-walking-route-name" class="walking-route-name-style"><%= @walking_route.name %></div>
+        <div class="bookmark-edit-wrapper d-flex flex-row align-items-center">
+          <div class="d-flex flex-row align-items-center">
+            <% if @walking_route.bookmarked?(current_user) %>
+              <%= button_to walking_route_bookmarks_path(@walking_route), class: "btn bookmark-btn already-bookmark-btn", method: :delete, data: { turbo: false } do %>
+                <i id="already-bookmarked-icon" class="fa-solid fa-heart"></i>
+              <% end %>
+            <% else %>
+              <%= button_to walking_route_bookmarks_path(@walking_route), class: "btn bookmark-btn not-yet-bookmark-btn", method: :post, data: { turbo: false } do %>
+                <i id="not-yet-bookmarked-icon" class="fa-regular fa-heart"></i>
+              <% end %>
             <% end %>
-          <% else %>
-            <%= button_to walking_route_bookmarks_path(@walking_route), class: "btn bookmark-btn not-yet-bookmark-btn", method: :post, data: { turbo: false } do %>
-              <i id="not-yet-bookmarked-icon" class="fa-regular fa-heart"></i>
-            <% end %>
-          <% end %>
-          <span class="bookmark-btn bookmark-count"><%= @bookmarks_count %></span>
-        </div>
-        <% if @user == current_user %>
-          <div class="dropdown">
-            <a class="btn btn-primary btn--extend dropdown-toggle" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
-              <i class="fa-regular fa-pen-to-square"></i>
-            </a>
-            <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-              <li>
-                <%= link_to "編集", edit_walking_route_path(@walking_route), class: "dropdown-item", data: { turbo: false } %>
-              </li>
-              <li>
-                <%= button_to "削除", walking_route_path(@walking_route), id: "delete-walking-route-btn", class: "dropdown-item", method: :delete, data: { turbo: false }, onclick: "return walking_route_delete_check_form()" %>
-              </li>
-            </ul>
+            <span class="bookmark-btn bookmark-count"><%= @bookmarks_count %></span>
           </div>
-        <% end %>
+          <% if @user == current_user %>
+            <div class="dropdown">
+              <a class="btn btn-primary btn--extend dropdown-toggle edit-dropdown-btn" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+                <i class="fa-regular fa-pen-to-square"></i>
+              </a>
+              <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                <li>
+                  <%= link_to "編集", edit_walking_route_path(@walking_route), class: "dropdown-item", data: { turbo: false } %>
+                </li>
+                <li>
+                  <%= button_to "削除", walking_route_path(@walking_route), id: "delete-walking-route-btn", class: "dropdown-item", method: :delete, data: { turbo: false }, onclick: "return walking_route_delete_check_form()" %>
+                </li>
+              </ul>
+            </div>
+          <% end %>
+        </div>
       </div>
       <div class="mb-4 show-walking-route-comment-area comment-area-style">
         <p id="show-walking-route-comment"><%= @walking_route.comment %></p>
