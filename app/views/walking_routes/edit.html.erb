@@ -54,7 +54,7 @@
           ※地図上のマーカーをドラッグして調節することも可能です。
         </p>
         <%= f.hidden_field :encorded_path, id: "new-encorded-path" %>
-        <div class="d-grid gap-2 col-6 mx-auto">
+        <div class="d-grid gap-2 col-md-10 mx-auto">
           <%= f.submit "更新", class: "btn btn-primary btn--extend", data: { turbo: false } %>
         </div>
       <% end %>
