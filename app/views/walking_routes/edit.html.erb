@@ -11,11 +11,11 @@
         </div>
         <div class="form-floating mb-3">
           <%= f.text_field :name, id: "edit-walking-route-name", class: "form-control walking-route-name-style", value: @walking_route.name, placeholder: "散歩ルート", maxlength: "20", required: "true" %>
-          <%= f.label :name, "散歩ルート名:", id: "edit-walking-route-name-label", for: "edit-walking-route-name" %>
+          <%= f.label :name, "散歩ルート名:（20文字以内）", id: "edit-walking-route-name-label", for: "edit-walking-route-name" %>
         </div>
         <div class="form-floating mb-4">
           <%= f.text_area :comment, id: "walking-route-edit-comment-area", class: "form-control", value: @walking_route.comment, placeholder: "Leave a comment here", maxlength: "140", required: "true" %>
-          <%= f.label :comment, "ひとことコメント:", id: "walking-route-edit-comment-area-label", for: "walking-route-edit-comment-area" %>
+          <%= f.label :comment, "ひとことコメント:（140文字以内）", id: "walking-route-edit-comment-area-label", for: "walking-route-edit-comment-area" %>
         </div>
         <div class="mb-3 row">
           <%= f.label :distance, "距離/km", class: "col-sm-3 col-form-label", for: "total-distance" %>

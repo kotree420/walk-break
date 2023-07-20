@@ -4,7 +4,7 @@ class WalkingRoute < ApplicationRecord
 
   with_options presence: true do
     validates :name, length: { maximum: 20 }
-    validates :comment, length: { maximum: 140 }
+    validates :comment, with_line_break: { maximum: 140 }
     validates :distance, numericality: true
     validates :duration, numericality: true
     validates :start_address
