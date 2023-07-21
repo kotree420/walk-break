@@ -1,7 +1,7 @@
 FactoryBot.define do
   factory :walking_route do
-    name { Faker::Lorem.sentence }
-    comment { Faker::Lorem.sentence }
+    name { Faker::Lorem.characters(number: 20) }
+    comment { Faker::Lorem.characters(number: 140) }
     distance { Faker::Number.decimal(l_digits: 2) }
     duration { Faker::Number.number }
     start_address { Faker::Address.full_address }
