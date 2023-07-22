@@ -22,7 +22,6 @@ RSpec.describe "WalkingRoutes", type: :system do
       fill_in "waypoint1", with: "日本、〒100-0006 東京都千代田区有楽町２丁目９ 有楽町駅"
       fill_in "waypoint2", with: "日本、〒100-0006 東京都千代田区有楽町１丁目 日比谷駅"
       fill_in "到着地:", with: "日本、〒104-0061 東京都中央区銀座４丁目１−２ 銀座駅"
-
       click_button "ルート出力"
 
       # マップ上に地点マーカーが表示されているか
@@ -33,8 +32,9 @@ RSpec.describe "WalkingRoutes", type: :system do
 
       # マップ上にルートポリラインが表示されているか
       within ".gm-style" do
-        expect(find("img[src='https://maps.gstatic.com/mapfiles/undo_poly.png']", visible: false)).
-          to be_truthy
+        expect(
+          find("img[src='https://maps.gstatic.com/mapfiles/undo_poly.png']", visible: false)
+        ).to be_truthy
       end
 
       # 経由地を削除するとマーカーが一つ消え、id名が振り直される
@@ -52,21 +52,19 @@ RSpec.describe "WalkingRoutes", type: :system do
       expect(page).to have_field "出発地:", with: "日本、〒100-0005 東京都千代田区丸の内１丁目９ JR 東京駅"
       expect(page).to have_field "waypoint1", with: "日本、〒100-0006 東京都千代田区有楽町２丁目９ 有楽町駅"
       expect(page).to have_field "到着地:", with: "日本、〒104-0061 東京都中央区銀座４丁目１−２ 銀座駅"
-
       click_button "ルート作成"
 
-      # リダイレクト後のshowビューに情報が表示されていることを確認する
       expect(current_path).to eq walking_route_path(WalkingRoute.first.id)
-
       expect(page).to have_content "ルート作成が完了しました"
 
       within ".gm-style" do
-        expect(find("img[src='https://maps.gstatic.com/mapfiles/undo_poly.png']", visible: false)).
-          to be_truthy
+        expect(
+          find("img[src='https://maps.gstatic.com/mapfiles/undo_poly.png']", visible: false)
+        ).to be_truthy
       end
 
-      expect(page).to have_selector "#created-at-value", text: "作成日時 #{WalkingRoute.first.created_at.
-        strftime("%Y/%m/%d %H:%M:%S")}"
+      expect(page).to have_selector "#created-at-value",
+        text: "作成日時 #{WalkingRoute.first.created_at.strftime("%Y/%m/%d %H:%M:%S")}"
       expect(page).to have_selector "#show-walking-route-name", text: WalkingRoute.first.name
       expect(page).to have_selector "#show-walking-route-comment", text: WalkingRoute.first.comment
       expect(page).to have_selector "#show-total-distance", text: "#{WalkingRoute.first.distance}km"
@@ -83,6 +81,114 @@ RSpec.describe "WalkingRoutes", type: :system do
       end
 
       expect(all(".waypoint").count).to eq 10
+    end
+  end
+
+  describe "散歩ルート編集機能", js: true do
+    let(:user) { create(:user) }
+    let(:other_user) { create(:user) }
+    let(:walking_route) do
+      create(
+        :walking_route,
+        start_address: "日本、〒100-0005 東京都千代田区丸の内１丁目９ JR 東京駅",
+        end_address: "日本、〒104-0061 東京都中央区銀座４丁目１−２ 銀座駅",
+        encorded_path:
+          "o}wxEqoatYAFjGfBDSH[LFNFR@LE`Ah@PITLVJb@TbDfBZRVTANl@NFBJ@LB`@VZRBKZNrAr@l@b@hBhA\LAFA@PD
+          d@Zv@f@`BbAtA|@^TSh@",
+        user: user
+      )
+    end
+
+    context "サインイン中のユーザーで作成した散歩ルートを開く場合" do
+      it "散歩ルート情報を編集できること" do
+        sign_in user
+        visit walking_route_path(walking_route)
+
+        find('.edit-dropdown-btn').click
+        click_link '編集'
+
+        expect(current_path).to eq edit_walking_route_path(WalkingRoute.first.id)
+        expect(page).to have_css ".gm-style"
+
+        fill_in "散歩ルート名:（20文字以内）", with: "散歩ルート1"
+        fill_in "ひとことコメント:（140文字以内）", with: "散歩コメント1"
+        fill_in "出発地:", with: "日本、〒100-0005 東京都千代田区丸の内１丁目９ JR 東京駅"
+        fill_in "到着地:", with: "日本、〒104-0061 東京都中央区銀座４丁目１−２ 銀座駅"
+        click_button "ルート出力"
+
+        expect(page).to have_css "#gmimap0"
+        expect(page).to have_css "#gmimap1"
+        within ".gm-style" do
+          expect(
+            find("img[src='https://maps.gstatic.com/mapfiles/undo_poly.png']", visible: false)
+          ).to be_truthy
+        end
+
+        expect(page).to have_field "距離/km", with: "1.021"
+        expect(page).to have_field "時間/分", with: "13"
+        expect(page).to have_field "出発地:", with: "日本、〒100-0005 東京都千代田区丸の内１丁目９ JR 東京駅"
+        expect(page).to have_field "到着地:", with: "日本、〒104-0061 東京都中央区銀座４丁目１−２ 銀座駅"
+        click_button "更新"
+
+        expect(current_path).to eq walking_route_path(WalkingRoute.first.id)
+        expect(page).to have_content "散歩ルート情報の更新が完了しました"
+
+        within ".gm-style" do
+          expect(
+            find("img[src='https://maps.gstatic.com/mapfiles/undo_poly.png']", visible: false)
+          ).to be_truthy
+        end
+
+        expect(page).to have_selector "#created-at-value",
+          text: "作成日時 #{WalkingRoute.first.created_at.strftime("%Y/%m/%d %H:%M:%S")}"
+        expect(page).to have_selector "#show-walking-route-name",
+          text: WalkingRoute.first.name
+        expect(page).to have_selector "#show-walking-route-comment",
+          text: WalkingRoute.first.comment
+        expect(page).to have_selector "#show-total-distance",
+          text: "#{WalkingRoute.first.distance}km"
+        expect(page).to have_selector "#show-total-duration",
+          text: "#{WalkingRoute.first.duration}分"
+        expect(page).to have_selector "#show-start-address",
+          text: WalkingRoute.first.start_address
+        expect(page).to have_selector "#show-end-address",
+          text: WalkingRoute.first.end_address
+      end
+    end
+
+    context "サインインしていないユーザーのプロフィールを開く場合" do
+      it "編集ボタンが表示されていないこと" do
+        sign_in other_user
+        visit walking_route_path(walking_route)
+
+        expect(page).to_not have_css ".edit-dropdown-btn"
+      end
+    end
+  end
+
+  describe "散歩ルート削除機能", js: true do
+    let(:user) { create(:user) }
+    let(:walking_route) do
+      create(
+        :walking_route,
+        start_address: "日本、〒100-0005 東京都千代田区丸の内１丁目９ JR 東京駅",
+        end_address: "日本、〒104-0061 東京都中央区銀座４丁目１−２ 銀座駅",
+        user: user
+      )
+    end
+
+    it "サインイン中のユーザーで作成した散歩ルートを削除できること" do
+      sign_in user
+      visit walking_route_path(walking_route)
+
+      find('.edit-dropdown-btn').click
+      click_button '削除'
+
+      expect do
+        expect(page.accept_confirm).to eq "このルートを削除しますか？"
+        expect(page).to have_content "散歩ルートの削除が完了しました"
+        expect(current_path).to eq root_path
+      end.to change(WalkingRoute, :count).by(-1)
     end
   end
 end

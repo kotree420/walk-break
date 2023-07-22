@@ -66,6 +66,8 @@ RSpec.configure do |config|
 
   Capybara.javascript_driver = :selenium_chrome
 
+  Webdrivers::Chromedriver.required_version = '114.0.5735.90'
+
   config.before(:each) do |example|
     if example.metadata[:type] == :system
       if example.metadata[:js]
