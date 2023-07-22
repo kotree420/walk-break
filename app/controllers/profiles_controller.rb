@@ -15,7 +15,11 @@ class ProfilesController < ApplicationController
   end
 
   def edit
-    @user = session[:edit_user].present? ? User.new(session[:edit_user]) : User.find(current_user.id)
+    if session[:edit_user].present?
+      @user = User.new(session[:edit_user])
+    else
+      @user = User.find(current_user.id)
+    end
   end
 
   def update

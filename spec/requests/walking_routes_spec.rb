@@ -177,7 +177,8 @@ RSpec.describe "WalkingRoutes", type: :request do
   describe "PATCH /walking_routes/:id" do
     context "リクエストが成功する場合" do
       let(:request) do
-        patch walking_route_path(walking_route), params: { name: "new_name", comment: "new_comment" }
+        patch walking_route_path(walking_route),
+          params: { name: "new_name", comment: "new_comment" }
       end
 
       before do

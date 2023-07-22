@@ -36,7 +36,11 @@ class WalkingRoutesController < ApplicationController
 
   def edit
     @user = current_user
-    @walking_route = session[:walking_route_edit].present? ? WalkingRoute.new(session[:walking_route_edit]) : WalkingRoute.find(params[:id])
+    if session[:walking_route_edit].present?
+      @walking_route =WalkingRoute.new(session[:walking_route_edit])
+    else
+      @walking_route = WalkingRoute.find(params[:id])
+    end
   end
 
   def update
@@ -65,15 +69,15 @@ class WalkingRoutesController < ApplicationController
   private
 
   def walking_route_params
-    params
-      .require(:walking_route)
-      .permit(:name, :comment, :distance, :duration,
+    params.
+      require(:walking_route).
+      permit(:name, :comment, :distance, :duration,
         :start_address, :end_address, :encorded_path, :user_id)
   end
 
   def walking_route_update_params
-    params
-      .permit(:name, :comment, :distance, :duration,
+    params.
+      permit(:name, :comment, :distance, :duration,
         :start_address, :end_address, :encorded_path, :user_id)
   end
 end
