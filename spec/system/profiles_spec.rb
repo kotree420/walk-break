@@ -40,7 +40,7 @@ RSpec.describe "Profiles", type: :system do
 
         fill_in "ユーザー名", with: "new_name"
         fill_in "自己紹介", with: "new_comment"
-        click_button "更新する"
+        click_button "更新"
 
         expect(page).to have_selector ".show-profile-name", text: "new_name"
         expect(page).to have_selector ".show-profile-comment", text: "new_comment"
