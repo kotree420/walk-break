@@ -8,7 +8,7 @@
           <div class="col-lg-2 edit-profile-image-wrapper">
             <div class="mb-2">
               <%= f.label :profile_image do %>
-                <%= image_tag @user.profile_image.url, class: 'profile-image edit-profile-image' %>
+                <%= image_tag @user.profile_image.url, class: 'profile-image edit-image' %>
                 <%= f.file_field :profile_image, class: "image-uploader", style: "display: none;" %>
               <% end %>
             </div>
