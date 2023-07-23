@@ -100,7 +100,7 @@ footer {
   object-fit: cover;
 }
 
-.show-profile-image-wrapper, .edit-profile-image-wrapper, .edit-profile-btn-wrapper {
+.show-profile-image-wrapper, .edit-profile-image-wrapper {
   text-align: center;
 }
 
@@ -144,10 +144,6 @@ footer {
 .edit-profile-textarea {
   height: calc( 1.3rem * 5 );
   line-height: 1.3;
-}
-
-.edit-profile-btn {
-  width: 45%;
 }
 
 /* walking_routes#index */
