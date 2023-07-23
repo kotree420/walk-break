@@ -24,5 +24,5 @@ class User < ApplicationRecord
     end
   end
 
-  validates :comment, length: { maximum: 140 }, allow_blank: true
+  validates :comment, with_line_break: { maximum: 140 }, allow_blank: true
 end
