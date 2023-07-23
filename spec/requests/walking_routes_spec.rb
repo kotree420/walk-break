@@ -60,7 +60,7 @@ RSpec.describe "WalkingRoutes", type: :request do
 
     context "自ユーザーが作成した散歩ルートの場合" do
       it "編集ボタンが表示されていること" do
-        expect(response.body).to include("編集する")
+        expect(response.body).to include("編集")
       end
     end
 
@@ -134,12 +134,98 @@ RSpec.describe "WalkingRoutes", type: :request do
       end
       it "リダイレクト後も元々入力されていたパラメータ値は保持されていること" do
         get new_walking_route_path
-        session[:walking_route].each_value do |value|
+        session[:new_walking_route].each_value do |value|
           if value.present?
             expect(response.body).to include(value)
           end
         end
       end
+    end
+  end
+
+  describe "GET /walking_routes/:id/edit" do
+    before do
+      get edit_walking_route_path(walking_route)
+    end
+
+    it "ステータスコードに 200: OK が返されること" do
+      expect(response).to have_http_status(200)
+    end
+    it "作成者名が表示されていること" do
+      expect(response.body).to include(user.name)
+    end
+    it "散歩ルート名が表示されていること" do
+      expect(response.body).to include(walking_route.name)
+    end
+    it "コメントが表示されていること" do
+      expect(response.body).to include(walking_route.comment)
+    end
+    it "距離が表示されていること" do
+      expect(response.body).to include(walking_route.distance.to_s)
+    end
+    it "時間が表示されていること" do
+      expect(response.body).to include(walking_route.duration.to_s)
+    end
+    it "出発地が表示されていること" do
+      expect(response.body).to include(walking_route.start_address)
+    end
+    it "到着地が表示されていること" do
+      expect(response.body).to include(walking_route.end_address)
+    end
+  end
+
+  describe "PATCH /walking_routes/:id" do
+    context "リクエストが成功する場合" do
+      let(:request) do
+        patch walking_route_path(walking_route),
+          params: { name: "new_name", comment: "new_comment" }
+      end
+
+      before do
+        request
+      end
+
+      it "flashに完了メッセージが格納され、showにリダイレクトされること" do
+        expect(flash[:info]).to include("散歩ルート情報の更新が完了しました")
+        expect(response).to redirect_to(walking_route_path(walking_route))
+      end
+
+      it "散歩ルート名が更新されていること" do
+        expect(walking_route.reload.name).to eq "new_name"
+      end
+
+      it "コメントが更新されていること" do
+        expect(walking_route.reload.comment).to eq "new_comment"
+      end
+    end
+
+    context "リクエストが失敗する場合" do
+      let(:request) do
+        patch walking_route_path(walking_route), params: { name: "", comment: "new_comment" }
+      end
+
+      it "flashにエラーメッセージが格納され、editにリダイレクトされること" do
+        request
+        expect(flash[:warning]).to include("散歩ルート名: 未入力")
+        expect(response).to redirect_to(edit_walking_route_path(walking_route))
+      end
+    end
+  end
+
+  describe "DELETE /walking_routes/:id" do
+    let(:request) do
+      delete walking_route_path(walking_route)
+    end
+
+    it "flashに完了メッセージが格納され、ルートにリダイレクトされること" do
+      request
+      expect(flash[:info]).to include("散歩ルートの削除が完了しました")
+      expect(response).to redirect_to root_path
+    end
+
+    it "散歩ルートが削除されること" do
+      walking_route
+      expect { request }.to change(WalkingRoute, :count).by(-1)
     end
   end
 end

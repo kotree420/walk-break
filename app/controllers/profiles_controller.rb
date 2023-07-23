@@ -1,5 +1,8 @@
 class ProfilesController < ApplicationController
   before_action :authenticate_user!, only: [:edit, :update, :withdrawal]
+  before_action :edit_user_session_clear, except: [:edit]
+  before_action :new_walking_route_session_clear
+  before_action :edit_walking_route_session_clear
 
   def show
     if @user = User.find_by(id: params[:id])
@@ -12,17 +15,20 @@ class ProfilesController < ApplicationController
   end
 
   def edit
-    @user = session[:user].present? ? User.new(session[:user]) : User.find(current_user.id)
+    if session[:edit_user].present?
+      @user = User.new(session[:edit_user])
+    else
+      @user = User.find(current_user.id)
+    end
   end
 
   def update
     @user = current_user
     if @user.update(user_params)
-      session[:user].clear if session[:user]
       flash[:info] = ["プロフィール情報の更新が完了しました"]
       redirect_to action: :show
     else
-      session[:user] = @user
+      session[:edit_user] = @user
       flash[:warning] = @user.errors.full_messages
       redirect_to action: :edit
     end

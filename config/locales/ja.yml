@@ -18,15 +18,19 @@ ja:
             name:
               format: "%{attribute}: %{message}"
               blank: 未入力
+              too_long: "%{count}文字以内"
             comment:
               format: "%{attribute}: %{message}"
               blank: 未入力
+              too_long: "%{count}文字以内"
             distance:
               format: "%{attribute}: %{message}"
               blank: ルート未出力
+              not_a_number: 数値のみ
             duration:
               format: "%{attribute}: %{message}"
               blank: ルート未出力
+              not_a_number: 数値のみ
             start_address:
               format: "%{attribute}: %{message}"
               blank: 未入力

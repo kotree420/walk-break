@@ -1,79 +1,76 @@
 <% provide(:title, @walking_route.name) %>
+<% breadcrumb :walking_route_show, @walking_route %>
 <div class="container col-xxl-10 px-4 py-3">
-  <% breadcrumb :walking_route_show, @walking_route %>
-  <div class="row flex-lg-row-reverse align-items-center g-5 py-3">
-    <div class="col-10 col-sm-8 col-lg-6">
-      <div id="map" class="d-block mx-lg-auto img-fluid"></div>
+  <div class="row flex-lg-row align-items-center g-5 py-3">
+    <div class="col-lg-6">
+      <input type="hidden" id="show-encorded-path" name="encorded-path" value=<%= @walking_route.encorded_path %>>
+      <div class="walking-route-profile-link-wrapper mb-1">
+        <%= link_to profile_path(@user), class: "walking-route-profile-link" do %>
+          <div>
+            <%= image_tag @user.profile_image.url, class: 'walking-route-profile-image' %>
+          </div>
+          <div class="walking-route-profile-name">
+            <%= @user.name %>
+          </div>
+        <% end %>
+      </div>
+      <div class="mb-4 row created-at">
+        <div id="created-at-value">作成日時 <%= l @walking_route.created_at %></div>
+      </div>
+      <div class="walking-route-name-wrapper row align-items-center mb-1">
+        <div id="show-walking-route-name" class="walking-route-name-style"><%= @walking_route.name %></div>
+        <div class="bookmark-edit-wrapper d-flex flex-row align-items-center">
+          <div class="d-flex flex-row align-items-center">
+            <% if @walking_route.bookmarked?(current_user) %>
+              <%= button_to walking_route_bookmarks_path(@walking_route), class: "btn bookmark-btn already-bookmark-btn", method: :delete, data: { turbo: false } do %>
+                <i id="already-bookmarked-icon" class="fa-solid fa-heart"></i>
+              <% end %>
+            <% else %>
+              <%= button_to walking_route_bookmarks_path(@walking_route), class: "btn bookmark-btn not-yet-bookmark-btn", method: :post, data: { turbo: false } do %>
+                <i id="not-yet-bookmarked-icon" class="fa-regular fa-heart"></i>
+              <% end %>
+            <% end %>
+            <span class="bookmark-btn bookmark-count"><%= @bookmarks_count %></span>
+          </div>
+          <% if @user == current_user %>
+            <div class="dropdown">
+              <a class="btn btn-primary btn--extend dropdown-toggle edit-dropdown-btn" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+                <i class="fa-regular fa-pen-to-square"></i>
+              </a>
+              <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                <li>
+                  <%= link_to "編集", edit_walking_route_path(@walking_route), class: "dropdown-item", data: { turbo: false } %>
+                </li>
+                <li>
+                  <%= button_to "削除", walking_route_path(@walking_route), id: "delete-walking-route-btn", class: "dropdown-item", method: :delete, data: { turbo: false }, onclick: "return walking_route_delete_check_form()" %>
+                </li>
+              </ul>
+            </div>
+          <% end %>
+        </div>
+      </div>
+      <div class="mb-4 show-walking-route-comment-area comment-area-style">
+        <p id="show-walking-route-comment"><%= @walking_route.comment %></p>
+      </div>
+      <div class="mb-1 row">
+        <span id="show-start-address-label" class="col-sm-3">出発地</span>
+        <span id="show-start-address" class="col-sm-9"><%= @walking_route.start_address %></span>
+      </div>
+      <div class="mb-3 row">
+        <span id="show-end-address-label" class="col-sm-3">到着地</span>
+        <span id="show-end-address" class="col-sm-9"><%= @walking_route.end_address %></span>
+      </div>
+      <div class="mb-1 row">
+        <span class="show-total-distance-label col-sm-3">距離</span>
+        <span id="show-total-distance" class="col-sm-9"><%= "#{@walking_route.distance.to_s}km" %></span>
+      </div>
+      <div class="mb-3 row">
+        <span class="show-total-duration-label col-sm-3">時間</span>
+        <span id="show-total-duration" class="col-sm-9 total-duration-style"><%= "#{@walking_route.duration.to_s}分" %></span>
+      </div>
     </div>
     <div class="col-lg-6">
-      <div class="bookmark-btn-wrapper" >
-        <% if @walking_route.bookmarked?(current_user) %>
-          <%= button_to walking_route_bookmarks_path(@walking_route), class: "btn bookmark-btn already-bookmark-btn", method: :delete, data: { turbo: false } do %>
-            <i id="already-bookmarked-icon" class="fa-solid fa-heart"></i>
-          <% end %>
-        <% else %>
-          <%= button_to walking_route_bookmarks_path(@walking_route), class: "btn bookmark-btn not-yet-bookmark-btn", method: :post, data: { turbo: false } do %>
-            <i id="not-yet-bookmarked-icon" class="fa-regular fa-heart"></i>
-          <% end %>
-        <% end %>
-        <span class="bookmark-btn bookmark-count"><%= @bookmarks_count %></span>
-      </div>
-      <%= form_with model: @walking_route do |f| %>
-        <%= f.hidden_field :encorded_path, id: "show-encorded-path", value: @walking_route.encorded_path %>
-        <div class="walking-route-profile-link-wrapper mb-3">
-          <%= link_to profile_path(@user), class: "walking-route-profile-link" do %>
-            <div>
-              <%= image_tag @user.profile_image.url, class: 'walking-route-profile-image' %>
-            </div>
-            <div class="walking-route-profile-name">
-              <%= @user.name %>
-            </div>
-          <% end %>
-        </div>
-        <div class="mb-3 row created-at">
-          <div class="col-sm-2">
-            作成日時:
-          </div>
-          <div class="col-sm-10" id="created-at-value">
-            <%= l @walking_route.created_at %>
-          </div>
-        </div>
-        <div class="mb-1">
-          <%= f.text_field :name, id: "show-walking-route-name", class: "form-control-plaintext walking-route-name-style", value: @walking_route.name, readonly: true %>
-        </div>
-        <div class="mb-3">
-          <%= f.text_area :comment, id: "show-comment-area", class: "form-control-plaintext comment-area-style", value: @walking_route.comment, readonly: true %>
-        </div>
-        <div class="mb-1 row">
-          <%= f.label :distance, "距離", class: "col-sm-3 col-form-label", for: "show-total-distance" %>
-          <div class="col-sm-9">
-            <%= f.text_field :distance, id: "show-total-distance", class: "form-control-plaintext", value: "#{@walking_route.distance.to_s}km", readonly: true %>
-          </div>
-        </div>
-        <div class="row">
-          <%= f.label :duration, "時間", class: "col-sm-3 col-form-label", for: "show-total-duration" %>
-          <div class="col-sm-9">
-            <%= f.text_field :duration, id: "show-total-duration", class: "form-control-plaintext total-duration-style", value: "#{@walking_route.duration.to_s}分", readonly: true %>
-          </div>
-        </div>
-        <div class="mb-1 row">
-          <%= f.label :start_address, "出発地:", id: "show-start-address-label" , class: "col-sm-3 col-form-label", for: "show-start-address" %>
-          <div class="col-sm-9">
-            <%= f.text_field :start_address, id: "show-start-address", class: "form-control-plaintext", value: @walking_route.start_address, readonly: true %>
-          </div>
-        </div>
-        <div class="mb-3 row">
-          <%= f.label :end_address, "到着地:", id: "show-end-address-label", class: "col-sm-3 col-form-label", for: "show-end-address" %>
-          <div class="col-sm-9">
-            <%= f.text_field :end_address, id: "show-end-address", class: "form-control-plaintext", value: @walking_route.end_address, readonly: true %>
-          </div>
-        </div>
-        <% if @user == current_user %>
-          <div class="d-grid gap-2 col-6">
-            <%= f.submit "編集する", class: "btn btn-primary btn--extend" %>
-          </div>
-        <% end %>
-      <% end %>
+      <div id="map" class="mx-auto img-fluid"></div>
     </div>
   </div>
 </div>

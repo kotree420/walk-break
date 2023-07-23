@@ -40,7 +40,7 @@ li{
   border-color: #d6c7ca;
 }
 
-.breadcrumbs a {
+.breadcrumbs a, .back-link {
   text-decoration: none;
 }
 
@@ -124,8 +124,12 @@ footer {
   margin-right: 0.5rem;
 }
 
-.show-profile-comment {
+.show-profile-comment, #show-walking-route-comment {
   white-space: pre-wrap;
+}
+
+#show-walking-route-comment {
+  margin-bottom: 0;
 }
 
 .edit-profile-image:hover {
@@ -162,17 +166,15 @@ footer {
 /* walking_routes#show */
 .created-at {
   color: $gray-700;
-  font-size: 0.9rem;
-}
-
-.bookmark-btn-wrapper {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
+  font-size: 0.8rem;
 }
 
 .bookmark-btn {
-  font-size: 2rem;
+  font-size: 1.2rem;
+}
+
+.already-bookmark-btn, .not-yet-bookmark-btn {
+  padding: 0.2rem;
 }
 
 .already-bookmark-btn:hover {
@@ -187,6 +189,15 @@ footer {
   color: #A80F2F;
 }
 
+.bookmark-count {
+  padding-right: 1rem;
+}
+
+.edit-dropdown-btn {
+  font-size: 1rem;
+  padding: 0.15rem 0.3rem;
+}
+
 .walking-route-profile-link {
   text-decoration: none;
 }
@@ -199,9 +210,17 @@ footer {
   text-decoration: underline;
 }
 
+.show-walking-route-comment-area {
+  padding: 0.2rem;
+}
+
+.show-total-distance-label, .show-total-duration-label, #show-start-address-label, #show-end-address-label {
+  border-left: 2px solid $primary;
+}
+
 /* walking_routes */
 #map {
-  width:700px;
+  width:100%;
   height:600px;
 }
 
@@ -224,20 +243,12 @@ footer {
 }
 
 /* walking_routes#new */
-#walking-route-name-label, #comment-area-label, #start-label, #end-label {
+#walking-route-name-label, #edit-walking-route-name-label, #walking-route-new-comment-area-label, #walking-route-edit-comment-area-label, #start-label, #end-label {
   font-size: 0.9rem;
 }
 
-.comment-area-style {
+#walking-route-new-comment-area, #walking-route-edit-comment-area {
   height: 150px;
-}
-
-#comment-area {
-  height: 150px;
-}
-
-.total-duration-style {
-  margin-bottom: 1rem;
 }
 
 #display-route,#add-waypoint, #remove-waypoint {
