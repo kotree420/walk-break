@@ -43,7 +43,7 @@ RSpec.describe User, type: :model do
     it "140文字を超えるcommentは無効であること" do
       user.comment = Faker::Lorem.paragraph_by_chars(number: 141)
       user.valid?
-      expect(user.errors.full_messages).to include("自己紹介は140文字以内で入力してください")
+      expect(user.errors.full_messages).to include("自己紹介140文字以内")
     end
 
     it "commentは空白でも有効であること" do
