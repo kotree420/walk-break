@@ -1,24 +1,21 @@
 <% provide(:title, '散歩ルート作成') %>
 <% breadcrumb :new_walking_route %>
 <div class="container col-xxl-10 px-4 py-3">
-  <div class="row flex-lg-row-reverse align-items-center g-5 py-3">
-    <div class="col-10 col-sm-8 col-lg-6">
-      <div id="map" class="d-block mx-lg-auto img-fluid"></div>
-    </div>
-    <div class="col-lg-6">
-      <%= form_with model: @walking_route do |f| %>
+  <%= form_with model: @walking_route do |f| %>
+    <div class="row flex-lg-row align-items-center g-5 py-3 mb-1">
+      <div class="col-lg-6">
         <div class="mb-3">
           <%= image_tag @user.profile_image.url, class: 'walking-route-profile-image' %>
           <span class="walking-route-profile-name"><%= @user.name %></span>
           <%= f.hidden_field :user_id, value: current_user.id %>
         </div>
         <div class="form-floating mb-3">
-          <%= f.text_field :name, id: "walking-route-name", class: "form-control walking-route-name-style", placeholder: "散歩ルート", required: "true" %>
-          <%= f.label :name, "散歩ルート名:", id: "walking-route-name-label", for: "walking-route-name" %>
+          <%= f.text_field :name, id: "walking-route-name", class: "form-control walking-route-name-style", placeholder: "散歩ルート", maxlength: "20", required: "true" %>
+          <%= f.label :name, "散歩ルート名:（20文字以内）", id: "walking-route-name-label", for: "walking-route-name" %>
         </div>
         <div class="form-floating mb-4">
-          <%= f.text_area :comment, id: "walking-route-new-comment-area", class: "form-control", placeholder: "Leave a comment here", required: "true" %>
-          <%= f.label :comment, "ひとことコメント:", id: "walking-route-new-comment-area-label", for: "walking-route-new-comment-area" %>
+          <%= f.text_area :comment, id: "walking-route-new-comment-area", class: "form-control", placeholder: "Leave a comment here", maxlength: "140", required: "true" %>
+          <%= f.label :comment, "ひとことコメント:（140文字以内）", id: "walking-route-new-comment-area-label", for: "walking-route-new-comment-area" %>
         </div>
         <div class="mb-3 row">
           <%= f.label :distance, "距離/km", class: "col-sm-3 col-form-label", for: "total-distance" %>
@@ -57,11 +54,14 @@
           ※地図上のマーカーをドラッグして調節することも可能です。
         </p>
         <%= f.hidden_field :encorded_path, id: "new-encorded-path" %>
-        <div class="d-grid gap-2 col-6">
-          <%= f.submit "ルート作成", class: "btn btn-primary btn--extend", data: { turbo: false }%>
-        </div>
-      <% end %>
+      </div>
+      <div class="col-lg-6">
+        <div id="map" class="mx-auto img-fluid"></div>
+      </div>
     </div>
-  </div>
+    <div class="d-grid gap-2 col-md-6 mx-auto">
+      <%= f.submit "ルート作成", class: "btn btn-primary btn--extend", data: { turbo: false }%>
+    </div>
+  <% end %>
 </div>
 <%= render "shared/google_maps_api" %>
