@@ -1,9 +1,9 @@
 <% provide(:title, '散歩ルート編集') %>
 <div class="container col-xxl-10 px-4 py-3">
   <%= link_to "戻る", walking_route_path(@walking_route), class: "back-link", data: { turbo: false } %>
-  <div class="row flex-lg-row align-items-center g-5 py-3">
-    <div class="col-lg-6">
-      <%= form_with url: walking_route_path, method: :patch do |f| %>
+  <%= form_with url: walking_route_path, method: :patch do |f| %>
+    <div class="row flex-lg-row align-items-center g-5 py-3 mb-1">
+      <div class="col-lg-6">
         <div class="mb-3">
           <%= image_tag @user.profile_image.url, class: 'walking-route-profile-image' %>
           <span class="walking-route-profile-name"><%= @user.name %></span>
@@ -54,14 +54,14 @@
           ※地図上のマーカーをドラッグして調節することも可能です。
         </p>
         <%= f.hidden_field :encorded_path, id: "new-encorded-path" %>
-        <div class="d-grid gap-2 col-md-10 mx-auto">
-          <%= f.submit "更新", class: "btn btn-primary btn--extend", data: { turbo: false } %>
-        </div>
-      <% end %>
+      </div>
+      <div class="col-lg-6">
+        <div id="map" class="mx-auto img-fluid"></div>
+      </div>
     </div>
-    <div class="col-lg-6">
-      <div id="map" class="mx-auto img-fluid"></div>
+    <div class="d-grid gap-2 col-md-6 mx-auto">
+      <%= f.submit "更新", class: "btn btn-primary btn--extend", data: { turbo: false } %>
     </div>
-  </div>
+  <% end %>
 </div>
 <%= render "shared/google_maps_api" %>
