@@ -10,12 +10,12 @@
           <%= f.hidden_field :user_id, value: current_user.id %>
         </div>
         <div class="form-floating mb-3">
-          <%= f.text_field :name, id: "walking-route-name", class: "form-control walking-route-name-style", placeholder: "散歩ルート", required: "true" %>
-          <%= f.label :name, "散歩ルート名:", id: "walking-route-name-label", for: "walking-route-name" %>
+          <%= f.text_field :name, id: "walking-route-name", class: "form-control walking-route-name-style", placeholder: "散歩ルート", maxlength: "20", required: "true" %>
+          <%= f.label :name, "散歩ルート名:（20文字以内）", id: "walking-route-name-label", for: "walking-route-name" %>
         </div>
         <div class="form-floating mb-4">
-          <%= f.text_area :comment, id: "walking-route-new-comment-area", class: "form-control", placeholder: "Leave a comment here", required: "true" %>
-          <%= f.label :comment, "ひとことコメント:", id: "walking-route-new-comment-area-label", for: "walking-route-new-comment-area" %>
+          <%= f.text_area :comment, id: "walking-route-new-comment-area", class: "form-control", placeholder: "Leave a comment here", maxlength: "140", required: "true" %>
+          <%= f.label :comment, "ひとことコメント:（140文字以内）", id: "walking-route-new-comment-area-label", for: "walking-route-new-comment-area" %>
         </div>
         <div class="mb-3 row">
           <%= f.label :distance, "距離/km", class: "col-sm-3 col-form-label", for: "total-distance" %>

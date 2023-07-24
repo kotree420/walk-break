@@ -37,7 +37,7 @@ class WalkingRoutesController < ApplicationController
   def edit
     @user = current_user
     if session[:walking_route_edit].present?
-      @walking_route =WalkingRoute.new(session[:walking_route_edit])
+      @walking_route = WalkingRoute.new(session[:walking_route_edit])
     else
       @walking_route = WalkingRoute.find(params[:id])
     end
