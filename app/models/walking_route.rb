@@ -21,8 +21,4 @@ class WalkingRoute < ApplicationRecord
     end
     count = count.length
   end
-
-  def bookmarked?(user)
-    bookmarks.where(user_id: user).exists?
-  end
 end

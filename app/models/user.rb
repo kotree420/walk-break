@@ -25,4 +25,8 @@ class User < ApplicationRecord
   end
 
   validates :comment, with_line_break: { maximum: 140 }, allow_blank: true
+
+  def bookmarked?(bookmarks, current_user_id)
+    bookmarks.pluck(:user_id).include?(current_user_id)
+  end
 end
