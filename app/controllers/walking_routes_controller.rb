@@ -5,12 +5,14 @@ class WalkingRoutesController < ApplicationController
   before_action :edit_walking_route_session_clear, except: [:edit]
 
   def index
+    @walking_routes = WalkingRoute.all.includes(:user, bookmarks: :user)
   end
 
   def show
     @walking_route = WalkingRoute.find(params[:id])
     if @user = @walking_route.user
-      @bookmarks_count = @walking_route.bookmarks_count
+      @bookmarks = @walking_route.bookmarks.includes([:user])
+      @bookmarks_count = @walking_route.bookmarks_count(@bookmarks)
     else
       flash[:info] = ["退会済みのユーザーです"]
       redirect_to root_path

@@ -12,9 +12,8 @@ class WalkingRoute < ApplicationRecord
     validates :encorded_path
   end
 
-  def bookmarks_count
+  def bookmarks_count(bookmarks)
     count = []
-    bookmarks = self.bookmarks.includes([:user])
     bookmarks.each do |bookmark|
       if bookmark.user
         count << bookmark.user
