@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  root "walking_routes#index"
+  root "walking_routes#home"
   devise_for :users
 
   resources :profiles, only: [:show, :edit, :update] do

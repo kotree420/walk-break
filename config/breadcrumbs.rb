@@ -32,10 +32,14 @@ crumb :new_walking_route do
   parent :root
 end
 
+crumb :walking_route_index do
+  link "散歩ルート一覧", walking_routes_path
+  parent :root
+end
+
 crumb :walking_route_show do |walking_route|
   link walking_route.name
-  # 一覧表示画面作成後、修正する
-  parent :root
+  parent :walking_route_index
 end
 
 # crumb :projects do

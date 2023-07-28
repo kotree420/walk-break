@@ -4,6 +4,10 @@ class WalkingRoutesController < ApplicationController
   before_action :new_walking_route_session_clear, except: [:new]
   before_action :edit_walking_route_session_clear, except: [:edit]
 
+  def home
+    @walking_routes = WalkingRoute.all.includes(:user, bookmarks: :user)
+  end
+
   def index
     @walking_routes = WalkingRoute.all.includes(:user, bookmarks: :user)
   end
