@@ -54,6 +54,10 @@
                   <% end %>
                 </div>
                 <div class="index-route-info-wrapper mb-1">
+                  <div class="index-start-address-label">出発地</div>
+                  <div id="index-start-address"><%= walking_route.start_address %></div>
+                </div>
+                <div class="index-route-info-wrapper mb-1">
                   <span class="index-total-distance-label">距離</span>
                   <span id="index-total-distance"><%= "#{walking_route.distance.to_s}km" %></span>
                 </div>
