@@ -21,4 +21,6 @@ class WalkingRoute < ApplicationRecord
     end
     count = count.length
   end
+
+  scope :latest, -> {order(created_at: :desc)}
 end

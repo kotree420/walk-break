@@ -7,7 +7,7 @@ let polyline;
 
 function initMap() {
   map = new google.maps.Map(document.getElementById('map'), {
-    zoom: 14,
+    zoom: 15,
     center: { lat: 35.681862, lng: 139.767174 }, //初期表示位置は東京駅
   });
 
