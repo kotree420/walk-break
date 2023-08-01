@@ -9,7 +9,21 @@ class WalkingRoutesController < ApplicationController
   end
 
   def index
-    @walking_routes = WalkingRoute.latest.includes(:user, bookmarks: :user)
+    if params[:popular]
+      @walking_routes = WalkingRoute.includes(:user, :bookmarked_users, bookmarks: :user).sort {|a,b| b.bookmarked_users.size <=> a.bookmarked_users.size}
+    elsif params[:old]
+      @walking_routes = WalkingRoute.old.includes(:user, bookmarks: :user)
+    elsif params[:distance_longest]
+      @walking_routes = WalkingRoute.distance_longest.includes(:user, bookmarks: :user)
+    elsif params[:distance_shortest]
+      @walking_routes = WalkingRoute.distance_shortest.includes(:user, bookmarks: :user)
+    elsif params[:duration_longest]
+      @walking_routes = WalkingRoute.duration_longest.includes(:user, bookmarks: :user)
+    elsif params[:duration_shortest]
+      @walking_routes = WalkingRoute.duration_shortest.includes(:user, bookmarks: :user)
+    else
+      @walking_routes = WalkingRoute.latest.includes(:user, bookmarks: :user)
+    end
   end
 
   def show

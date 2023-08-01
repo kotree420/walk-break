@@ -1,5 +1,14 @@
 <% provide(:title, "散歩ルート一覧") %>
 <% breadcrumb :walking_route_index %>
 <div class="py-5">
+  <div class="text-center mb-4">
+    <%= link_to '人気順', walking_routes_path(popular: "true") %>
+    <%= link_to '新着順', walking_routes_path %>
+    <%= link_to '古い順', walking_routes_path(old: "true") %>
+    <%= link_to '距離が長い順', walking_routes_path(distance_longest: "true") %>
+    <%= link_to '距離が短い順', walking_routes_path(distance_shortest: "true") %>
+    <%= link_to '時間が長い順', walking_routes_path(duration_longest: "true") %>
+    <%= link_to '時間が短い順', walking_routes_path(duration_shortest: "true") %>
+  </div>
   <%= render "shared/index_route", walking_routes: @walking_routes %>
 </div>

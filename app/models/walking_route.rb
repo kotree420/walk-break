@@ -1,6 +1,7 @@
 class WalkingRoute < ApplicationRecord
   has_many :bookmarks, dependent: :destroy
   belongs_to :user
+  has_many :bookmarked_users, through: :bookmarks, source: :user
 
   with_options presence: true do
     validates :name, length: { maximum: 20 }
@@ -23,4 +24,9 @@ class WalkingRoute < ApplicationRecord
   end
 
   scope :latest, -> {order(created_at: :desc)}
+  scope :old, -> {order(:created_at)}
+  scope :distance_longest, -> {order(distance: :desc)}
+  scope :distance_shortest, -> {order(:distance)}
+  scope :duration_longest, -> {order(duration: :desc)}
+  scope :duration_shortest, -> {order(:duration)}
 end
