@@ -8,6 +8,9 @@ Rails.application.routes.draw do
     end
   end
   resources :walking_routes do
+    collection do
+      get 'search'
+    end
     resource :bookmarks, only: [:create, :destroy]
   end
 end

@@ -1,0 +1,10 @@
+<% provide(:title, "検索結果") %>
+<% breadcrumb :walking_route_search %>
+<div class="py-5">
+  <% if @keyword.present? %>
+    <div class="text-center mb-4">
+      <%= "#{@keyword} の検索結果 #{@search_results_count}件" %>
+    </div>
+  <% end %>
+  <%= render "shared/index_route", walking_routes: @walking_routes %>
+</div>

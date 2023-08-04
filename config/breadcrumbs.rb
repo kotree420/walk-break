@@ -27,19 +27,24 @@ crumb :edit_user_registration do |user|
   parent :profile_show, user
 end
 
-crumb :new_walking_route do
-  link "散歩ルート作成", new_walking_route_path
-  parent :root
-end
-
 crumb :walking_route_index do
   link "散歩ルート一覧", walking_routes_path
   parent :root
 end
 
+crumb :walking_route_search do
+  link "検索結果"
+  parent :walking_route_index
+end
+
 crumb :walking_route_show do |walking_route|
   link walking_route.name
   parent :walking_route_index
+end
+
+crumb :new_walking_route do
+  link "散歩ルート作成", new_walking_route_path
+  parent :root
 end
 
 # crumb :projects do

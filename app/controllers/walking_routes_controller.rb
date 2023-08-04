@@ -26,6 +26,12 @@ class WalkingRoutesController < ApplicationController
     end
   end
 
+  def search
+    @keyword = search_params[:keyword]
+    @walking_routes = WalkingRoute.search(@keyword)
+    @search_results_count = @walking_routes.length
+  end
+
   def show
     @walking_route = WalkingRoute.find(params[:id])
     if @user = @walking_route.user
@@ -99,5 +105,9 @@ class WalkingRoutesController < ApplicationController
     params.
       permit(:name, :comment, :distance, :duration,
         :start_address, :end_address, :encorded_path, :user_id)
+  end
+
+  def search_params
+    params.permit(:keyword)
   end
 end

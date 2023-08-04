@@ -35,9 +35,9 @@
             </li>
           <% end %>
         </ul>
-        <form>
-          <input class="form-control" type="text" placeholder="キーワードで探す" aria-label="キーワードで探す">
-        </form>
+        <%= form_with url: search_walking_routes_path,local: true, method: :get do |f| %>
+          <%= f.text_field :keyword, class:"form-control", placeholder: "住所、地名で探す" %>
+        <% end %>
       </div>
     </div>
   </nav>

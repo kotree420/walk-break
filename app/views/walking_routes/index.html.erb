@@ -10,5 +10,8 @@
     <%= link_to '時間が長い順', walking_routes_path(duration_longest: "true") %>
     <%= link_to '時間が短い順', walking_routes_path(duration_shortest: "true") %>
   </div>
+  <div class="row">
+    <%= render "shared/search_form" %>
+  </div>
   <%= render "shared/index_route", walking_routes: @walking_routes %>
 </div>

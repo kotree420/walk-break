@@ -15,6 +15,29 @@ li{
   list-style:none;
 }
 
+.search-form-wrapper {
+  border: 1px solid $primary;
+  border-radius: 0.4rem;
+}
+
+.search-form {
+  height: 2.5rem;
+}
+
+.search-form-icon {
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+}
+
+.search-form-input {
+  border: none;
+  width: 100%;
+}
+
+.search-form-input:focus {
+  outline: none;
+}
+
 .annotation{
   color: $gray-700;
   font-size: 0.9rem;

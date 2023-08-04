@@ -13,6 +13,13 @@ class WalkingRoute < ApplicationRecord
     validates :encorded_path
   end
 
+  scope :latest, -> {order(created_at: :desc)}
+  scope :old, -> {order(:created_at)}
+  scope :distance_longest, -> {order(distance: :desc)}
+  scope :distance_shortest, -> {order(:distance)}
+  scope :duration_longest, -> {order(duration: :desc)}
+  scope :duration_shortest, -> {order(:duration)}
+
   def bookmarks_count(bookmarks)
     count = []
     bookmarks.each do |bookmark|
@@ -23,10 +30,11 @@ class WalkingRoute < ApplicationRecord
     count = count.length
   end
 
-  scope :latest, -> {order(created_at: :desc)}
-  scope :old, -> {order(:created_at)}
-  scope :distance_longest, -> {order(distance: :desc)}
-  scope :distance_shortest, -> {order(:distance)}
-  scope :duration_longest, -> {order(duration: :desc)}
-  scope :duration_shortest, -> {order(:duration)}
+  def self.search(keyword)
+    if keyword.present?
+      where('start_address LIKE ?', "%#{keyword}%").or(where('end_address LIKE ?', "%#{keyword}%"))
+    else
+      all
+    end
+  end
 end

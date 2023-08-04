@@ -1,0 +1,6 @@
+<div class="search-form-wrapper col-lg-6 mx-auto mb-3">
+  <%= form_with url: search_walking_routes_path,local: true, method: :get, class: "search-form d-flex flex-row align-items-center" do |f| %>
+    <i class="fa-solid fa-magnifying-glass search-form-icon"></i>
+    <%= f.text_field :keyword, class: "search-form-input text-center", placeholder: "住所、地名で探す" %>
+  <% end %>
+</div>
