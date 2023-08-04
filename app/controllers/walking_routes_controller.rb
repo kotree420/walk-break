@@ -4,8 +4,10 @@ class WalkingRoutesController < ApplicationController
   before_action :new_walking_route_session_clear, except: [:new]
   before_action :edit_walking_route_session_clear, except: [:edit]
 
+  MAX_HOME_ROUTES_COUNT = 9
+
   def home
-    @walking_routes = WalkingRoute.latest.includes(:user, bookmarks: :user)
+    @walking_routes = WalkingRoute.latest.includes(:user, bookmarks: :user).limit(MAX_HOME_ROUTES_COUNT)
   end
 
   def index

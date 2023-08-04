@@ -8,15 +8,22 @@
           お気に入りの散歩ルートがあれば、是非教えてください。
         </p>
         <%= render "shared/search_form" %>
-        <%= link_to "一覧から探す", walking_routes_path, class: "btn btn-primary my-2 btn--extend index-btn" %>
-        <%= link_to "散歩ルートを作成する", new_walking_route_path, class: "btn btn-secondary my-2 btn--extend index-btn", data: { turbo: false } %>
+        <%= link_to "散歩ルートを作成する", new_walking_route_path, class: "btn btn-secondary my-2 btn--extend", data: { turbo: false } %>
       </div>
     </div>
   </section>
   <div class="py-3 bg-light">
     <h2 class="index-sort-name text-center mb-4">
-      新着散歩ルート
+      新着散歩ルート一覧
     </h2>
-    <%= render "shared/index_route", walking_routes: @walking_routes %>
+    <div class="mb-2">
+      <%= render "shared/index_route", walking_routes: @walking_routes %>
+    </div>
+    <div class="text-center">
+      <%= link_to walking_routes_path, class: "btn btn-primary my-2 btn--extend" do %>
+        <i class="fa-solid fa-angle-right"></i>
+        散歩ルートを一覧からもっと探す
+      <% end %>
+    </div>
   </div>
 </main>

@@ -18,6 +18,7 @@ li{
 .search-form-wrapper {
   border: 1px solid $primary;
   border-radius: 0.4rem;
+  color: $primary;
 }
 
 .search-form {
@@ -176,6 +177,10 @@ footer {
   -webkit-user-select: none;
   -moz-user-select: none;
   user-select: none;
+}
+
+.index-sort-name {
+  color: $primary;
 }
 
 .card-title--extend {
