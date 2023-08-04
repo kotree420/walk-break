@@ -7,8 +7,13 @@
           何かに息詰まっているなら、散歩に出かけてみましょう。<br>
           お気に入りの散歩ルートがあれば、是非教えてください。
         </p>
-        <%= render "shared/search_form" %>
-        <%= link_to "散歩ルートを作成する", new_walking_route_path, class: "btn btn-secondary my-2 btn--extend", data: { turbo: false } %>
+        <div class="home-search-form-container mb-3">
+          <%= render "shared/search_form" %>
+        </div>
+        <%= link_to new_walking_route_path, class: "btn btn-secondary my-2 btn--extend home-new-walking-route-btn", data: { turbo: false } do %>
+          <i class="fa-solid fa-pencil"></i>
+          散歩ルートを作成する
+        <% end %>
       </div>
     </div>
   </section>

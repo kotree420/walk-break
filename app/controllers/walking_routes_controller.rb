@@ -13,18 +13,25 @@ class WalkingRoutesController < ApplicationController
   def index
     if params[:popular]
       @walking_routes = WalkingRoute.includes(:user, :bookmarked_users, bookmarks: :user).sort {|a,b| b.bookmarked_users.size <=> a.bookmarked_users.size}
+      @sort_category = "人気順"
     elsif params[:old]
       @walking_routes = WalkingRoute.old.includes(:user, bookmarks: :user)
+      @sort_category = "古い順"
     elsif params[:distance_longest]
       @walking_routes = WalkingRoute.distance_longest.includes(:user, bookmarks: :user)
+      @sort_category = "距離が長い順"
     elsif params[:distance_shortest]
       @walking_routes = WalkingRoute.distance_shortest.includes(:user, bookmarks: :user)
+      @sort_category = "距離が短い順"
     elsif params[:duration_longest]
       @walking_routes = WalkingRoute.duration_longest.includes(:user, bookmarks: :user)
+      @sort_category = "時間が長い順"
     elsif params[:duration_shortest]
       @walking_routes = WalkingRoute.duration_shortest.includes(:user, bookmarks: :user)
+      @sort_category = "時間が短い順"
     else
       @walking_routes = WalkingRoute.latest.includes(:user, bookmarks: :user)
+      @sort_category = "新着順"
     end
   end
 

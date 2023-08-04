@@ -19,6 +19,7 @@ li{
   border: 1px solid $primary;
   border-radius: 0.4rem;
   color: $primary;
+  width: 20rem;
 }
 
 .search-form {
@@ -170,6 +171,16 @@ footer {
   line-height: 1.3;
 }
 
+/* walking_routes#home */
+.home-search-form-container .search-form-wrapper {
+  margin: 0 auto;
+}
+
+.home-new-walking-route-btn {
+  width: 20rem;
+  height: 2.5rem;
+}
+
 /* walking_routes#index */
 .bd-placeholder-img {
   font-size: 1.125rem;
@@ -177,6 +188,14 @@ footer {
   -webkit-user-select: none;
   -moz-user-select: none;
   user-select: none;
+}
+
+.index-sort-dropdown {
+  margin: 0 0.25rem 1rem;
+}
+
+.index-search-form-container .search-form-wrapper {
+  margin: 0 0.25rem 1rem;
 }
 
 .index-sort-name {
@@ -190,6 +209,11 @@ footer {
 
 .index-btn {
   width: 12rem;
+}
+
+.index-dropdown-btn {
+  font-size: 1rem;
+  padding: 0.15rem 0.3rem;
 }
 
 .index-profile-wrapper {
@@ -267,6 +291,11 @@ footer {
 
 .index-created-at {
   text-align: right;
+}
+
+/* walking_routes#search */
+.search-results-count {
+  font-size: 1.2rem;
 }
 
 /* walking_routes#show */
