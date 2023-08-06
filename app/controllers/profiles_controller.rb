@@ -6,8 +6,8 @@ class ProfilesController < ApplicationController
 
   def show
     if @user = User.find_by(id: params[:id])
-      @bookmarks = @user.bookmarks.includes([:user, walking_route: :user])
-      @walking_routes = @user.walking_routes
+      @bookmarked_walking_routes = @user.bookmarked_walking_routes.includes(:user, bookmarks: :user)
+      @walking_routes = @user.walking_routes.latest.includes(:user, bookmarks: :user)
     else
       flash[:info] = ["退会済みのユーザーです"]
       redirect_to root_path

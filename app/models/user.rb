@@ -1,6 +1,7 @@
 class User < ApplicationRecord
-  has_many :bookmarks, dependent: :destroy
+  has_many :bookmarks, -> { order(created_at: :desc) }, dependent: :destroy
   has_many :walking_routes, dependent: :destroy
+  has_many :bookmarked_walking_routes, through: :bookmarks, source: :walking_route
 
   default_scope { where(is_deleted: false) }
 

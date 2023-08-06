@@ -1,6 +1,6 @@
 <div class="container">
   <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
-    <% walking_routes.each do |walking_route| %>
+    <% walking_routes.each_with_index do |walking_route, i| %>
       <% if walking_route.user %>
         <div class="col">
           <div class="card shadow-sm">
@@ -36,7 +36,7 @@
               </div>
               <div class="mb-3">
                 <h5 class="card-title card-title--extend mb-1">
-                  <%= link_to walking_route_path(walking_route), class:"index-walking-route-name-link", data: { turbo: false } do %>
+                  <%= link_to walking_route_path(walking_route), class:"index-walking-route-name-link created-walking-route-name-#{i}", data: { turbo: false } do %>
                     <div class="d-flex flex-row align-items-center">
                       <div class="index-walking-route-name"><%= walking_route.name %></div>
                       <i class="fa-solid fa-person-walking-arrow-right"></i>
