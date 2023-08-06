@@ -30,4 +30,12 @@ class User < ApplicationRecord
   def bookmarked?(bookmarks, current_user_id)
     bookmarks.pluck(:user_id).include?(current_user_id)
   end
+
+  def self.search(keyword)
+    if keyword.present?
+      where('name LIKE ?', "%#{keyword}%")
+    else
+      all
+    end
+  end
 end

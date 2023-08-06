@@ -1,4 +1,4 @@
-<% provide(:title, "散歩ルート一覧") %>
+<% provide(:title, "散歩ルート") %>
 <% breadcrumb :walking_route_index %>
 <div class="container col-xxl-10 px-4 py-3">
   <div class="py-5">
@@ -33,7 +33,7 @@
         </ul>
       </div>
       <div class="index-search-form-container">
-        <%= render "shared/search_form" %>
+        <%= render "shared/search_form", path: search_walking_routes_path, placeholder: "住所、地名で探す" %>
       </div>
     </div>
     <%= render "shared/index_route", walking_routes: @walking_routes %>

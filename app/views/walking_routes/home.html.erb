@@ -8,7 +8,7 @@
           お気に入りの散歩ルートがあれば、是非教えてください。
         </p>
         <div class="home-search-form-container mb-3">
-          <%= render "shared/search_form" %>
+          <%= render "shared/search_form", path: search_walking_routes_path, placeholder: "住所、地名で探す" %>
         </div>
         <%= link_to new_walking_route_path, class: "btn btn-secondary my-2 btn--extend home-new-walking-route-btn", data: { turbo: false } do %>
           <i class="fa-solid fa-pencil"></i>

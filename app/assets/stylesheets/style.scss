@@ -201,7 +201,7 @@ footer {
   width: 100%;
 }
 
-/* profile */
+/* profiles */
 .profile-image {
   border-radius: 50%;
   width: 150px;
@@ -209,6 +209,12 @@ footer {
   object-fit: cover;
 }
 
+/* profiles#index */
+h5.index-profile-name {
+  margin-bottom: 0;
+}
+
+/* profiles#show */
 .show-profile-image-wrapper, .edit-profile-image-wrapper {
   text-align: center;
 }
@@ -241,6 +247,7 @@ footer {
   margin-bottom: 0;
 }
 
+/* profiles#edit */
 .edit-image:hover {
   filter: brightness(70%);
   cursor: pointer;

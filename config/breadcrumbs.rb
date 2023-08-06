@@ -12,9 +12,19 @@ crumb :new_user_registration do
   parent :root
 end
 
+crumb :profile_index do
+  link "ユーザー", profiles_path
+  parent :root
+end
+
+crumb :profile_search do
+  link "検索結果"
+  parent :profile_index
+end
+
 crumb :profile_show do |user|
   link user.name, profile_path(user)
-  parent :root
+  parent :profile_index
 end
 
 crumb :edit_profile do |user|
@@ -28,7 +38,7 @@ crumb :edit_user_registration do |user|
 end
 
 crumb :walking_route_index do
-  link "散歩ルート一覧", walking_routes_path
+  link "散歩ルート", walking_routes_path
   parent :root
 end
 

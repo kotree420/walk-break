@@ -4,6 +4,16 @@ class ProfilesController < ApplicationController
   before_action :new_walking_route_session_clear
   before_action :edit_walking_route_session_clear
 
+  def index
+    @users = User.includes(:walking_routes, :bookmarked_walking_routes)
+  end
+
+  def search
+    @keyword = search_params[:keyword]
+    @users = User.search(@keyword)
+    @search_results_count = @users.length
+  end
+
   def show
     if @user = User.find_by(id: params[:id])
       @bookmarked_walking_routes = @user.bookmarked_walking_routes.includes(:user, bookmarks: :user)
@@ -47,5 +57,9 @@ class ProfilesController < ApplicationController
   def user_params
     # form_withのurlオプションを使うため、requireは設定なし
     params.permit(:name, :comment, :profile_image, :remove_profile_image)
+  end
+
+  def search_params
+    params.permit(:keyword)
   end
 end
