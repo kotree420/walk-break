@@ -37,7 +37,7 @@
       <div class="walking-route-name-wrapper row align-items-center mb-1">
         <div id="show-walking-route-name" class="walking-route-name-style"><%= @walking_route.name %></div>
         <div class="d-flex flex-row align-items-center">
-          <% if current_user.bookmarked?(@walking_route.bookmarks, current_user.id) %>
+          <% if current_user&.bookmarked?(@walking_route.bookmarks, current_user&.id) %>
             <%= button_to walking_route_bookmarks_path(@walking_route), class: "btn bookmark-btn already-bookmark-btn", method: :delete, data: { turbo: false } do %>
               <i id="already-bookmarked-icon" class="fa-solid fa-heart"></i>
             <% end %>
