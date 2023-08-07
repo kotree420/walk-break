@@ -5,7 +5,7 @@ class ProfilesController < ApplicationController
   before_action :edit_walking_route_session_clear
 
   def index
-    @users = User.includes(:walking_routes, :bookmarked_walking_routes)
+    @users = User.latest.includes(:walking_routes, :bookmarked_walking_routes)
   end
 
   def search
