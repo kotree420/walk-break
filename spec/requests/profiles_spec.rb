@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe "Users", type: :request do
-  let!(:user) { create(:user) }
+  let(:user) { create(:user) }
   let(:other_user) { create(:user) }
   let!(:withdrawal_user) { create(:user, :withdrawal) }
   let!(:walking_route_created) { create(:walking_route, user: user) }
