@@ -37,7 +37,7 @@ class WalkingRoutesController < ApplicationController
 
   def search
     @keyword = search_params[:keyword]
-    @walking_routes = WalkingRoute.search(@keyword)
+    @walking_routes = WalkingRoute.search(@keyword).latest.includes(:user, bookmarks: :user)
     @search_results_count = @walking_routes.length
   end
 

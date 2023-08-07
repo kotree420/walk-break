@@ -10,7 +10,7 @@ class ProfilesController < ApplicationController
 
   def search
     @keyword = search_params[:keyword]
-    @users = User.search(@keyword)
+    @users = User.search(@keyword).latest.includes(:walking_routes, :bookmarked_walking_routes)
     @search_results_count = @users.length
   end
 
