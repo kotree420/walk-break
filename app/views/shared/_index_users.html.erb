@@ -8,7 +8,7 @@
               <div class="d-flex flex-row justify-content-between align-items-center">
                 <%= link_to profile_path(user), class: "index-profile-link" do %>
                   <div class="index-profile-wrapper d-flex justify-content-start align-items-center">
-                    <div class="index-profile-image-wrapper">
+                    <div>
                       <%= image_tag user.profile_image.url, class: 'index-profile-image' %>
                     </div>
                     <h5 class="index-profile-name">
@@ -30,14 +30,14 @@
                 <% end %>
               </div>
             </div>
-            <div class="index-route-info-wrapper">
-              <div class="mb-1">
-                <span class="index-start-address-label">作成数</span>
-                <span id="index-start-address"><%= user.walking_routes.length %>件</span>
+            <div class="d-flex flex-row align-items-center">
+              <div class="index-profile-count-wrapper">
+                <div class="index-profile-count-label">ルート作成数</div>
+                <div class="text-center"><%= user.walking_routes.length %></div>
               </div>
-              <div class="mb-1">
-                <span class="index-total-distance-label">ブックマーク数</span>
-                <span id="index-total-distance"><%= user.bookmarked_walking_routes.length %>件</span>
+              <div class="index-profile-count-wrapper">
+                <div class="index-profile-count-label">ブックマーク数</div>
+                <div class="text-center"><%= user.bookmarked_walking_routes.length %></div>
               </div>
             </div>
           </div>

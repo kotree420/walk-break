@@ -83,10 +83,9 @@ footer {
   color: $light;
 }
 
-/* shared/_index_route */
-.card-title--extend {
-  margin-right: 0.5rem;
-  margin-bottom: 0;
+/* index */
+.index-profile-link {
+  text-decoration: none;
 }
 
 .index-profile-wrapper {
@@ -101,7 +100,22 @@ footer {
   color: $dark;
 }
 
-.index-profile-image {
+.index-profile-name:hover {
+  color: $primary;
+}
+
+.index-edit-dropdown-btn {
+  font-size: 0.8rem;
+  padding: 0.15rem 0.3rem;
+}
+
+/* shared/_index_route */
+.card-title--extend {
+  margin-right: 0.5rem;
+  margin-bottom: 0;
+}
+
+.route-index-profile-image {
   border-radius: 50%;
   width: 40px;
   height: 40px;
@@ -141,11 +155,6 @@ footer {
 
 .index-bookmark-btn {
   font-size: 1rem;
-}
-
-.index-edit-dropdown-btn {
-  font-size: 0.8rem;
-  padding: 0.15rem 0.3rem;
 }
 
 .index-route-info-wrapper {
@@ -210,6 +219,14 @@ footer {
 }
 
 /* profiles#index */
+.index-profile-image {
+  border-radius: 50%;
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
+  margin-right: 0.25rem;
+}
+
 h5.index-profile-name {
   margin-bottom: 0;
 }
@@ -247,6 +264,15 @@ h5.index-profile-name {
   margin-bottom: 0;
 }
 
+.index-profile-count-wrapper, .show-profile-count-wrapper {
+  padding: 0 0.5rem;
+}
+
+.index-profile-count-label, .show-profile-count-label {
+  border-bottom: 2px solid $primary;
+  padding-bottom: 0.2rem;
+}
+
 /* profiles#edit */
 .edit-image:hover {
   filter: brightness(70%);
@@ -279,6 +305,10 @@ h5.index-profile-name {
   font-size: 1.2rem;
   color: $dark;
   text-align: center;
+}
+
+.walking-route-profile-link-wrapper .walking-route-profile-name:hover {
+  color: $primary;
 }
 
 .walking-route-name-style {
@@ -357,7 +387,7 @@ h5.index-profile-name {
   padding: 0.15rem 0.3rem;
 }
 
-.walking-route-profile-link, .index-profile-link {
+.walking-route-profile-link {
   text-decoration: none;
 }
 
@@ -367,10 +397,6 @@ h5.index-profile-name {
 
 .walking-route-profile-link-wrapper:hover {
   filter: brightness(85%);
-}
-
-.index-profile-name:hover, .walking-route-profile-name:hover {
-  color: $primary;
 }
 
 .show-walking-route-comment-area {

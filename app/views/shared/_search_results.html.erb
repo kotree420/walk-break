@@ -1,0 +1,8 @@
+<% if keyword.present? %>
+  <div class="search-results-count text-center mb-4">
+    <%= "#{keyword} の検索結果 #{search_results_count}件" %>
+    <%= link_to walking_routes_path do %>
+      <i class="fa-solid fa-rotate-left"></i>
+    <% end %>
+  </div>
+<% end %>
