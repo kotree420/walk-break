@@ -22,7 +22,7 @@
       新着散歩ルート一覧
     </h2>
     <div class="mb-2">
-      <%= render "shared/index_route", walking_routes: @walking_routes %>
+      <%= render "shared/index_route", walking_routes: @walking_routes, route_name_category: "created-walking-route-name" %>
     </div>
     <div class="text-center">
       <%= link_to walking_routes_path, class: "btn btn-primary my-2 btn--extend" do %>

@@ -1,24 +1,45 @@
 require 'rails_helper'
 
 RSpec.describe "Profiles", type: :system do
-  describe "プロフィール機能" do
-    let(:user) { create(:user) }
-    let!(:other_user) { create(:user) }
-    let!(:withdrawal_user) { create(:user, :withdrawal) }
-    let!(:walking_route_created) { create(:walking_route, user: user) }
-    let!(:walking_route_bookmarked) { create(:walking_route, user: other_user) }
-    let!(:walking_route_created_by_withdrawal) { create(:walking_route, user: withdrawal_user) }
-    let!(:bookmark) do
-      create(:bookmark, user_id: user.id, walking_route_id: walking_route_bookmarked.id)
-    end
-    let!(:bookmark_created_by_withdrawal) do
-      create(:bookmark, user_id: user.id, walking_route_id: walking_route_created_by_withdrawal.id)
-    end
+  let!(:user) { create(:user) }
+  let!(:other_user) { create(:user) }
+  let!(:withdrawal_user) { create(:user, :withdrawal) }
+  let!(:walking_route_created) { create(:walking_route, user: user) }
+  let!(:walking_route_bookmarked) { create(:walking_route, user: other_user) }
+  let!(:walking_route_created_by_withdrawal) { create(:walking_route, user: withdrawal_user) }
+  let!(:bookmark) do
+    create(:bookmark, user_id: user.id, walking_route_id: walking_route_bookmarked.id)
+  end
+  let!(:bookmark_created_by_withdrawal) do
+    create(:bookmark, user_id: user.id, walking_route_id: walking_route_created_by_withdrawal.id)
+  end
 
-    before do
-      sign_in user
-    end
+  before do
+    sign_in user
+  end
 
+  describe "プロフィール一覧" do
+    it "登録済みのユーザーが作成日時順に一覧表示され、ユーザー名で絞り込み検索ができること", js: true do
+      visit profiles_path
+
+      user_names = all(".index-profile-name").map(&:text)
+      expect(user_names).to eq [other_user.name, user.name]
+
+      fill_in "ユーザー名で探す", with: other_user.name
+      find(".search-form-input").send_keys :return
+
+      search_results_count = User.search(other_user.name).length.to_s
+      expect(page).to have_content "#{other_user.name} の検索結果 #{search_results_count}"
+
+      within first('.card-body') do
+        expect(page).to have_content other_user.name
+        expect(page).to have_content other_user.walking_routes.length.to_s
+        expect(page).to have_content other_user.bookmarked_walking_routes.length.to_s
+      end
+    end
+  end
+
+  describe "プロフィール閲覧" do
     context "サインイン中のユーザーのプロフィールを開く場合" do
       it "プロフィール編集機能でユーザー名と自己紹介を編集できること" do
         visit profile_path(user.id)
@@ -28,13 +49,18 @@ RSpec.describe "Profiles", type: :system do
         expect(page).to have_link "プロフィール編集"
         expect(page).to have_link "設定"
 
-        expect(page).to have_selector ".bookmarked-walking-route-name-0",
-          text: walking_route_bookmarked.name
+        within first('.created-walking-route-name') do
+          expect(page).to have_content walking_route_created.name
+        end
+
+        click_link "ブックマーク"
+
+        within first('.bookmarked-walking-route-name') do
+          expect(page).to have_content walking_route_bookmarked.name
+        end
+
         # ブックマーク済みの散歩ルートの作成者が退会済みの場合、対象の散歩ルートはブックマーク一覧で非表示になる
         expect(page).to_not have_content walking_route_created_by_withdrawal.name
-
-        expect(page).to have_selector ".created-walking-route-name-0",
-          text: walking_route_created.name
 
         click_link "プロフィール編集"
 
@@ -44,6 +70,8 @@ RSpec.describe "Profiles", type: :system do
 
         expect(page).to have_selector ".show-profile-name", text: "new_name"
         expect(page).to have_selector ".show-profile-comment", text: "new_comment"
+        expect(page).to have_selector ".show-profile-route-count", text: user.walking_routes.length.to_s
+        expect(page).to have_selector ".show-profile-bookmark-count", text: user.bookmarked_walking_routes.length.to_s
       end
     end
 
