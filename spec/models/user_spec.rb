@@ -51,4 +51,14 @@ RSpec.describe User, type: :model do
       expect(user).to be_valid
     end
   end
+
+  describe "ブックマーク" do
+    let(:user) { create(:user) }
+    let(:walking_route) { create(:walking_route, user: user) }
+    let!(:bookmark) { create(:bookmark, user_id: user.id, walking_route_id: walking_route.id) }
+
+    it "すでに散歩ルートがブックマーク済みの場合、trueを返すこと" do
+      expect(user.bookmarked?(walking_route.bookmarks, user.id)).to be_truthy
+    end
+  end
 end
