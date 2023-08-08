@@ -7,12 +7,18 @@ class WalkingRoutesController < ApplicationController
   MAX_HOME_ROUTES_COUNT = 9
 
   def home
-    @walking_routes = WalkingRoute.latest.includes(:user, bookmarks: :user).limit(MAX_HOME_ROUTES_COUNT)
+    @walking_routes = WalkingRoute.latest.
+      includes(:user, bookmarks: :user).
+      limit(MAX_HOME_ROUTES_COUNT)
   end
 
   def index
     if params[:popular]
-      @walking_routes = WalkingRoute.includes(:user, :bookmarked_users, bookmarks: :user).sort {|a,b| b.bookmarked_users.size <=> a.bookmarked_users.size}
+      @walking_routes = WalkingRoute.
+        includes(:user, :bookmarked_users, bookmarks: :user).
+        sort do |a, b|
+          b.bookmarked_users.size <=> a.bookmarked_users.size
+        end
       @sort_category = "人気順"
     elsif params[:old]
       @walking_routes = WalkingRoute.old.includes(:user, bookmarks: :user)

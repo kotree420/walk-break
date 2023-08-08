@@ -5,7 +5,7 @@ class User < ApplicationRecord
 
   default_scope { where(is_deleted: false) }
 
-  scope :latest, -> {order(created_at: :desc)}
+  scope :latest, -> { order(created_at: :desc) }
   # ユーザー管理機能で全てのユーザーを取得する場合は以下のunscopeを使う
   scope :with_deleted, -> { unscope(where: :is_deleted) }
 

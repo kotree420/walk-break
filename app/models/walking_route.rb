@@ -13,12 +13,12 @@ class WalkingRoute < ApplicationRecord
     validates :encorded_path
   end
 
-  scope :latest, -> {order(created_at: :desc)}
-  scope :old, -> {order(:created_at)}
-  scope :distance_longest, -> {order(distance: :desc)}
-  scope :distance_shortest, -> {order(:distance)}
-  scope :duration_longest, -> {order(duration: :desc)}
-  scope :duration_shortest, -> {order(:duration)}
+  scope :latest, -> { order(created_at: :desc) }
+  scope :old, -> { order(:created_at) }
+  scope :distance_longest, -> { order(distance: :desc) }
+  scope :distance_shortest, -> { order(:distance) }
+  scope :duration_longest, -> { order(duration: :desc) }
+  scope :duration_shortest, -> { order(:duration) }
 
   def bookmarks_count(bookmarks)
     count = []

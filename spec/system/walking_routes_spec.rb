@@ -50,7 +50,8 @@ RSpec.describe "WalkingRoutes", type: :system do
       find(".search-form-input").send_keys :return
 
       search_results_count = WalkingRoute.search(walking_route_bookmarked.start_address).length.to_s
-      expect(page).to have_content "#{walking_route_bookmarked.start_address} の検索結果 #{search_results_count}"
+      expect(page).
+        to have_content "#{walking_route_bookmarked.start_address} の検索結果 #{search_results_count}"
 
       within first('.card-body') do
         expect(page).to have_content walking_route_bookmarked.name

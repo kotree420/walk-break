@@ -74,8 +74,10 @@ RSpec.describe "Profiles", type: :system do
 
         expect(page).to have_selector ".show-profile-name", text: "new_name"
         expect(page).to have_selector ".show-profile-comment", text: "new_comment"
-        expect(page).to have_selector ".show-profile-route-count", text: user.walking_routes.length.to_s
-        expect(page).to have_selector ".show-profile-bookmark-count", text: user.bookmarked_walking_routes.length.to_s
+        expect(page).to have_selector ".show-profile-route-count",
+          text: user.walking_routes.length.to_s
+        expect(page).to have_selector ".show-profile-bookmark-count",
+          text: user.bookmarked_walking_routes.length.to_s
       end
     end
 
