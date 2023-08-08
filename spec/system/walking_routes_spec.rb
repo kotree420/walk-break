@@ -19,6 +19,16 @@ RSpec.describe "WalkingRoutes", type: :system do
   end
 
   describe "散歩ルート一覧/検索" do
+    before do
+      walking_route_created.distance = 0.8
+      walking_route_created.duration = 10
+      walking_route_created.save
+
+      walking_route_bookmarked.distance = 1.5
+      walking_route_bookmarked.duration = 20
+      walking_route_bookmarked.save
+    end
+
     it "ホーム画面にて作成済みの散歩ルートが作成日時順に一覧表示され、住所で絞り込み検索ができること", js: true do
       visit root_path
 
@@ -50,7 +60,37 @@ RSpec.describe "WalkingRoutes", type: :system do
       end
     end
 
-    it "一覧画面にて作成済みの散歩ルートが作成日時順に一覧表示され、ソートができること"
+    it "一覧表示画面にて散歩ルートのソートができること" do
+      visit walking_routes_path
+
+      click_link "新着順"
+      walking_route_names = all(".index-walking-route-name").map(&:text)
+      expect(walking_route_names).to eq [walking_route_bookmarked.name, walking_route_created.name]
+
+      click_link "古い順"
+      walking_route_names = all(".index-walking-route-name").map(&:text)
+      expect(walking_route_names).to eq [walking_route_created.name, walking_route_bookmarked.name]
+
+      click_link "人気順"
+      walking_route_names = all(".index-walking-route-name").map(&:text)
+      expect(walking_route_names).to eq [walking_route_bookmarked.name, walking_route_created.name]
+
+      click_link "距離が長い順"
+      walking_route_names = all(".index-walking-route-name").map(&:text)
+      expect(walking_route_names).to eq [walking_route_bookmarked.name, walking_route_created.name]
+
+      click_link "距離が短い順"
+      walking_route_names = all(".index-walking-route-name").map(&:text)
+      expect(walking_route_names).to eq [walking_route_created.name, walking_route_bookmarked.name]
+
+      click_link "時間が長い順"
+      walking_route_names = all(".index-walking-route-name").map(&:text)
+      expect(walking_route_names).to eq [walking_route_bookmarked.name, walking_route_created.name]
+
+      click_link "時間が短い順"
+      walking_route_names = all(".index-walking-route-name").map(&:text)
+      expect(walking_route_names).to eq [walking_route_created.name, walking_route_bookmarked.name]
+    end
   end
 
   describe "散歩ルート作成機能", js: true do
