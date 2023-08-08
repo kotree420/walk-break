@@ -18,12 +18,16 @@ RSpec.describe "Profiles", type: :system do
     sign_in user
   end
 
-  describe "プロフィール一覧" do
+  describe "プロフィール一覧/検索" do
     it "登録済みのユーザーが作成日時順に一覧表示され、ユーザー名で絞り込み検索ができること", js: true do
       visit profiles_path
 
       user_names = all(".index-profile-name").map(&:text)
       expect(user_names).to eq [other_user.name, user.name]
+
+      within all('.card-body')[1] do
+        expect(page).to have_css ".index-edit-dropdown-btn"
+      end
 
       fill_in "ユーザー名で探す", with: other_user.name
       find(".search-form-input").send_keys :return

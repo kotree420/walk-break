@@ -44,7 +44,7 @@
                   <% end %>
                 </h5>
                 <div class="index-bookmark-wrapper d-flex flex-row align-items-center">
-                  <% if walking_route.user == current_user && current_user&.bookmarked?(walking_route.bookmarks, current_user&.id) %>
+                  <% if user_signed_in? && current_user&.bookmarked?(walking_route.bookmarks, current_user&.id) %>
                     <%= button_to walking_route_bookmarks_path(walking_route), class: "btn index-bookmark-btn already-bookmark-btn", method: :delete, data: { turbo: false } do %>
                       <i id="already-bookmarked-icon" class="fa-solid fa-heart"></i>
                     <% end %>
