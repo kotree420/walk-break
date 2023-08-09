@@ -4,13 +4,54 @@ class WalkingRoutesController < ApplicationController
   before_action :new_walking_route_session_clear, except: [:new]
   before_action :edit_walking_route_session_clear, except: [:edit]
 
+  MAX_HOME_ROUTES_COUNT = 9
+
+  def home
+    @walking_routes = WalkingRoute.latest.
+      includes(:user, bookmarks: :user).
+      limit(MAX_HOME_ROUTES_COUNT)
+  end
+
   def index
+    if params[:popular]
+      @walking_routes = WalkingRoute.
+        includes(:user, :bookmarked_users, bookmarks: :user).
+        sort do |a, b|
+          b.bookmarked_users.size <=> a.bookmarked_users.size
+        end
+      @sort_category = "人気順"
+    elsif params[:old]
+      @walking_routes = WalkingRoute.old.includes(:user, bookmarks: :user)
+      @sort_category = "古い順"
+    elsif params[:distance_longest]
+      @walking_routes = WalkingRoute.distance_longest.includes(:user, bookmarks: :user)
+      @sort_category = "距離が長い順"
+    elsif params[:distance_shortest]
+      @walking_routes = WalkingRoute.distance_shortest.includes(:user, bookmarks: :user)
+      @sort_category = "距離が短い順"
+    elsif params[:duration_longest]
+      @walking_routes = WalkingRoute.duration_longest.includes(:user, bookmarks: :user)
+      @sort_category = "時間が長い順"
+    elsif params[:duration_shortest]
+      @walking_routes = WalkingRoute.duration_shortest.includes(:user, bookmarks: :user)
+      @sort_category = "時間が短い順"
+    else
+      @walking_routes = WalkingRoute.latest.includes(:user, bookmarks: :user)
+      @sort_category = "新着順"
+    end
+  end
+
+  def search
+    @keyword = search_params[:keyword]
+    @walking_routes = WalkingRoute.search(@keyword).latest.includes(:user, bookmarks: :user)
+    @search_results_count = @walking_routes.length
   end
 
   def show
     @walking_route = WalkingRoute.find(params[:id])
     if @user = @walking_route.user
-      @bookmarks_count = @walking_route.bookmarks_count
+      @bookmarks = @walking_route.bookmarks.includes([:user])
+      @bookmarks_count = @walking_route.bookmarks_count(@bookmarks)
     else
       flash[:info] = ["退会済みのユーザーです"]
       redirect_to root_path
@@ -79,5 +120,9 @@ class WalkingRoutesController < ApplicationController
     params.
       permit(:name, :comment, :distance, :duration,
         :start_address, :end_address, :encorded_path, :user_id)
+  end
+
+  def search_params
+    params.permit(:keyword)
   end
 end

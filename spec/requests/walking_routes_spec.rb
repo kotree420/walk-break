@@ -4,12 +4,41 @@ RSpec.describe "WalkingRoutes", type: :request do
   let(:user) { create(:user) }
   let(:other_user) { create(:user) }
   let!(:withdrawal_user) { create(:user, :withdrawal) }
-  let(:walking_route) { create(:walking_route, user: user) }
+  let!(:walking_route) { create(:walking_route, user: user) }
+  let!(:walking_route_by_other_user) { create(:walking_route, user: other_user) }
   let!(:walking_route_by_withdrawal_user) { create(:walking_route, user: withdrawal_user) }
-  let(:bookmark) { create(:bookmark, user_id: user.id, walking_route_id: walking_route.id) }
+  let!(:bookmark) { create(:bookmark, user_id: user.id, walking_route_id: walking_route.id) }
 
   before do
     sign_in user
+  end
+
+  describe "GET /" do
+    before do
+      get root_path
+    end
+
+    it "ステータスコードに 200: OK が返されること" do
+      expect(response).to have_http_status(200)
+    end
+    it "散歩ルートと作成ユーザーが全て表示されていること" do
+      expect(response.body).to include(walking_route.name)
+      expect(response.body).to include(user.name)
+      expect(response.body).to include(walking_route_by_other_user.name)
+      expect(response.body).to include(other_user.name)
+    end
+    it "散歩ルートのブックマーク数が表示されていること" do
+      expect(response.body).to include(
+        walking_route.bookmarks_count(walking_route.bookmarks).to_s
+      )
+      expect(response.body).to include(
+        walking_route_by_other_user.bookmarks_count(walking_route_by_other_user.bookmarks).to_s
+      )
+    end
+    it "退会済みのユーザーが作成したルートが表示されていないこと" do
+      expect(response.body).to_not include(walking_route_by_withdrawal_user.name)
+      expect(response.body).to_not include(withdrawal_user.name)
+    end
   end
 
   describe "GET /walking_routes" do
@@ -19,6 +48,79 @@ RSpec.describe "WalkingRoutes", type: :request do
 
     it "ステータスコードに 200: OK が返されること" do
       expect(response).to have_http_status(200)
+    end
+    it "散歩ルートと作成ユーザーが全て表示されていること" do
+      expect(response.body).to include(walking_route.name)
+      expect(response.body).to include(user.name)
+      expect(response.body).to include(walking_route_by_other_user.name)
+      expect(response.body).to include(other_user.name)
+    end
+    it "散歩ルートのブックマーク数が表示されていること" do
+      expect(response.body).to include(
+        walking_route.bookmarks_count(walking_route.bookmarks).to_s
+      )
+      expect(response.body).to include(
+        walking_route_by_other_user.bookmarks_count(walking_route_by_other_user.bookmarks).to_s
+      )
+    end
+    it "退会済みのユーザーが作成したルートが表示されていないこと" do
+      expect(response.body).to_not include(walking_route_by_withdrawal_user.name)
+      expect(response.body).to_not include(withdrawal_user.name)
+    end
+  end
+
+  describe "GET /walking_routes/search" do
+    context "検索ワードありの場合" do
+      before do
+        walking_route.start_address = "東京都千代田区丸の内"
+        walking_route.end_address = "東京都中央区銀座"
+        walking_route.save
+        walking_route_by_other_user.start_address = "東京都中央区築地"
+        walking_route_by_other_user.end_address = "東京都港区六本木"
+        walking_route_by_other_user.save
+        get search_walking_routes_path, params: { keyword: "千代田区" }
+      end
+
+      it "ステータスコードに 200: OK が返されること" do
+        expect(response).to have_http_status(200)
+      end
+      it "検索ワードが表示されていること" do
+        expect(response.body).to include("千代田区")
+      end
+      it "検索結果数が表示されていること" do
+        expect(response.body).to include(WalkingRoute.search("千代田区").length.to_s)
+      end
+      it "検索ワードに対して出発地もしくは到着地の住所が部分一致の散歩ルートのみが表示されていること" do
+        expect(response.body).to include(walking_route.name)
+        expect(response.body).to_not include(walking_route_by_other_user.name)
+      end
+      it "退会済みのユーザーが作成したルートが表示されていないこと" do
+        expect(response.body).to_not include(walking_route_by_withdrawal_user.name)
+        expect(response.body).to_not include(withdrawal_user.name)
+      end
+    end
+
+    context "検索ワードなしの場合" do
+      before do
+        get search_walking_routes_path
+      end
+
+      it "ステータスコードに 200: OK が返されること" do
+        expect(response).to have_http_status(200)
+      end
+      it "「すべての散歩ルート」と表示されていること" do
+        expect(response.body).to include("すべての散歩ルート")
+      end
+      it "散歩ルートと作成ユーザーが全て表示されていること" do
+        expect(response.body).to include(walking_route.name)
+        expect(response.body).to include(user.name)
+        expect(response.body).to include(walking_route_by_other_user.name)
+        expect(response.body).to include(other_user.name)
+      end
+      it "退会済みのユーザーが作成したルートが表示されていないこと" do
+        expect(response.body).to_not include(walking_route_by_withdrawal_user.name)
+        expect(response.body).to_not include(withdrawal_user.name)
+      end
     end
   end
 
@@ -104,7 +206,7 @@ RSpec.describe "WalkingRoutes", type: :request do
 
       it "showアクションにリダイレクトされること" do
         request
-        expect(response).to redirect_to(walking_route_path(WalkingRoute.second.id))
+        expect(response).to redirect_to(walking_route_path(WalkingRoute.last.id))
       end
 
       it "送信した散歩ルートが保存されていること" do

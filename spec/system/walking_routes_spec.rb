@@ -1,13 +1,100 @@
 require 'rails_helper'
 
 RSpec.describe "WalkingRoutes", type: :system do
-  describe "散歩ルート作成機能", js: true do
-    let(:user) { create(:user) }
+  let(:user) { create(:user) }
+  let!(:other_user) { create(:user) }
+  let!(:withdrawal_user) { create(:user, :withdrawal) }
+  let!(:walking_route_created) { create(:walking_route, user: user) }
+  let!(:walking_route_bookmarked) { create(:walking_route, user: other_user) }
+  let!(:walking_route_created_by_withdrawal) { create(:walking_route, user: withdrawal_user) }
+  let!(:bookmark) do
+    create(:bookmark, user_id: user.id, walking_route_id: walking_route_bookmarked.id)
+  end
+  let!(:bookmark_created_by_withdrawal) do
+    create(:bookmark, user_id: user.id, walking_route_id: walking_route_created_by_withdrawal.id)
+  end
 
+  before do
+    sign_in user
+  end
+
+  describe "散歩ルート一覧/検索" do
     before do
-      sign_in user
+      walking_route_created.distance = 0.8
+      walking_route_created.duration = 10
+      walking_route_created.save
+
+      walking_route_bookmarked.distance = 1.5
+      walking_route_bookmarked.duration = 20
+      walking_route_bookmarked.save
     end
 
+    it "ホーム画面にて作成済みの散歩ルートが作成日時順に一覧表示され、住所で絞り込み検索ができること", js: true do
+      visit root_path
+
+      walking_route_names = all(".index-walking-route-name").map(&:text)
+      expect(walking_route_names).to eq [walking_route_bookmarked.name, walking_route_created.name]
+
+      # walking_route_bookmarked
+      within all('.card-body')[0] do
+        expect(page).to have_css "#already-bookmarked-icon"
+      end
+
+      # walking_route_created
+      within all('.card-body')[1] do
+        expect(page).to have_css ".index-edit-dropdown-btn"
+        expect(page).to have_css "#not-yet-bookmarked-icon"
+      end
+
+      fill_in "住所、地名で探す", with: walking_route_bookmarked.start_address
+      find(".search-form-input").send_keys :return
+
+      search_results_count = WalkingRoute.search(walking_route_bookmarked.start_address).length.to_s
+      expect(page).
+        to have_content "#{walking_route_bookmarked.start_address} の検索結果 #{search_results_count}"
+
+      within first('.card-body') do
+        expect(page).to have_content walking_route_bookmarked.name
+        expect(page).to have_content walking_route_bookmarked.start_address
+        expect(page).to have_content walking_route_bookmarked.distance
+        expect(page).to have_content walking_route_bookmarked.duration
+      end
+    end
+
+    it "一覧表示画面にて散歩ルートのソートができること" do
+      visit walking_routes_path
+
+      click_link "新着順"
+      walking_route_names = all(".index-walking-route-name").map(&:text)
+      expect(walking_route_names).to eq [walking_route_bookmarked.name, walking_route_created.name]
+
+      click_link "古い順"
+      walking_route_names = all(".index-walking-route-name").map(&:text)
+      expect(walking_route_names).to eq [walking_route_created.name, walking_route_bookmarked.name]
+
+      click_link "人気順"
+      walking_route_names = all(".index-walking-route-name").map(&:text)
+      expect(walking_route_names).to eq [walking_route_bookmarked.name, walking_route_created.name]
+
+      click_link "距離が長い順"
+      walking_route_names = all(".index-walking-route-name").map(&:text)
+      expect(walking_route_names).to eq [walking_route_bookmarked.name, walking_route_created.name]
+
+      click_link "距離が短い順"
+      walking_route_names = all(".index-walking-route-name").map(&:text)
+      expect(walking_route_names).to eq [walking_route_created.name, walking_route_bookmarked.name]
+
+      click_link "時間が長い順"
+      walking_route_names = all(".index-walking-route-name").map(&:text)
+      expect(walking_route_names).to eq [walking_route_bookmarked.name, walking_route_created.name]
+
+      click_link "時間が短い順"
+      walking_route_names = all(".index-walking-route-name").map(&:text)
+      expect(walking_route_names).to eq [walking_route_created.name, walking_route_bookmarked.name]
+    end
+  end
+
+  describe "散歩ルート作成機能", js: true do
     it "散歩ルート作成画面にてルート作成を実行すると、詳細表示ページに遷移して作成した情報が表示されること", js: true do
       visit new_walking_route_path
 
@@ -54,7 +141,7 @@ RSpec.describe "WalkingRoutes", type: :system do
       expect(page).to have_field "到着地:", with: "日本、〒104-0061 東京都中央区銀座４丁目１−２ 銀座駅"
       click_button "ルート作成"
 
-      expect(current_path).to eq walking_route_path(WalkingRoute.first.id)
+      expect(current_path).to eq walking_route_path(WalkingRoute.last.id)
       expect(page).to have_content "ルート作成が完了しました"
 
       within ".gm-style" do
@@ -64,13 +151,13 @@ RSpec.describe "WalkingRoutes", type: :system do
       end
 
       expect(page).to have_selector "#created-at-value",
-        text: "作成日時 #{WalkingRoute.first.created_at.strftime("%Y/%m/%d %H:%M:%S")}"
-      expect(page).to have_selector "#show-walking-route-name", text: WalkingRoute.first.name
-      expect(page).to have_selector "#show-walking-route-comment", text: WalkingRoute.first.comment
-      expect(page).to have_selector "#show-total-distance", text: "#{WalkingRoute.first.distance}km"
-      expect(page).to have_selector "#show-total-duration", text: "#{WalkingRoute.first.duration}分"
-      expect(page).to have_selector "#show-start-address", text: WalkingRoute.first.start_address
-      expect(page).to have_selector "#show-end-address", text: WalkingRoute.first.end_address
+        text: "作成日時 #{WalkingRoute.last.created_at.strftime("%Y/%m/%d %H:%M:%S")}"
+      expect(page).to have_selector "#show-walking-route-name", text: WalkingRoute.last.name
+      expect(page).to have_selector "#show-walking-route-comment", text: WalkingRoute.last.comment
+      expect(page).to have_selector "#show-total-distance", text: "#{WalkingRoute.last.distance}km"
+      expect(page).to have_selector "#show-total-duration", text: "#{WalkingRoute.last.duration}分"
+      expect(page).to have_selector "#show-start-address", text: WalkingRoute.last.start_address
+      expect(page).to have_selector "#show-end-address", text: WalkingRoute.last.end_address
     end
 
     it "経由地は10を越える数を追加できないこと", js: true do
@@ -107,7 +194,7 @@ RSpec.describe "WalkingRoutes", type: :system do
         find('.edit-dropdown-btn').click
         click_link '編集'
 
-        expect(current_path).to eq edit_walking_route_path(WalkingRoute.first.id)
+        expect(current_path).to eq edit_walking_route_path(WalkingRoute.last.id)
         expect(page).to have_css ".gm-style"
 
         fill_in "散歩ルート名:（20文字以内）", with: "散歩ルート1"
@@ -130,7 +217,7 @@ RSpec.describe "WalkingRoutes", type: :system do
         expect(page).to have_field "到着地:", with: "日本、〒104-0061 東京都中央区銀座４丁目１−２ 銀座駅"
         click_button "更新"
 
-        expect(current_path).to eq walking_route_path(WalkingRoute.first.id)
+        expect(current_path).to eq walking_route_path(WalkingRoute.last.id)
         expect(page).to have_content "散歩ルート情報の更新が完了しました"
 
         within ".gm-style" do
@@ -140,19 +227,19 @@ RSpec.describe "WalkingRoutes", type: :system do
         end
 
         expect(page).to have_selector "#created-at-value",
-          text: "作成日時 #{WalkingRoute.first.created_at.strftime("%Y/%m/%d %H:%M:%S")}"
+          text: "作成日時 #{WalkingRoute.last.created_at.strftime("%Y/%m/%d %H:%M:%S")}"
         expect(page).to have_selector "#show-walking-route-name",
-          text: WalkingRoute.first.name
+          text: WalkingRoute.last.name
         expect(page).to have_selector "#show-walking-route-comment",
-          text: WalkingRoute.first.comment
+          text: WalkingRoute.last.comment
         expect(page).to have_selector "#show-total-distance",
-          text: "#{WalkingRoute.first.distance}km"
+          text: "#{WalkingRoute.last.distance}km"
         expect(page).to have_selector "#show-total-duration",
-          text: "#{WalkingRoute.first.duration}分"
+          text: "#{WalkingRoute.last.duration}分"
         expect(page).to have_selector "#show-start-address",
-          text: WalkingRoute.first.start_address
+          text: WalkingRoute.last.start_address
         expect(page).to have_selector "#show-end-address",
-          text: WalkingRoute.first.end_address
+          text: WalkingRoute.last.end_address
       end
     end
 

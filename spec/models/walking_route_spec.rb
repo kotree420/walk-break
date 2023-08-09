@@ -84,11 +84,7 @@ RSpec.describe WalkingRoute, type: :model do
   describe "ブックマーク機能テスト" do
     it "退会済みのユーザーを除くブックマーク数が返されること" do
       withdrawal_user.update(is_deleted: true)
-      expect(walking_route.bookmarks_count).to eq 1
-    end
-
-    it "すでに散歩ルートがブックマーク済みの場合、trueを返すこと" do
-      expect(walking_route.bookmarked?(user)).to be_truthy
+      expect(walking_route.bookmarks_count(walking_route.bookmarks)).to eq 1
     end
   end
 end

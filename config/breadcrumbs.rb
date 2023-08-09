@@ -12,9 +12,19 @@ crumb :new_user_registration do
   parent :root
 end
 
+crumb :profile_index do
+  link "ユーザー", profiles_path
+  parent :root
+end
+
+crumb :profile_search do
+  link "検索結果"
+  parent :profile_index
+end
+
 crumb :profile_show do |user|
   link user.name, profile_path(user)
-  parent :root
+  parent :profile_index
 end
 
 crumb :edit_profile do |user|
@@ -27,14 +37,23 @@ crumb :edit_user_registration do |user|
   parent :profile_show, user
 end
 
-crumb :new_walking_route do
-  link "散歩ルート作成", new_walking_route_path
+crumb :walking_route_index do
+  link "散歩ルート", walking_routes_path
   parent :root
+end
+
+crumb :walking_route_search do
+  link "検索結果"
+  parent :walking_route_index
 end
 
 crumb :walking_route_show do |walking_route|
   link walking_route.name
-  # 一覧表示画面作成後、修正する
+  parent :walking_route_index
+end
+
+crumb :new_walking_route do
+  link "散歩ルート作成", new_walking_route_path
   parent :root
 end
 
