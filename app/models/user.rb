@@ -31,12 +31,12 @@ class User < ApplicationRecord
   validates :email, check_guest_regex: true
 
   def self.guest
+    # @example.comのドメインに対するバリデーションをスキップするためsaveを使用
     name = SecureRandom.alphanumeric(10)
     email = "#{name}@example.com"
-    comment = "こちらに自己紹介を記載できます。現在はゲストユーザーでログイン中のため編集不可です。"
+    comment = "こちらに自己紹介を記載できます。ゲストログイン中のため、ログアウト後は情報が削除されます。"
     password = SecureRandom.urlsafe_base64
     guest_user = User.new(name: name, email: email, comment: comment, password: password)
-    # @example.comのドメインに対するバリデーションをスキップするためsaveを使用
     guest_user.save(validate: false)
     return guest_user
   end

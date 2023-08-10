@@ -21,9 +21,9 @@ class ApplicationController < ActionController::Base
     session[:walking_route_edit].clear if session[:walking_route_edit]
   end
 
-  def check_guest_user_edit
+  def check_guest_user_edit_registration
     if current_user.email =~ Constants::GUEST_USER_EMAIL_REGEX
-      flash[:warning] = "ゲストユーザーは編集できません"
+      flash[:warning] = "ゲストユーザーの設定情報は編集できません"
       redirect_to root_path
     end
   end
