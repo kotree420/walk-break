@@ -28,12 +28,17 @@ class User < ApplicationRecord
 
   validates :comment, with_line_break: { maximum: 140 }, allow_blank: true
 
+  validates :email, check_guest_regex: true
+
   def self.guest
     name = SecureRandom.alphanumeric(10)
     email = "#{name}@example.com"
     comment = "こちらに自己紹介を記載できます。現在はゲストユーザーでログイン中のため編集不可です。"
     password = SecureRandom.urlsafe_base64
-    User.create({ name: name, email: email, comment: comment, password: password })
+    guest_user = User.new(name: name, email: email, comment: comment, password: password)
+    # @example.comのドメインに対するバリデーションをスキップするためsaveを使用
+    guest_user.save(validate: false)
+    return guest_user
   end
 
   def bookmarked?(bookmarks, current_user_id)
