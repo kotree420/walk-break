@@ -20,4 +20,11 @@ class ApplicationController < ActionController::Base
   def edit_walking_route_session_clear
     session[:walking_route_edit].clear if session[:walking_route_edit]
   end
+
+  def check_guest_user
+    if current_user.email = "guest@example.com"
+      flash[:warning] = "ゲストユーザーは編集・削除できません"
+      redirect_to root_path
+    end
+  end
 end

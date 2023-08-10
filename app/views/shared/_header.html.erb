@@ -36,6 +36,9 @@
             <li class="nav-item">
               <%= link_to "新規登録", new_user_registration_path, class: "nav-link", tabindex: "-1", 'aria-disabled': :true %>
             </li>
+            <li class="nav-item">
+              <%= link_to "ゲストログイン", users_guest_sign_in_path, class: "nav-link", data: { "turbo-method": :post }, tabindex: "-1", 'aria-disabled': :true %>
+            </li>
           <% end %>
         </ul>
         <%= form_with url: search_walking_routes_path,local: true, method: :get do |f| %>
