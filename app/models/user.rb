@@ -29,10 +29,11 @@ class User < ApplicationRecord
   validates :comment, with_line_break: { maximum: 140 }, allow_blank: true
 
   def self.guest
-    find_or_create_by!(email: 'guest@example.com') do |user|
-      user.name = "ゲスト"
-      user.password = SecureRandom.urlsafe_base64
-    end
+    name = SecureRandom.alphanumeric(10)
+    email = "#{name}@example.com"
+    comment = "こちらに自己紹介を記載できます。現在はゲストユーザーでログイン中のため編集不可です。"
+    password = SecureRandom.urlsafe_base64
+    User.create({ name: name, email: email, comment: comment, password: password })
   end
 
   def bookmarked?(bookmarks, current_user_id)

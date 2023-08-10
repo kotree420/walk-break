@@ -3,7 +3,8 @@ class ProfilesController < ApplicationController
   before_action :edit_user_session_clear, except: [:edit]
   before_action :new_walking_route_session_clear
   before_action :edit_walking_route_session_clear
-  before_action :check_guest_user, only: [:edit, :update, :withdrawal]
+  before_action :check_guest_user_edit, only: [:edit, :update]
+  before_action :check_guest_user_destroy, only: [:withdrawal]
 
   def index
     @users = User.latest.includes(:walking_routes, :bookmarked_walking_routes)
