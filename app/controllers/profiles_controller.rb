@@ -3,6 +3,8 @@ class ProfilesController < ApplicationController
   before_action :edit_user_session_clear, except: [:edit]
   before_action :new_walking_route_session_clear
   before_action :edit_walking_route_session_clear
+  before_action :check_guest_user_edit_profile, only: [:update]
+  before_action :check_guest_user_destroy, only: [:withdrawal]
 
   def index
     @users = User.latest.includes(:walking_routes, :bookmarked_walking_routes)
@@ -61,5 +63,18 @@ class ProfilesController < ApplicationController
 
   def search_params
     params.permit(:keyword)
+  end
+
+  def check_guest_user_edit_profile
+    if current_user.email =~ Constants::GUEST_USER_EMAIL_REGEX
+      # @example.comのドメインに対するバリデーションをスキップするためsaveを使用
+      current_user.name = user_params[:name]
+      current_user.comment = user_params[:comment]
+      current_user.profile_image = user_params[:profile_image]
+      current_user.remove_profile_image = user_params[:remove_profile_image]
+      current_user.save(validate: false)
+      flash[:info] = ["ゲストユーザーのプロフィール情報の更新が完了しました"]
+      redirect_to action: :show
+    end
   end
 end

@@ -20,4 +20,19 @@ class ApplicationController < ActionController::Base
   def edit_walking_route_session_clear
     session[:walking_route_edit].clear if session[:walking_route_edit]
   end
+
+  def check_guest_user_edit_registration
+    if current_user.email =~ Constants::GUEST_USER_EMAIL_REGEX
+      flash[:warning] = "ゲストユーザーの設定情報は編集できません"
+      redirect_to root_path
+    end
+  end
+
+  def check_guest_user_destroy
+    if current_user.email =~ Constants::GUEST_USER_EMAIL_REGEX
+      current_user.destroy
+      flash[:notice] = "ゲストユーザー情報が削除されました"
+      redirect_to root_path, status: :see_other
+    end
+  end
 end

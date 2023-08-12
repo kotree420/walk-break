@@ -2,6 +2,13 @@
 
 class Users::SessionsController < Devise::SessionsController
   # before_action :configure_sign_in_params, only: [:create]
+  before_action :check_guest_user_destroy, only: [:destroy]
+
+  def guest_sign_in
+    guest_user = User.guest
+    sign_in guest_user
+    redirect_to root_path, notice: "ゲストユーザー #{guest_user.name} としてログインしました。操作情報はログイン中のみ保持されます。"
+  end
 
   # GET /resource/sign_in
   # def new
