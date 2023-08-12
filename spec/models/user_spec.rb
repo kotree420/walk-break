@@ -55,7 +55,7 @@ RSpec.describe User, type: :model do
 
   describe "ゲストログイン" do
     it "ユーザーレコードが1件作成されること" do
-      expect{ User.guest }.to change{ User.count }.by(1)
+      expect { User.guest }.to change { User.count }.by(1)
     end
     it "emailに@example.comのドメインを持っていること" do
       expect(User.guest.email).to include "@example.com"

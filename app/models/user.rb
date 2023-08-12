@@ -38,7 +38,7 @@ class User < ApplicationRecord
     password = SecureRandom.urlsafe_base64
     guest_user = User.new(name: name, email: email, comment: comment, password: password)
     guest_user.save(validate: false)
-    return guest_user
+    guest_user
   end
 
   def bookmarked?(bookmarks, current_user_id)
