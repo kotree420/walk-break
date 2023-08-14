@@ -2,7 +2,7 @@
 [Walk break](https://walkbreak-11323cd54fcf.herokuapp.com/)は、散歩ルートの作成・共有ができるアプリです。
 
 - 散歩ルートはドラッグ&ドロップで詳細に編集可能です
-- 作成された散歩ルートは検索やソート機能によって探索可能です
+- 作成された散歩ルートは検索やソート機能によって探索し、ブックマークが可能です
 - レスポンシブ対応済みのため、スマートフォンでもご利用可能です
 
 ![トップページ](app/assets/images/top_page.png)
@@ -16,7 +16,46 @@
 5. 今後追加したい機能
 
 ## 1. About
-#背景や思いなど
+「Walk break」という名前は、「Coffee break」から取りました。<br>
+この名前には、コーヒーを飲むのと同じくらい手軽に散歩を休憩として取り入れて欲しいという思いを込めています。
+
+在宅勤務が当たり前となり、運動不足や仕事とプライベートの切り替えの難しさなどがしばし議論されている世の中で、私は散歩という運動に様々な可能性があると考えています。
+
+まず健康面では、以下のメリットがあります。※1
+- 歩くことは脂肪燃焼の面でとても良いアプローチ
+- ランニングに比べて強度が低いためハードルが低く手軽に始めることができ、怪我にも繋がりにくい
+- 適度な運動が睡眠の質を上げる
+
+さらに有酸素運動によって脳に酸素が供給され脳が活性化することで、以下のメリットがあります。※2
+- 創造的になり、アイデアが浮かびやすくなる
+- 運動後の記憶力や注意力が向上し、生産性が上がる
+- 緊張がとけ、精神的疲労や不安症状などの否定的な感情が低下する
+
+スティーブ・ジョブズは考えごとをしたり、ブレスト的なミーティングをする際によく散歩を活用していたそうです。<br>
+またヘンリー・デイヴィッド・ソローという作家は、「足が動くと、私の考えも流れ始めます」という言葉を残しています。<br>
+デスクワークの休憩時、何か行き詰まった時など、ぜひWalk breakで見つけた散歩コースを歩いてみて欲しいです。
+
+※1<br>
+沢井製薬「脂肪がどんどん燃える 意外な運動のコツ」(2016年5月(2019年改訂))<br>
+https://kenko.sawai.co.jp/body-care/201605.html
+
+日経Gooday「ゆっくり歩くほうが脂肪が燃焼する」というのは本当？」<br>
+https://gooday.nikkei.co.jp/atcl/report/15/071300026/062300395/?P=2
+
+※2<br>
+米国疾病管理予防センター（CDC）「Walking」<br>
+https://www.cdc.gov/physicalactivity/walking/index.htm
+
+スタンフォード大学「Give your ideas some legs: The positive effect of walking on creative thinking.」<br>
+https://psycnet.apa.org/doiLanding?doi=10.1037%2Fa0036577
+https://www.apa.org/pubs/journals/releases/xlm-a0036577.pdf
+
+国土交通省「第１章 「歩く」効果・効用とそれを習慣化する方法の整理」p14-15<br>
+https://www.mlit.go.jp/common/000022977.pdf
+
+The New Yorker「Why Walking Helps Us Think」<br>
+https://www.newyorker.com/tech/annals-of-technology/walking-helps-us-think
+
 
 ## 2. 使用技術
 - HTML/CSS/JavaScript
