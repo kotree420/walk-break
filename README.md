@@ -1,3 +1,5 @@
+![Static Badge](https://img.shields.io/badge/test-passing-516E41)
+
 # Walk break
 [Walk break](https://walkbreak-11323cd54fcf.herokuapp.com/)は、散歩ルートの作成・共有ができるアプリです。
 
