@@ -17,14 +17,14 @@ RSpec.describe "Sessions", type: :system do
 
     context "ログアウトする場合" do
       it "レコードが1件削除されること" do
-        expect{ click_link "ログアウト" }.to change{ User.count }.by(-1)
+        expect { click_link "ログアウト" }.to change { User.count }.by(-1)
         expect(page).to have_content "ゲストユーザー情報が削除されました"
       end
     end
 
     context "退会する場合" do
       it "レコードが1件削除されること" do
-        expect{ click_link "退会" }.to change{ User.count }.by(-1)
+        expect { click_link "退会" }.to change { User.count }.by(-1)
         expect(page).to have_content "ゲストユーザー情報が削除されました"
       end
     end
