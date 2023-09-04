@@ -67,7 +67,7 @@ https://www.newyorker.com/tech/annals-of-technology/walking-helps-us-think
 - 必要に応じて10個まで経由地を追加することができます
 - **散歩ルートはドラッグ&ドロップで詳細に編集可能です**
 
-![散歩ルート作成方法](app/assets/images/散歩ルートテスト_400ms.gif)
+![散歩ルート作成方法](app/assets/images/散歩ルート作成方法.gif)
 
 ## 3. 使用技術
 - HTML/CSS/JavaScript
