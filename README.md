@@ -12,10 +12,11 @@
 
 ## 目次
 1. About
-2. 使用技術
-3. UMLクラス図
-4. 機能、テスト一覧
-5. 今後追加したい機能
+2. 散歩ルート作成方法
+3. 使用技術
+4. UMLクラス図
+5. 機能、テスト一覧
+6. 今後追加したい機能
 
 ## 1. About
 「Walk break」という名前は、「Coffee break」から取りました。<br>
@@ -58,8 +59,17 @@ https://www.mlit.go.jp/common/000022977.pdf
 The New Yorker「Why Walking Helps Us Think」<br>
 https://www.newyorker.com/tech/annals-of-technology/walking-helps-us-think
 
+## 2. 散歩ルート作成方法
+- 出発地と到着地を入力し、ルート出力をクリックすることで以下の情報が自動で出力されます
+  - ルート
+  - 距離
+  - 時間
+- 必要に応じて10個まで経由地を追加することができます
+- **散歩ルートはドラッグ&ドロップで詳細に編集可能です**
 
-## 2. 使用技術
+![散歩ルート作成方法](app/assets/images/散歩ルート作成方法.gif)
+
+## 3. 使用技術
 - HTML/CSS/JavaScript
 - Bootstrap 5.2.3
 - Ruby 2.7.6
@@ -71,10 +81,10 @@ https://www.newyorker.com/tech/annals-of-technology/walking-helps-us-think
 - Heroku
   - Postgres 15.4
 
-## 3. UMLクラス図
+## 4. UMLクラス図
 ![UMLクラス図](app/assets/images/UML.png)
 
-## 4. 機能、テスト一覧
+## 5. 機能、テスト一覧
 - ユーザー関連
   - ユーザー登録、ログイン(devise)
   - 論理削除での退会
@@ -103,7 +113,7 @@ https://www.newyorker.com/tech/annals-of-technology/walking-helps-us-think
     - 機能テスト(spec/requests)
     - 統合テスト(spec/system)
 
-## 5. 今後追加したい機能
+## 6. 今後追加したい機能
 ### 消費カロリー計算機能
 - [ ] 散歩ルートの消費カロリー計算（ユーザーの体重とルートの距離を使用）
 - [ ] ユーザーごとの総消費カロリーランキング作成（ex.総距離）
