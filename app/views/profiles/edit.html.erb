@@ -39,10 +39,11 @@
             <div class="row">
               <div class="col-md-3">
                 <%= f.label :body_weight, "体重" %>
-                <span>（kg）</span>
+                <span>（kg）</span><br>
+                <span>※公開されません</span>
               </div>
               <div class="col-md-9">
-                <%= f.number_field :body_weight, value: @user.body_weight, class: "edit-profile-input" %>
+                <%= f.number_field :body_weight, min: 1, value: @user.body_weight, class: "edit-profile-input" %>
               </div>
             </div>
           </div>

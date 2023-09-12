@@ -25,10 +25,9 @@ class User < ApplicationRecord
       validates :name, length: { maximum: 20 }
     end
   end
-
   validates :comment, with_line_break: { maximum: 140 }, allow_blank: true
-
   validates :email, check_guest_regex: true
+  validates :body_weight, numericality: { greater_than: 0 }
 
   def self.guest
     # @example.comのドメインに対するバリデーションをスキップするためsaveを使用

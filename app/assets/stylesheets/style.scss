@@ -162,13 +162,17 @@ footer {
   font-size: 0.9rem;
 }
 
-.index-start-address-label, .index-total-distance-label, .index-total-duration-label {
+.index-start-address-label, .index-total-distance-label, .index-total-duration-label, .index-calorie-consumption-label {
   padding-left: 0.2rem;
   padding-right: 0.5rem;
 }
 
 #index-start-address {
   margin-left: 0.7rem;
+}
+
+.index-body-weight-unregistered {
+  color: $gray-600;
 }
 
 .index-created-at {
@@ -415,7 +419,7 @@ h5.index-profile-name {
   padding: 0.2rem;
 }
 
-.index-start-address-label, .index-total-distance-label, .index-total-duration-label, .show-total-distance-label, .show-total-duration-label, #show-start-address-label, #show-end-address-label {
+.index-start-address-label, .index-total-distance-label, .index-total-duration-label, .index-calorie-consumption-label, .show-total-distance-label, .show-total-duration-label, #show-start-address-label, #show-end-address-label {
   border-left: 2px solid $primary;
 }
 
