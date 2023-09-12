@@ -252,8 +252,20 @@ h5.index-profile-name {
   padding: 0.2rem 0.4rem;
 }
 
-.show-edit-profile-btn {
+.profile-body-weight, .show-edit-profile-btn {
   margin-right: 0.5rem;
+}
+
+.profile-body-weight {
+  vertical-align: middle;
+}
+
+.body-weight-registered {
+  color: $primary;
+}
+
+.body-weight-unregistered {
+  color: $gray-600;
 }
 
 .show-profile-comment, #show-walking-route-comment {
