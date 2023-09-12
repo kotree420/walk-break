@@ -28,6 +28,7 @@ ja:
         updated_at: 更新日
         comment: 自己紹介
         profile_image: プロフィール画像
+        body_weight: 体重
     models:
       user: ユーザー
   devise:

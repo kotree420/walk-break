@@ -14,7 +14,7 @@
             </div>
             <% if @user == current_user %>
               <div class="col-sm-8">
-                <% if @user.body_weight.present? %>
+                <% if current_user.body_weight.present? %>
                   <span class="profile-body-weight body-weight-registered">
                     体重登録済み
                     <i class="fa-solid fa-check"></i>
@@ -27,7 +27,6 @@
                 <% end %>
                 <span><%= link_to "プロフィール編集", edit_profile_path, class: "btn btn-primary btn--extend show-edit-profile-btn", data: { turbo: false } %></span>
                 <span><%= link_to "設定", edit_user_registration_path, class: "btn btn-primary btn--extend show-edit-registration-btn" %></span>
-
               </div>
             <% end %>
           </div>
