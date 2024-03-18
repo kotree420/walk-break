@@ -69,6 +69,16 @@
                   <span class="index-total-duration-label">時間</span>
                   <span id="index-total-duration" class="total-duration-style"><%= "#{walking_route.duration.to_s}分" %></span>
                 </div>
+                <div class="mb-1">
+                  <span class="index-calorie-consumption-label">消費カロリー</span>
+                  <% if user_signed_in? && current_user.body_weight %>
+                    <span><%= "#{(Constants::METS * current_user.body_weight * walking_route.duration.fdiv(60) * Constants::METS_OPTION).round.to_s}kcal" %></span>
+                  <% elsif user_signed_in? %>
+                    <span class="index-body-weight-unregistered">体重登録が必要</span>
+                  <% else %>
+                    <span class="index-body-weight-unregistered">ユーザー登録が必要</span>
+                  <% end %>
+                </div>
               </div>
               <div class="text-muted created-at index-created-at"><%= l walking_route.created_at %></div>
             </div>

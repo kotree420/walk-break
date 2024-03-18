@@ -107,6 +107,14 @@ https://www.newyorker.com/tech/annals-of-technology/walking-helps-us-think
   - ブックマークの追加・削除
   - 散歩ルートごとのブックマーク数表示
 
+- 消費カロリー計算
+  - ユーザーの体重をもとに散歩ルートごとに消費カロリーを表示<br>
+  ※消費カロリーの計算はMETsを使用<br>
+  生活活動のメッツ表（厚生労働省）<br>
+  https://e-kennet.mhlw.go.jp/wp/wp-content/themes/targis_mhlw/pdf/mets.pdf<br>
+  消費カロリーの計算にはMETsを使おう（森永製菓）<br>
+  https://www.morinaga.co.jp/protein/columns/detail/?id=75&category=muscle
+
 - テスト
   - RSpec
     - 単体テスト(spec/models)
@@ -114,9 +122,10 @@ https://www.newyorker.com/tech/annals-of-technology/walking-helps-us-think
     - 統合テスト(spec/system)
 
 ## 6. 今後追加したい機能
-### 消費カロリー計算機能
-- [ ] 散歩ルートの消費カロリー計算（ユーザーの体重とルートの距離を使用）
+### ユーザーランキング
 - [ ] ユーザーごとの総消費カロリーランキング作成（ex.総距離）
+
+### ログ機能
 - [ ] ユーザーごとに実際に歩いた散歩ルート履歴の作成
 
 ### 検索バリエーションの追加

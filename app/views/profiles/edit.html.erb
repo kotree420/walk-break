@@ -27,13 +27,23 @@
                 <%= f.text_field :name, value: @user.name, id: "edit-profile-name", class: "edit-profile-input", maxlength: "20", required: "true" %>
               </div>
             </div>
-            <div class="row">
+            <div class="row mb-4">
               <div class="col-md-3">
                 <%= f.label :comment, "自己紹介", for: "edit-profile-comment" %><br>
                 <span>（140文字以内）</span>
               </div>
               <div class="col-md-9">
                 <%= f.text_area :comment, value: @user.comment, id: "edit-profile-comment", class: "edit-profile-input edit-profile-textarea", maxlength: "140" %>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-3">
+                <%= f.label :body_weight, "体重" %>
+                <span>（kg）</span><br>
+                <span>※公開されません</span>
+              </div>
+              <div class="col-md-9">
+                <%= f.number_field :body_weight, value: @user.body_weight, class: "edit-profile-input" %>
               </div>
             </div>
           </div>
